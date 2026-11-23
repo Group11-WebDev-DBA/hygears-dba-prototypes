@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1B1D22">
+  <title>Items | Hygears HQ System</title>
+  <link rel="icon" href="../assets/hygears-logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="items">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div class="app">
+
+    <!-- Shared sidebar (becomes header.php in the PHP rebuild) -->
+    <header class="sidebar" id="sidebar">
+      <div class="sidebar-top">
+        <a class="brand" href="dashboard.html">
+          <img src="../assets/hygears-logo.png" alt="Hygears logo" width="36" height="36">
+          <span><strong translate="no">Hygears HQ</strong><span>Officer system</span></span>
+        </a>
+        <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+      </div>
+      <nav class="nav" id="nav" aria-label="Main">
+        <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="attendance.html">Attendance</a></li>
+        <li><a href="people.html">People</a></li>
+        <li><a href="items.html" aria-current="page">Items</a></li>
+        <li><a href="requests.html">Requests</a></li>
+        <li><a href="reports.html">Reports</a></li>
+        <li><a href="settings.html">Settings</a></li>
+        </ul>
+        <p class="nav-group">At the door</p>
+        <ul>
+          <li><a href="index.html">Attendance Kiosk</a></li>
+        </ul>
+      </nav>
+      <div class="whoami">
+        Signed in as
+        <strong>Paolo Reyes</strong>
+        Officer, <span class="mono">can_approve = 1</span><br>
+        <span class="sample-tag">Sample data</span>
+      </div>
+    </header>
+
+    <main class="main" id="main" tabindex="-1">
+      <div class="page-head">
+        <h1>Inventory</h1>
+        <p>Tools are lent and returned; consumables are used up and restocked. <span class="mono">Available</span> is calculated, never typed.</p>
+        <p class="tables-used">Reads/writes <code>item</code> <code>restock</code> · reads <code>category</code> <code>v_item_stock</code> <code>v_low_stock</code></p>
+      </div>
+
+      <div class="notice alert" id="low-notice">
+        <p><strong>! 2 consumables are at or below their reorder level:</strong> Solder wire 0.8 mm (3 left) and Cutting disc 4 in (4 left). <a href="#restock">Record a Restock</a> when new stock arrives.</p>
+      </div>
+
+      <section class="panel" aria-labelledby="inv-h">
+        <div class="panel-head">
+          <h2 id="inv-h">Items</h2>
+          <a class="btn btn-sm btn-dark" href="#item-h">Add Item</a>
+        </div>
+
+        <form class="filters" data-filter-table="items-table" role="search" aria-label="Filter items">
+          <div class="field">
+            <label for="q">Search</label>
+            <input id="q" name="q" type="search" autocomplete="off" placeholder="e.g. solder…">
+          </div>
+          <div class="field">
+            <label for="f-cat">Category <span class="col">category.name</span></label>
+            <select id="f-cat" name="category">
+              <option value="">All categories</option>
+              <option>Hand tools</option>
+              <option>Power tools</option>
+              <option>Electronics</option>
+              <option>Measuring instruments</option>
+              <option>Cutting consumables</option>
+              <option>Soldering consumables</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-type">Type <span class="col">item_type</span></label>
+            <select id="f-type" name="type">
+              <option value="">Tools and consumables</option>
+              <option value="tool">tool</option>
+              <option value="consumable">consumable</option>
+            </select>
+          </div>
+          <label class="check"><input type="checkbox" name="low" value="yes"> Low stock only</label>
+          <button class="btn btn-quiet" type="reset">Clear Filters</button>
+        </form>
+        <p class="small muted" id="items-count" data-noun="items" aria-live="polite">Showing 12 of 12 items</p>
+
+        <div class="table-wrap">
+          <table class="reflow" id="items-table">
+            <thead>
+              <tr>
+                <th scope="col">#<span class="col">item_id</span></th>
+                <th scope="col">Item<span class="col">name</span></th>
+                <th scope="col">Category<span class="col">category_id</span></th>
+                <th scope="col">Type<span class="col">item_type</span></th>
+                <th scope="col" class="num">Total<span class="col">quantity_total</span></th>
+                <th scope="col" class="num">Available<span class="col">quantity_available</span></th>
+                <th scope="col" class="num">Reorder at<span class="col">reorder_level</span></th>
+                <th scope="col">Status<span class="col">is_active</span></th>
+                <th scope="col"><span class="visually-hidden">Actions</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-category="Power tools" data-type="tool" data-low="no">
+                <td data-label="#" class="num">1</td><td data-label="Item"><strong>Cordless drill</strong></td><td data-label="Category">Power tools</td><td data-label="Type">tool</td>
+                <td data-label="Total" class="num">2</td><td data-label="Available" class="num">1</td><td data-label="Reorder at" class="num muted">—</td>
+                <td data-label="Status"><span class="status"><span class="ico" aria-hidden="true">✓</span>Active</span></td>
+                <td class="actions-cell"><button class="btn btn-sm" type="button" data-edit aria-label="Edit Cordless drill">Edit</button></td>
+              </tr>
+              <tr data-category="Measuring instruments" data-type="tool" data-low="no">
+                <td data-label="#" class="num">2</td><td data-label="Item"><strong>Digital multimeter</strong></td><td data-label="Category">Measuring instruments</td><td data-label="Type">tool</td>
+                <td data-label="Total" class="num">3</td><td data-label="Available" class="num">1</td><td data-label="Reorder at" class="num muted">—</td>
+                <td data-label="Status"><span class="status"><span class="ico" aria-hidden="true">✓</span>Active</span></td>
+                <td class="actions-cell"><button class="btn btn-sm" type="button" data-edit aria-label="Edit Digital multimeter">Edit</button></td>
+              </tr>
+              <tr data-category="Electronics" data-type="tool" data-low="no">
+                <td data-label="#" class="num">3</td><td data-label="Item"><strong>Soldering iron 60 W</strong></td><td data-label="Category">Electronics</td><td data-label="Type">tool</td>
+                <td data-label="Total" class="num">4</td><td data-label="Available" class="num">3</td><td data-label="Reorder at" class="num muted">—</td>
+                <td data-label="Status"><span class="status"><span class="ico" aria-hidden="true">✓</span>Active</span></td>
+                <td class="actions-cell"><button class="btn btn-sm" type="button" data-edit aria-label="Edit Soldering iron 60 W">Edit</button></td>
+              </tr>
+              <tr data-category="Measuring instruments" data-type="tool" data-low="no">
+                <td data-label="#" class="num">4</td><td data-label="Item"><strong>Vernier caliper</strong></td><td data-label="Category">Measuring instruments</td><td data-label="Type">tool</td>
+                <td data-label="Total" class="num">2</td><td data-label="Available" class="num">2</td><td data-label="Reorder at" class="num muted">—</td>
+                <td data-label="Status"><span class="status"><span class="ico" aria-hidden="true">✓</span>Active</span></td>
+                <td class="actions-cell"><button class="btn btn-sm" type="button" data-edit aria-label="Edit Vernier caliper">Edit</button></td>
+              </tr>
+              <tr data-category="Hand tools" data-type="tool" data-low="no">
+                <td data-label="#" class="num">5</td><td data-label="Item"><strong>Socket wrench set</strong></td><td data-label="Category">Hand tools</td><td data-label="Type">tool</td>
+                <td data-label="Total" class="num">2</td><td data-label="Available" class="num">1</td><td data-label="Reorder at" class="num muted">—</td>
+                <td data-label="Status"><span class="status"><span class="ico" aria-hidden="true">✓</span>Active</span></td>
+                <td class="actions-cell"><button class="btn btn-sm" type="button" data-edit aria-label="Edit Socket wrench set">Edit</button></td>
+              </tr>
+              <tr data-category="Power tools" data-type="tool" data-low="no">
+                <td data-label="#" class="num">6</td><td data-label="Item"><strong>Angle grinder</strong><span class="sub">All units lent out</span></td><td data-label="Category">Power tools</td><td data-label="Type">tool</td>
+                <td data-label="Total" class="num">1</td><td data-label="Available" class="num">0</td><td data-label="Reorder at" class="num muted">—</td>
+                <td data-label="Status"><span class="status"><span class="ico" aria-hidden="true">✓</span>Active</span></td>
+                <td class="actions-cell"><button class="btn btn-sm" type="button" data-edit aria-label="Edit Angle grinder">Edit</button></td>
+              </tr>
+              <tr data-category="Measuring instruments" data-type="tool" data-low="no">
+                <td data-label="#" class="num">7</td><td data-label="Item"><strong>Oscilloscope</strong></td><td data-label="Category">Measuring instruments</td><td data-label="Type">tool</td>
+                <td data-label="Total" class="num">1</td><td data-label="Available" class="num">1</td><td data-label="Reorder at" class="num muted">—</td>
+                <td data-label="Status"><span class="status"><span class="ico" aria-hidden="true">✓</span>Active</span></td>
+                <td class="actions-cell"><button class="btn btn-sm" type="button" data-edit aria-label="Edit Oscilloscope">Edit</button></td>
+              </tr>
+              <tr data-category="Soldering consumables" data-type="consumable" data-low="yes" class="row-alert">
+                <td data-label="#" class="num">8</td><td data-label="Item"><strong>Solder wire 0.8 mm</strong><span class="sub">rolls</span></td><td data-label="Category">Soldering consumables</td><td data-label="Type">consumable</td>
+                <td data-label="Total" class="num">10</td><td data-label="Available" class="num"><span class="status alert"><span class="ico" aria-hidden="true">!</span>3 · Low</span></td><td data-label="Reorder at" class="num">4</td>
+                <td data-label="Status"><span class="status"><span class="ico" aria-hidden="true">✓</span>Active</span></td>
+                <td class="actions-cell"><button class="btn btn-sm" type="button" data-edit aria-label="Edit Solder wire 0.8 mm">Edit</button></td>
+              </tr>
+              <tr data-category="Soldering consumables" data-type="consumable" data-low="no">
+                <td data-label="#" class="num">9</td><td data-label="Item"><strong>Flux paste</strong><span class="sub">tubs</span></td><td data-label="Category">Soldering consumables</td><td data-label="Type">consumable</td>
+                <td data-label="Total" class="num">6</td><td data-label="Available" class="num">5</td><td data-label="Reorder at" class="num">2</td>
+                <td data-label="Status"><span class="status"><span class="ico" aria-hidden="true">✓</span>Active</span></td>
+                <td class="actions-cell"><button class="btn btn-sm" type="button" data-edit aria-label="Edit Flux paste">Edit</button></td>
+              </tr>
+              <tr data-category="Cutting consumables" data-type="consumable" data-low="yes" class="row-alert">
+                <td data-label="#" class="num">10</td><td data-label="Item"><strong>Cutting disc 4 in</strong></td><td data-label="Category">Cutting consumables</td><td data-label="Type">consumable</td>
+                <td data-label="Total" class="num">20</td><td data-label="Available" class="num"><span class="status alert"><span class="ico" aria-hidden="true">!</span>4 · Low</span></td><td data-label="Reorder at" class="num">5</td>
+                <td data-label="Status"><span class="status"><span class="ico" aria-hidden="true">✓</span>Active</span></td>
+                <td class="actions-cell"><button class="btn btn-sm" type="button" data-edit aria-label="Edit Cutting disc 4 in">Edit</button></td>
+              </tr>
+              <tr data-category="Electronics" data-type="consumable" data-low="no">
+                <td data-label="#" class="num">11</td><td data-label="Item"><strong>Heat-shrink tubing pack</strong></td><td data-label="Category">Electronics</td><td data-label="Type">consumable</td>
+                <td data-label="Total" class="num">12</td><td data-label="Available" class="num">9</td><td data-label="Reorder at" class="num">3</td>
+                <td data-label="Status"><span class="status"><span class="ico" aria-hidden="true">✓</span>Active</span></td>
+                <td class="actions-cell"><button class="btn btn-sm" type="button" data-edit aria-label="Edit Heat-shrink tubing pack">Edit</button></td>
+              </tr>
+              <tr data-category="Cutting consumables" data-type="consumable" data-low="no">
+                <td data-label="#" class="num">12</td><td data-label="Item"><strong>Hacksaw blade</strong></td><td data-label="Category">Cutting consumables</td><td data-label="Type">consumable</td>
+                <td data-label="Total" class="num">15</td><td data-label="Available" class="num">11</td><td data-label="Reorder at" class="num">5</td>
+                <td data-label="Status"><span class="status"><span class="ico" aria-hidden="true">✓</span>Active</span></td>
+                <td class="actions-cell"><button class="btn btn-sm" type="button" data-edit aria-label="Edit Hacksaw blade">Edit</button></td>
+              </tr>
+              <tr class="empty-row" hidden><td colspan="9" class="empty">No items match these filters. Clear a filter to see more.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <div class="grid-2">
+        <section class="panel" aria-labelledby="item-h">
+          <div class="panel-head">
+            <h2 id="item-h">Add Item</h2>
+            <p class="mono" id="item-sql">INSERT INTO item …</p>
+          </div>
+          <form id="item-form" class="form-grid" novalidate data-guard>
+            <input type="hidden" name="item_id" value="">
+            <div class="field">
+              <label for="i-name">Item name <span class="col">name</span></label>
+              <input id="i-name" name="name" type="text" autocomplete="off" maxlength="100" required placeholder="e.g. Wire stripper…" aria-describedby="i-name-hint">
+              <p class="hint" id="i-name-hint">Short and specific. Names must be unique.</p>
+              <p class="error" id="i-name-err" hidden>Enter an item name.</p>
+            </div>
+            <div class="field">
+              <label for="i-cat">Category <span class="col">category_id</span></label>
+              <select id="i-cat" name="category_id" required>
+                <option value="">Choose a category</option>
+                <option value="1">Hand tools</option>
+                <option value="2">Power tools</option>
+                <option value="3">Electronics</option>
+                <option value="4">Measuring instruments</option>
+                <option value="5">Cutting consumables</option>
+                <option value="6">Soldering consumables</option>
+              </select>
+              <p class="error" id="i-cat-err" hidden>Choose a category.</p>
+            </div>
+            <fieldset class="field">
+              <legend class="label">Type <span class="col">item_type</span></legend>
+              <label class="check"><input type="radio" name="item_type" value="tool" required> Tool (lent and returned, has a due date)</label>
+              <label class="check"><input type="radio" name="item_type" value="consumable"> Consumable (used up, no due date)</label>
+              <p class="error" id="i-type-err" hidden>Choose tool or consumable.</p>
+            </fieldset>
+            <div class="form-grid cols-2">
+              <div class="field">
+                <label for="i-total">Quantity owned <span class="col">quantity_total</span></label>
+                <input id="i-total" name="quantity_total" type="number" inputmode="numeric" min="0" step="1" autocomplete="off" required value="0">
+                <p class="error" id="i-total-err" hidden>Enter 0 or more.</p>
+              </div>
+              <div class="field">
+                <label for="i-reorder">Reorder at <span class="col">reorder_level</span></label>
+                <input id="i-reorder" name="reorder_level" type="number" inputmode="numeric" min="0" step="1" autocomplete="off" placeholder="e.g. 3…" aria-describedby="i-reorder-hint">
+                <p class="hint" id="i-reorder-hint">Optional. Shows as low stock at or below this.</p>
+              </div>
+            </div>
+            <label class="check"><input type="checkbox" name="is_active" checked> Active <span class="col">is_active</span></label>
+            <div class="actions">
+              <button class="btn btn-primary" type="submit" id="item-submit">Save Item</button>
+              <button class="btn" type="reset" id="item-reset">Clear Form</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="panel" aria-labelledby="restock">
+          <div class="panel-head">
+            <h2 id="restock">Record a Restock</h2>
+            <p class="mono">INSERT INTO restock …</p>
+          </div>
+          <form id="restock-form" class="form-grid" novalidate data-guard>
+            <div class="field">
+              <label for="r-item">Consumable <span class="col">item_id</span></label>
+              <select id="r-item" name="item_id" required aria-describedby="r-item-hint">
+                <option value="">Choose a consumable</option>
+                <option value="8">Solder wire 0.8 mm (3 left, low)</option>
+                <option value="9">Flux paste (5 left)</option>
+                <option value="10">Cutting disc 4 in (4 left, low)</option>
+                <option value="11">Heat-shrink tubing pack (9 left)</option>
+                <option value="12">Hacksaw blade (11 left)</option>
+              </select>
+              <p class="hint" id="r-item-hint">Only consumables are restocked; v_item_stock adds restocks to their stock.</p>
+              <p class="error" id="r-item-err" hidden>Choose which consumable arrived.</p>
+            </div>
+            <div class="form-grid cols-2">
+              <div class="field">
+                <label for="r-qty">Quantity received <span class="col">quantity</span></label>
+                <input id="r-qty" name="quantity" type="number" inputmode="numeric" min="1" step="1" autocomplete="off" required placeholder="e.g. 5…">
+                <p class="error" id="r-qty-err" hidden>Enter a quantity of 1 or more (chk_restock_qty).</p>
+              </div>
+              <div class="field">
+                <label for="r-date">Restocked on <span class="col">restocked_on</span></label>
+                <input id="r-date" name="restocked_on" type="date" autocomplete="off" required value="2026-11-23">
+                <p class="error" id="r-date-err" hidden>Pick the date the stock arrived.</p>
+              </div>
+            </div>
+            <div class="field">
+              <label for="r-notes">Notes <span class="col">notes</span></label>
+              <input id="r-notes" name="notes" type="text" autocomplete="off" maxlength="255" placeholder="e.g. Bought at Raon, receipt #4471…">
+            </div>
+            <div class="actions">
+              <button class="btn btn-primary" type="submit">Save Restock</button>
+            </div>
+          </form>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast-region" id="toast-region" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>

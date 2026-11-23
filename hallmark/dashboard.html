@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard | Hygears HQ System</title>
+  <link rel="icon" href="../assets/hygears-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="dashboard.html"><img src="../assets/hygears-logo.png" alt="" width="36" height="36">Hygears HQ</a>
+    <button class="btn menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <a href="index.html">Door</a>
+      <a href="dashboard.html" aria-current="page">Dashboard</a>
+      <a href="attendance.html">Attendance</a>
+      <a href="people.html">People</a>
+      <a href="items.html">Items</a>
+      <a href="requests.html">Requests</a>
+      <a href="reports.html">Reports</a>
+      <a href="settings.html">Settings</a>
+    </nav>
+    <p class="user"><strong>Paolo Santos</strong>Officer</p>
+  </div>
+</header>
+<main id="main">
+  <section class="titleblock" aria-label="Page">
+    <div class="tb-title">
+      <h1>Dashboard</h1>
+      <p>What needs an officer today.</p>
+    </div>
+    <dl class="tb-cells">
+      <div><dt>Reads</dt><dd>attendance, item_request, v_open_loans, v_low_stock</dd></div>
+      <div><dt>Today</dt><dd>Mon 23 Nov 2026</dd></div>
+      <div><dt>Sheet</dt><dd>02 / 08</dd></div>
+    </dl>
+  </section>
+
+  <!-- the five counts; each links to the page that handles it -->
+  <nav class="schedule" aria-label="Today at a glance">
+    <a href="index.html#inside"><span class="figure">4</span><span class="what">In the HQ now</span><span class="hint">time_out is empty</span></a>
+    <a href="attendance.html"><span class="figure">6</span><span class="what">Signed in today</span><span class="hint">attendance rows</span></a>
+    <a href="requests.html#pending" class="alert"><span class="figure">4</span><span class="what">Pending requests</span><span class="tag tag-alert">Need a decision</span></a>
+    <a href="requests.html#loans" class="alert"><span class="figure">1</span><span class="what">Overdue tool</span><span class="tag tag-alert">Past due date</span></a>
+    <a href="items.html" class="alert"><span class="figure">2</span><span class="what">Low-stock consumables</span><span class="tag tag-alert">At reorder level</span></a>
+  </nav>
+
+  <div class="columns">
+    <section class="panel" aria-labelledby="todo-title">
+      <div class="panel-head"><h2 id="todo-title">Needs action</h2><a class="btn" href="requests.html">Open requests</a></div>
+      <ul class="todo">
+        <li><span><strong>#1036 Torque wrench</strong><span class="sub">Ken Bautista, due 20 Nov 2026</span></span><span class="tag tag-alert">Overdue 3 days</span></li>
+        <li><span><strong>#1041 Carlo Mendoza</strong><span class="sub">Digital multimeter x1, Solder wire 0.8 mm x1</span></span><span class="tag tag-wait">Pending</span></li>
+        <li><span><strong>#1042 Mika Reyes</strong><span class="sub">Cutting disc 4 in x4 (only 3 available)</span></span><span class="tag tag-alert">Not enough stock</span></li>
+        <li><span><strong>#1043 Bea Villanueva</strong><span class="sub">Soldering station x1</span></span><span class="tag tag-wait">Pending</span></li>
+        <li><span><strong>#1044 Paolo Santos</strong><span class="sub">Hex key set x1, your own request</span></span><span class="tag tag-wait">Another officer decides</span></li>
+        <li><span><strong>Solder wire 0.8 mm</strong><span class="sub">2 rolls left, reorder level 3</span></span><span class="tag tag-alert">Low stock</span></li>
+        <li><span><strong>Cutting disc 4 in</strong><span class="sub">3 left, reorder level 5</span></span><span class="tag tag-alert">Low stock</span></li>
+      </ul>
+    </section>
+
+    <section class="panel" aria-labelledby="now-title">
+      <div class="panel-head"><h2 id="now-title">In the HQ now</h2><a href="index.html#inside">Door list</a></div>
+      <table class="stack">
+        <thead><tr><th scope="col">Name</th><th scope="col">Purpose</th><th scope="col" class="num">time_in</th></tr></thead>
+        <tbody>
+          <tr><td data-label="Name">Mika Reyes<span class="sub">Member</span></td><td data-label="Purpose">Project work</td><td data-label="time_in" class="num">08:15</td></tr>
+          <tr><td data-label="Name">Carlo Mendoza<span class="sub">Member</span></td><td data-label="Purpose">Tool use</td><td data-label="time_in" class="num">08:30</td></tr>
+          <tr><td data-label="Name">Lara Gomez<span class="sub">Visitor, TUP Manila</span></td><td data-label="Purpose">Workshop</td><td data-label="time_in" class="num">09:02</td></tr>
+          <tr><td data-label="Name">Nico Ferrer<span class="sub">PUP student, not a member</span></td><td data-label="Purpose">Study</td><td data-label="time_in" class="num">09:20</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+</main>
+<footer class="site-foot">
+  <p>Hygears HQ System prototype for Database Administration, Group 11. Every name, number and record here is sample data.</p>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>

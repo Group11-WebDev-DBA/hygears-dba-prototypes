@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Settings | Hygears HQ System</title>
+  <link rel="icon" href="../assets/hygears-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="dashboard.html"><img src="../assets/hygears-logo.png" alt="" width="36" height="36">Hygears HQ</a>
+    <button class="btn menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <a href="index.html">Door</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="attendance.html">Attendance</a>
+      <a href="people.html">People</a>
+      <a href="items.html">Items</a>
+      <a href="requests.html">Requests</a>
+      <a href="reports.html">Reports</a>
+      <a href="settings.html" aria-current="page">Settings</a>
+    </nav>
+    <p class="user"><strong>Paolo Santos</strong>Officer</p>
+  </div>
+</header>
+<main id="main">
+  <section class="titleblock" aria-label="Page">
+    <div class="tb-title">
+      <h1>Settings</h1>
+      <p>The lookup lists other screens choose from. Names must be unique.</p>
+    </div>
+    <dl class="tb-cells">
+      <div><dt>Tables</dt><dd>role, purpose, category</dd></div>
+      <div><dt>Rule</dt><dd>only can_approve roles decide requests</dd></div>
+      <div><dt>Sheet</dt><dd>08 / 08</dd></div>
+    </dl>
+  </section>
+
+  <div class="lookups">
+    <section class="panel" aria-labelledby="roles-title">
+      <div class="panel-head"><h2 id="roles-title">Roles</h2></div>
+      <table id="roles-table">
+        <thead><tr><th scope="col">role_id</th><th scope="col">name</th><th scope="col">can_approve</th></tr></thead>
+        <tbody>
+          <tr data-name="Member"><td class="id">1</td><td>Member</td><td><span class="tag tag-off">Cannot approve</span></td></tr>
+          <tr data-name="Officer"><td class="id">2</td><td>Officer</td><td><span class="tag tag-ok">Can approve</span></td></tr>
+          <tr data-name="President"><td class="id">3</td><td>President</td><td><span class="tag tag-ok">Can approve</span></td></tr>
+          <tr data-name="Adviser"><td class="id">4</td><td>Adviser</td><td><span class="tag tag-ok">Can approve</span></td></tr>
+        </tbody>
+      </table>
+      <div>
+        <div class="msg-slot msg msg-inset" role="status" aria-live="polite" hidden></div>
+        <form class="add-row add-row-wrap" data-lookup="roles-table" data-with-approve novalidate>
+          <div class="field"><label for="new-role">New role</label><input type="text" id="new-role" aria-describedby="new-role-error"><span class="error" id="new-role-error" hidden></span></div>
+          <label class="check"><input type="checkbox"> can_approve</label>
+          <button class="btn" type="submit">Add</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="purposes-title">
+      <div class="panel-head"><h2 id="purposes-title">Purposes</h2></div>
+      <table id="purposes-table">
+        <thead><tr><th scope="col">purpose_id</th><th scope="col">name</th></tr></thead>
+        <tbody>
+          <tr data-name="Meeting"><td class="id">1</td><td>Meeting</td></tr>
+          <tr data-name="Project work"><td class="id">2</td><td>Project work</td></tr>
+          <tr data-name="Workshop"><td class="id">3</td><td>Workshop</td></tr>
+          <tr data-name="Tool use"><td class="id">4</td><td>Tool use</td></tr>
+          <tr data-name="Study"><td class="id">5</td><td>Study</td></tr>
+          <tr data-name="Visit"><td class="id">6</td><td>Visit</td></tr>
+        </tbody>
+      </table>
+      <div>
+        <div class="msg-slot msg msg-inset" role="status" aria-live="polite" hidden></div>
+        <form class="add-row" data-lookup="purposes-table" novalidate>
+          <div class="field"><label for="new-purpose">New purpose</label><input type="text" id="new-purpose" aria-describedby="new-purpose-error"><span class="error" id="new-purpose-error" hidden></span></div>
+          <button class="btn" type="submit">Add</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="cats-title">
+      <div class="panel-head"><h2 id="cats-title">Categories</h2></div>
+      <table id="cats-table">
+        <thead><tr><th scope="col">category_id</th><th scope="col">name</th></tr></thead>
+        <tbody>
+          <tr data-name="Hand tools"><td class="id">1</td><td>Hand tools</td></tr>
+          <tr data-name="Power tools"><td class="id">2</td><td>Power tools</td></tr>
+          <tr data-name="Electronics"><td class="id">3</td><td>Electronics</td></tr>
+          <tr data-name="Measuring instruments"><td class="id">4</td><td>Measuring instruments</td></tr>
+          <tr data-name="Cutting consumables"><td class="id">5</td><td>Cutting consumables</td></tr>
+          <tr data-name="Soldering consumables"><td class="id">6</td><td>Soldering consumables</td></tr>
+        </tbody>
+      </table>
+      <div>
+        <div class="msg-slot msg msg-inset" role="status" aria-live="polite" hidden></div>
+        <form class="add-row" data-lookup="cats-table" novalidate>
+          <div class="field"><label for="new-cat">New category</label><input type="text" id="new-cat" aria-describedby="new-cat-error"><span class="error" id="new-cat-error" hidden></span></div>
+          <button class="btn" type="submit">Add</button>
+        </form>
+      </div>
+    </section>
+  </div>
+  <p class="hint">Removing a purpose or category that rows still use is blocked by its foreign key, so this screen only adds.</p>
+</main>
+<footer class="site-foot">
+  <p>Hygears HQ System prototype for Database Administration, Group 11. Every name, number and record here is sample data.</p>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>

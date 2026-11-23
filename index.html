@@ -1,9 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Hygears HQ System: prototypes</title>
-<style>body{margin:0;padding:24px;font:16px/1.5 Arial,sans-serif;color:#14161A;background:#F4F5F7}main{max-width:720px;margin:0 auto;background:#fff;padding:24px;border:1px solid #DADDE3}a{color:#B51E17}</style></head>
-<body><main>
-<h1>Hygears HQ System (DBA): prototypes</h1>
-<p>UI prototypes for the internal HQ system are being built. The screens: attendance kiosk, dashboard, attendance log, people, items and restocking, requests, reports and settings.</p>
-<p>For now: <a href="BRIEF.md">the brief</a> and <a href="hygears.sql">the schema</a>. Design directions will appear here as they're finished.</p>
-</main></body></html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hygears HQ System (DBA): design directions</title>
+<style>
+  /* Simple picker page for comparing the DBA prototypes */
+  body { margin: 0; padding: 24px; background: #F4F5F7; color: #14161A; font: 16px/1.5 Arial, sans-serif; }
+  h1 { font-size: 24px; margin: 0 0 4px; }
+  .sub { margin: 0 0 24px; color: #5B6270; max-width: 760px; }
+  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  .card { background: #FFFFFF; border: 1px solid #DADDE3; padding: 16px; }
+  .card h2 { font-size: 18px; margin: 0 0 2px; }
+  .card h2 a { color: #14161A; }
+  .skill { font-size: 13px; color: #5B6270; margin: 0 0 8px; }
+  .card p { font-size: 14px; margin: 0 0 12px; }
+  .frame { height: 420px; overflow: hidden; border: 1px solid #DADDE3; }
+  iframe { width: 250%; height: 250%; border: 0; transform: scale(.4); transform-origin: 0 0; pointer-events: none; }
+  .links { font-size: 14px; margin-top: 10px; }
+  .links a { color: #B51E17; margin-right: 10px; }
+  .docs a { color: #B51E17; }
+  @media (max-width: 1000px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } .frame { height: 300px; } }
+</style>
+</head>
+<body>
+<h1>Hygears HQ System (DBA): design directions</h1>
+<p class="sub">The internal system for the Hygears HQ: attendance kiosk at the door, dashboard, attendance log, people, items and restocking, borrowing requests, reports and settings. Each direction is built on the same schema (<a href="hygears.sql">hygears.sql</a>) with a different design skill. Prototypes with sample data; nothing is saved. <span class="docs"><a href="BRIEF.md">Brief</a></span></p>
+<div class="grid">
+  <div class="card"><h2><a href="vercel-guidelines/index.html">Column Captions</a></h2><p class="skill">Vercel Web Interface Guidelines</p><p>Every screen names its tables, every label shows its SQL column, and Reports shows each query beside its result.</p><div class="frame"><iframe src="vercel-guidelines/index.html" title="Column Captions"></iframe></div><div class="links"><a href="vercel-guidelines/index.html">Kiosk</a><a href="vercel-guidelines/dashboard.html">Dashboard</a><a href="vercel-guidelines/requests.html">Requests</a><a href="vercel-guidelines/reports.html">Reports</a></div></div>
+</div>
+</body>
+</html>

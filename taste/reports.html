@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reports | Hygears HQ System</title>
+  <meta name="description" content="Ready-made reports for the Hygears HQ database, each with its SQL query.">
+  <link rel="icon" href="../assets/hygears-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="reports">
+<a class="skip" href="#main">Skip to content</a>
+<!-- Shared header: becomes header.php in the PHP rebuild -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="dashboard.html"><img src="../assets/hygears-logo.png" alt="Hygears" width="36" height="36"><span>HQ System<small>Logbook and inventory</small></span></a>
+    <span class="sample-tag">Sample data</span>
+    <p class="who">Signed in as <strong>Paolo Reyes</strong><br>Officer</p>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+<nav class="nav" id="nav" aria-label="Main">
+  <ul>
+      <li><a href="index.html">Door kiosk</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="attendance.html">Attendance</a></li>
+      <li><a href="people.html">People</a></li>
+      <li><a href="items.html">Inventory</a></li>
+      <li><a href="requests.html">Requests <span class="count">3<span class="visually-hidden"> pending</span></span></a></li>
+      <li><a href="reports.html" aria-current="page">Reports</a></li>
+      <li><a href="settings.html">Settings</a></li>
+  </ul>
+</nav>
+
+<main id="main">
+  <div class="page-head">
+    <div>
+      <h1>Reports</h1>
+      <p>Six saved queries on <code>hygears_db</code>. The SQL is on the left, the result on the right, run on the sample data.</p>
+    </div>
+  </div>
+
+  <nav class="toc" aria-label="Reports on this page">
+    <a class="btn" href="#r-loans">Open loans</a>
+    <a class="btn" href="#r-overdue">Overdue</a>
+    <a class="btn" href="#r-low">Low stock</a>
+    <a class="btn" href="#r-day">Attendance per day</a>
+    <a class="btn" href="#r-purpose">Attendance per purpose</a>
+    <a class="btn" href="#r-top">Most borrowed</a>
+    <a class="btn" href="#r-rules">Business rules</a>
+  </nav>
+
+  <section class="panel" id="r-loans" aria-labelledby="r1">
+    <div class="panel-head"><h2 id="r1">1. Open loans: who has which tool</h2><span class="source">view v_open_loans</span></div>
+    <div class="report">
+<pre><code>SELECT request_id, first_name, last_name,
+       item_name, quantity, due_date, is_overdue
+FROM   v_open_loans
+ORDER  BY is_overdue DESC, due_date;</code></pre>
+      <table class="rtable">
+        <thead><tr><th scope="col">request_id</th><th scope="col">Borrower</th><th scope="col">item_name</th><th scope="col">due_date</th><th scope="col">is_overdue</th></tr></thead>
+        <tbody>
+          <tr><td class="id" data-label="request_id">1015</td><td class="lead" data-label="Borrower">Mika Santos</td><td data-label="item_name">Cordless drill &times;1</td><td class="mono" data-label="due_date">2026-11-21</td><td data-label="is_overdue"><span class="status status-alert">1, overdue</span></td></tr>
+          <tr><td class="id" data-label="request_id">1013</td><td class="lead" data-label="Borrower">Andrea Cruz</td><td data-label="item_name">Torque wrench set &times;1</td><td class="mono" data-label="due_date">2026-11-22</td><td data-label="is_overdue"><span class="status status-alert">1, overdue</span></td></tr>
+          <tr><td class="id" data-label="request_id">1014</td><td class="lead" data-label="Borrower">Jun Bautista</td><td data-label="item_name">Cordless drill &times;1</td><td class="mono" data-label="due_date">2026-11-24</td><td data-label="is_overdue"><span class="status status-ok">0</span></td></tr>
+          <tr><td class="id" data-label="request_id">1014</td><td class="lead" data-label="Borrower">Jun Bautista</td><td data-label="item_name">Digital multimeter &times;2</td><td class="mono" data-label="due_date">2026-11-24</td><td data-label="is_overdue"><span class="status status-ok">0</span></td></tr>
+          <tr><td class="id" data-label="request_id">1013</td><td class="lead" data-label="Borrower">Andrea Cruz</td><td data-label="item_name">Hex key set &times;1</td><td class="mono" data-label="due_date">2026-11-28</td><td data-label="is_overdue"><span class="status status-ok">0</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel" id="r-overdue" aria-labelledby="r2">
+    <div class="panel-head"><h2 id="r2">2. Overdue tools with contact numbers</h2><span class="source">view v_open_loans</span></div>
+    <div class="report">
+<pre><code>SELECT first_name, last_name, contact_number,
+       item_name, due_date,
+       DATEDIFF(CURDATE(), due_date) AS days_late
+FROM   v_open_loans
+WHERE  is_overdue = 1
+ORDER  BY days_late DESC;</code></pre>
+      <table class="rtable">
+        <thead><tr><th scope="col">Borrower</th><th scope="col">contact_number</th><th scope="col">item_name</th><th scope="col" class="num">days_late</th></tr></thead>
+        <tbody>
+          <tr class="flag"><td class="lead" data-label="Borrower">Mika Santos</td><td class="mono" data-label="contact_number">0900-000-0001</td><td data-label="item_name">Cordless drill</td><td class="num" data-label="days_late">2</td></tr>
+          <tr class="flag"><td class="lead" data-label="Borrower">Andrea Cruz</td><td class="mono" data-label="contact_number">0900-000-0003</td><td data-label="item_name">Torque wrench set</td><td class="num" data-label="days_late">1</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel" id="r-low" aria-labelledby="r3">
+    <div class="panel-head"><h2 id="r3">3. Low stock to buy</h2><span class="source">view v_low_stock (built on v_item_stock)</span></div>
+    <div class="report">
+<pre><code>SELECT name, item_type,
+       quantity_available, reorder_level
+FROM   v_low_stock
+ORDER  BY quantity_available - reorder_level;</code></pre>
+      <table class="rtable">
+        <thead><tr><th scope="col">name</th><th scope="col">item_type</th><th scope="col" class="num">quantity_available</th><th scope="col" class="num">reorder_level</th></tr></thead>
+        <tbody>
+          <tr class="flag"><td class="lead" data-label="name">Cutting disc 4 in</td><td data-label="item_type">consumable</td><td class="num" data-label="quantity_available">6</td><td class="num" data-label="reorder_level">10</td></tr>
+          <tr class="flag"><td class="lead" data-label="name">Solder wire 0.8 mm spool</td><td data-label="item_type">consumable</td><td class="num" data-label="quantity_available">1</td><td class="num" data-label="reorder_level">2</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel" id="r-day" aria-labelledby="r4">
+    <div class="panel-head"><h2 id="r4">4. Attendance per day</h2><span class="source">table attendance</span></div>
+    <div class="report">
+<pre><code>SELECT DATE(time_in)             AS day,
+       COUNT(*)                  AS sign_ins,
+       COUNT(DISTINCT person_id) AS people
+FROM   attendance
+WHERE  time_in &gt;= CURDATE() - INTERVAL 7 DAY
+GROUP  BY DATE(time_in)
+ORDER  BY day DESC;</code></pre>
+      <table class="rtable">
+        <thead><tr><th scope="col">day</th><th scope="col" class="num">sign_ins</th><th scope="col" class="num">people</th></tr></thead>
+        <tbody>
+          <tr><td class="lead mono" data-label="day">2026-11-23</td><td class="num" data-label="sign_ins">6</td><td class="num" data-label="people">6</td></tr>
+          <tr><td class="lead mono" data-label="day">2026-11-20</td><td class="num" data-label="sign_ins">3</td><td class="num" data-label="people">3</td></tr>
+          <tr><td class="lead mono" data-label="day">2026-11-19</td><td class="num" data-label="sign_ins">5</td><td class="num" data-label="people">4</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel" id="r-purpose" aria-labelledby="r5">
+    <div class="panel-head"><h2 id="r5">5. Attendance per purpose, this month</h2><span class="source">attendance JOIN purpose</span></div>
+    <div class="report">
+<pre><code>SELECT pu.name  AS purpose,
+       COUNT(*) AS visits
+FROM   attendance a
+JOIN   purpose pu ON pu.purpose_id = a.purpose_id
+WHERE  a.time_in &gt;= '2026-11-01'
+GROUP  BY pu.purpose_id, pu.name
+ORDER  BY visits DESC;</code></pre>
+      <table class="rtable">
+        <thead><tr><th scope="col">purpose</th><th scope="col" class="num">visits</th><th scope="col"><span class="visually-hidden">Bar</span></th></tr></thead>
+        <tbody>
+          <tr><td class="lead" data-label="purpose">Project work</td><td class="num" data-label="visits">14</td><td data-label="Share" style="width:40%"><span class="bar" style="width:100%"></span></td></tr>
+          <tr><td class="lead" data-label="purpose">Meeting</td><td class="num" data-label="visits">9</td><td data-label="Share"><span class="bar" style="width:64%"></span></td></tr>
+          <tr><td class="lead" data-label="purpose">Tool use</td><td class="num" data-label="visits">7</td><td data-label="Share"><span class="bar" style="width:50%"></span></td></tr>
+          <tr><td class="lead" data-label="purpose">Workshop</td><td class="num" data-label="visits">4</td><td data-label="Share"><span class="bar" style="width:29%"></span></td></tr>
+          <tr><td class="lead" data-label="purpose">Study</td><td class="num" data-label="visits">3</td><td data-label="Share"><span class="bar" style="width:21%"></span></td></tr>
+          <tr><td class="lead" data-label="purpose">Visit</td><td class="num" data-label="visits">2</td><td data-label="Share"><span class="bar" style="width:14%"></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel" id="r-top" aria-labelledby="r6">
+    <div class="panel-head"><h2 id="r6">6. Most borrowed items</h2><span class="source">request_line JOIN item_request JOIN item</span></div>
+    <div class="report">
+<pre><code>SELECT i.name, i.item_type,
+       SUM(rl.quantity)             AS total_qty,
+       COUNT(DISTINCT rl.request_id) AS requests
+FROM   request_line rl
+JOIN   item_request q ON q.request_id = rl.request_id
+JOIN   item i         ON i.item_id    = rl.item_id
+WHERE  q.status IN ('approved', 'completed')
+GROUP  BY i.item_id, i.name, i.item_type
+ORDER  BY requests DESC, total_qty DESC
+LIMIT  5;</code></pre>
+      <table class="rtable">
+        <thead><tr><th scope="col">name</th><th scope="col">item_type</th><th scope="col" class="num">total_qty</th><th scope="col" class="num">requests</th></tr></thead>
+        <tbody>
+          <tr><td class="lead" data-label="name">Cordless drill</td><td data-label="item_type">tool</td><td class="num" data-label="total_qty">2</td><td class="num" data-label="requests">2</td></tr>
+          <tr><td class="lead" data-label="name">Digital multimeter</td><td data-label="item_type">tool</td><td class="num" data-label="total_qty">2</td><td class="num" data-label="requests">1</td></tr>
+          <tr><td class="lead" data-label="name">Torque wrench set</td><td data-label="item_type">tool</td><td class="num" data-label="total_qty">1</td><td class="num" data-label="requests">1</td></tr>
+          <tr><td class="lead" data-label="name">Hex key set</td><td data-label="item_type">tool</td><td class="num" data-label="total_qty">1</td><td class="num" data-label="requests">1</td></tr>
+          <tr><td class="lead" data-label="name">Soldering iron 60 W</td><td data-label="item_type">tool</td><td class="num" data-label="total_qty">1</td><td class="num" data-label="requests">1</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- For the DBA grade: each rule, where the database enforces it, where the UI shows it -->
+  <section class="panel" id="r-rules" aria-labelledby="r7">
+    <div class="panel-head"><h2 id="r7">Business rules and where they live</h2><span class="source">hygears.sql</span></div>
+    <table class="rtable">
+      <thead><tr><th scope="col">Rule</th><th scope="col">Enforced by</th><th scope="col">Shown in the UI</th></tr></thead>
+      <tbody>
+        <tr><td class="lead" data-label="Rule">A member needs a student number; visitors without one can&rsquo;t become members</td><td class="mono" data-label="Enforced by">trg_member_requires_student_id_ins</td><td data-label="Shown in the UI"><a href="people.html#make-member">People, Make a member</a></td></tr>
+        <tr><td class="lead" data-label="Rule">A member&rsquo;s student number can&rsquo;t be removed</td><td class="mono" data-label="Enforced by">trg_person_keep_student_id_upd</td><td data-label="Shown in the UI"><a href="people.html#add-person">People, hint on Student number</a></td></tr>
+        <tr><td class="lead" data-label="Rule">Time out comes after time in</td><td class="mono" data-label="Enforced by">chk_attendance_times</td><td data-label="Shown in the UI"><a href="index.html">Kiosk stamps both times itself</a></td></tr>
+        <tr><td class="lead" data-label="Rule">Consumables have no due date or return time</td><td class="mono" data-label="Enforced by">trg_line_consumable_ins / _upd</td><td data-label="Shown in the UI"><a href="requests.html#new">New request turns the date off</a></td></tr>
+        <tr><td class="lead" data-label="Rule">Only active members whose role can approve may decide</td><td class="mono" data-label="Enforced by">trg_request_approver_ins / _upd, role.can_approve</td><td data-label="Shown in the UI"><a href="settings.html">Settings, Roles</a></td></tr>
+        <tr><td class="lead" data-label="Rule">Nobody approves their own request</td><td class="mono" data-label="Enforced by">chk_request_not_self</td><td data-label="Shown in the UI"><a href="requests.html#pending">Pending #1016 has no buttons</a></td></tr>
+        <tr><td class="lead" data-label="Rule">One line per item per request</td><td class="mono" data-label="Enforced by">uq_line_request_item</td><td data-label="Shown in the UI"><a href="requests.html#new">New request blocks a repeated item</a></td></tr>
+        <tr class="flag"><td class="lead" data-label="Rule">Can&rsquo;t approve more than is available (gap in the DB)</td><td class="mono" data-label="Enforced by">UI only, reads v_item_stock</td><td data-label="Shown in the UI"><a href="requests.html#pending">Pending #1018 is blocked</a></td></tr>
+      </tbody>
+    </table>
+  </section>
+</main>
+
+<!-- Shared footer: becomes footer.php -->
+<footer class="foot">
+  <p>Hygears HQ System &middot; Engineering Innovation &bull; Research &bull; Technology &bull; Leadership &middot; Prototype with sample data, database <code>hygears_db</code></p>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>

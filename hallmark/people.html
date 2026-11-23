@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>People | Hygears HQ System</title>
+  <link rel="icon" href="../assets/hygears-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="dashboard.html"><img src="../assets/hygears-logo.png" alt="" width="36" height="36">Hygears HQ</a>
+    <button class="btn menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <a href="index.html">Door</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="attendance.html">Attendance</a>
+      <a href="people.html" aria-current="page">People</a>
+      <a href="items.html">Items</a>
+      <a href="requests.html">Requests</a>
+      <a href="reports.html">Reports</a>
+      <a href="settings.html">Settings</a>
+    </nav>
+    <p class="user"><strong>Paolo Santos</strong>Officer</p>
+  </div>
+</header>
+<main id="main">
+  <section class="titleblock" aria-label="Page">
+    <div class="tb-title">
+      <h1>People</h1>
+      <p>Everyone who signs the log. Members are people with a member row.</p>
+    </div>
+    <dl class="tb-cells">
+      <div><dt>Tables</dt><dd>person, member, role</dd></div>
+      <div><dt>Rule</dt><dd>members need a student_id</dd></div>
+      <div><dt>Sheet</dt><dd>04 / 08</dd></div>
+    </dl>
+  </section>
+
+  <div class="columns columns-wide">
+    <section class="panel" aria-labelledby="list-title">
+      <div class="panel-head"><h2 id="list-title">People and members</h2></div>
+      <form class="filters" data-filters="people-table" aria-label="Search people" onsubmit="return false">
+        <div class="field"><label for="p-search">Search</label><input type="search" id="p-search" data-filter="search" placeholder="Name or student number"></div>
+        <div class="field"><label for="p-kind">Show</label>
+          <select id="p-kind" data-filter="kind"><option value="">Everyone</option><option value="member">Members</option><option value="visitor">Visitors</option></select></div>
+      </form>
+      <table class="stack" id="people-table">
+        <thead><tr><th scope="col">person_id</th><th scope="col">Name</th><th scope="col">student_id</th><th scope="col">contact_number</th><th scope="col">Role</th><th scope="col">is_active</th><th scope="col"><span class="visually-hidden">Actions</span></th></tr></thead>
+        <tbody>
+          <tr data-search="bea villanueva 2022-00512-mn-0" data-kind="member"><td data-label="person_id" class="id">3</td><td data-label="Name"><strong>Bea Villanueva</strong><span class="sub">bea.villanueva@sample.edu, joined 2023-08-21</span></td><td data-label="student_id">2022-00512-MN-0</td><td data-label="contact_number">0917 000 0103</td><td data-label="Role">President</td><td data-label="is_active" class="active-cell"><span class="tag tag-ok">Active</span></td><td class="actions"><button class="btn" type="button" data-toggle-active="true">Deactivate<span class="visually-hidden"> Bea Villanueva</span></button></td></tr>
+          <tr data-search="paolo santos 2022-00377-mn-0" data-kind="member"><td data-label="person_id" class="id">2</td><td data-label="Name"><strong>Paolo Santos</strong><span class="sub">paolo.santos@sample.edu, joined 2023-08-21</span></td><td data-label="student_id">2022-00377-MN-0</td><td data-label="contact_number">0917 000 0102</td><td data-label="Role">Officer</td><td data-label="is_active" class="active-cell"><span class="tag tag-ok">Active</span></td><td class="actions"><button class="btn" type="button" data-toggle-active="true">Deactivate<span class="visually-hidden"> Paolo Santos</span></button></td></tr>
+          <tr data-search="ken bautista 2021-00733-mn-0" data-kind="member"><td data-label="person_id" class="id">6</td><td data-label="Name"><strong>Ken Bautista</strong><span class="sub">ken.bautista@sample.edu, joined 2022-09-05</span></td><td data-label="student_id">2021-00733-MN-0</td><td data-label="contact_number">0917 000 0106</td><td data-label="Role">Officer</td><td data-label="is_active" class="active-cell"><span class="tag tag-ok">Active</span></td><td class="actions"><button class="btn" type="button" data-toggle-active="true">Deactivate<span class="visually-hidden"> Ken Bautista</span></button></td></tr>
+          <tr data-search="mika reyes 2023-00141-mn-0" data-kind="member"><td data-label="person_id" class="id">1</td><td data-label="Name"><strong>Mika Reyes</strong><span class="sub">mika.reyes@sample.edu, joined 2024-08-19</span></td><td data-label="student_id">2023-00141-MN-0</td><td data-label="contact_number">0917 000 0101</td><td data-label="Role">Member</td><td data-label="is_active" class="active-cell"><span class="tag tag-ok">Active</span></td><td class="actions"><button class="btn" type="button" data-toggle-active="true">Deactivate<span class="visually-hidden"> Mika Reyes</span></button></td></tr>
+          <tr data-search="carlo mendoza 2024-00088-mn-0" data-kind="member"><td data-label="person_id" class="id">4</td><td data-label="Name"><strong>Carlo Mendoza</strong><span class="sub">carlo.mendoza@sample.edu, joined 2024-08-19</span></td><td data-label="student_id">2024-00088-MN-0</td><td data-label="contact_number">0917 000 0104</td><td data-label="Role">Member</td><td data-label="is_active" class="active-cell"><span class="tag tag-ok">Active</span></td><td class="actions"><button class="btn" type="button" data-toggle-active="true">Deactivate<span class="visually-hidden"> Carlo Mendoza</span></button></td></tr>
+          <tr data-search="jessa ramos 2023-00620-mn-0" data-kind="member"><td data-label="person_id" class="id">5</td><td data-label="Name"><strong>Jessa Ramos</strong><span class="sub">jessa.ramos@sample.edu, joined 2023-08-21</span></td><td data-label="student_id">2023-00620-MN-0</td><td data-label="contact_number">0917 000 0105</td><td data-label="Role">Member</td><td data-label="is_active" class="active-cell"><span class="tag tag-off">Inactive</span></td><td class="actions"><button class="btn" type="button" data-toggle-active="false">Activate<span class="visually-hidden"> Jessa Ramos</span></button></td></tr>
+          <tr data-search="nico ferrer 2025-01234-mn-0" data-kind="visitor"><td data-label="person_id" class="id">8</td><td data-label="Name"><strong>Nico Ferrer</strong><span class="sub">PUP CEA, BSME</span></td><td data-label="student_id">2025-01234-MN-0</td><td data-label="contact_number">0917 000 0108</td><td data-label="Role">Visitor, no member row</td><td data-label="is_active"></td><td class="actions"></td></tr>
+          <tr data-search="lara gomez" data-kind="visitor"><td data-label="person_id" class="id">7</td><td data-label="Name"><strong>Lara Gomez</strong><span class="sub">TUP Manila</span></td><td data-label="student_id"><span class="tag tag-off">None</span></td><td data-label="contact_number">0917 000 0107</td><td data-label="Role">Visitor, can't be a member</td><td data-label="is_active"></td><td class="actions"></td></tr>
+        </tbody>
+      </table>
+      <p class="empty" id="people-table-empty" hidden>Nobody matches that search.</p>
+    </section>
+
+    <section class="panel" aria-labelledby="add-title">
+      <div class="panel-head"><h2 id="add-title">Add person</h2></div>
+      <div class="panel-body">
+        <div id="person-msg" class="msg" role="status" aria-live="polite" hidden></div>
+        <form id="person-form" novalidate>
+          <div class="form-grid">
+            <div class="field"><label for="p_first_name">first_name</label><input type="text" id="p_first_name" aria-describedby="p_first_name-error"><span class="error" id="p_first_name-error" hidden></span></div>
+            <div class="field"><label for="p_last_name">last_name</label><input type="text" id="p_last_name" aria-describedby="p_last_name-error"><span class="error" id="p_last_name-error" hidden></span></div>
+            <div class="field wide"><label for="p_student_id">student_id</label><input type="text" id="p_student_id" placeholder="2024-00000-MN-0" aria-describedby="p_student_id-hint p_student_id-error"><span class="hint" id="p_student_id-hint">Leave empty for visitors from outside PUP.</span><span class="error" id="p_student_id-error" hidden></span></div>
+            <div class="field"><label for="p_contact_number">contact_number</label><input type="tel" id="p_contact_number" aria-describedby="p_contact_number-error"><span class="error" id="p_contact_number-error" hidden></span></div>
+            <div class="field"><label for="p_affiliation">affiliation</label><input type="text" id="p_affiliation" aria-describedby="p_affiliation-hint"><span class="hint" id="p_affiliation-hint">School or org, for outsiders.</span></div>
+          </div>
+          <label class="check"><input type="checkbox" id="make_member"> Make this person a member</label>
+          <div id="member-only" class="form-grid" hidden>
+            <div class="field"><label for="p_role_id">role</label>
+              <select id="p_role_id"><option value="1">Member</option><option value="2">Officer</option><option value="3">President</option><option value="4">Adviser</option></select></div>
+            <div class="field"><label for="p_joined_on">joined_on</label><input type="date" id="p_joined_on" value="2026-11-23"></div>
+            <div class="field wide"><label for="p_email">email</label><input type="email" id="p_email" autocomplete="off"></div>
+          </div>
+          <button class="btn btn-primary" type="submit">Add person</button>
+        </form>
+      </div>
+    </section>
+  </div>
+</main>
+<footer class="site-foot">
+  <p>Hygears HQ System prototype for Database Administration, Group 11. Every name, number and record here is sample data.</p>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>

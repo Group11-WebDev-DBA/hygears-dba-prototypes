@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Attendance | Hygears HQ System</title>
+  <link rel="icon" href="../assets/hygears-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="dashboard.html"><img src="../assets/hygears-logo.png" alt="" width="36" height="36">Hygears HQ</a>
+    <button class="btn menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <a href="index.html">Door</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="attendance.html" aria-current="page">Attendance</a>
+      <a href="people.html">People</a>
+      <a href="items.html">Items</a>
+      <a href="requests.html">Requests</a>
+      <a href="reports.html">Reports</a>
+      <a href="settings.html">Settings</a>
+    </nav>
+    <p class="user"><strong>Paolo Santos</strong>Officer</p>
+  </div>
+</header>
+<main id="main">
+  <section class="titleblock" aria-label="Page">
+    <div class="tb-title">
+      <h1>Attendance</h1>
+      <p>The entry and exit log that replaces the paper logbook.</p>
+    </div>
+    <dl class="tb-cells">
+      <div><dt>Reads</dt><dd>attendance, person, member, purpose</dd></div>
+      <div><dt>Rule</dt><dd>time_out after time_in</dd></div>
+      <div><dt>Sheet</dt><dd>03 / 08</dd></div>
+    </dl>
+  </section>
+
+  <section class="panel" aria-labelledby="log-title">
+    <div class="panel-head">
+      <h2 id="log-title">Log</h2>
+      <button class="btn" type="button" id="export-btn">Export CSV</button>
+    </div>
+    <form class="filters" data-filters="log-table" aria-label="Filter the log" onsubmit="return false">
+      <div class="field"><label for="f-date">Date</label>
+        <select id="f-date" data-filter="date">
+          <option value="2026-11-23">Mon 23 Nov 2026</option>
+          <option value="2026-11-21">Sat 21 Nov 2026</option>
+          <option value="">All dates</option>
+        </select></div>
+      <div class="field"><label for="f-purpose">Purpose</label>
+        <select id="f-purpose" data-filter="purpose">
+          <option value="">All purposes</option>
+          <option>Meeting</option><option>Project work</option><option>Workshop</option>
+          <option>Tool use</option><option>Study</option><option>Visit</option>
+        </select></div>
+      <div class="field"><label for="f-kind">Who</label>
+        <select id="f-kind" data-filter="kind">
+          <option value="">Members and visitors</option>
+          <option value="member">Members only</option>
+          <option value="visitor">Visitors only</option>
+        </select></div>
+      <label class="check"><input type="checkbox" data-filter="inside"> Still inside only</label>
+      <button class="btn" type="reset">Clear</button>
+    </form>
+    <div id="export-msg" class="msg msg-inset" role="status" aria-live="polite" hidden></div>
+
+    <table class="stack" id="log-table">
+      <thead><tr>
+        <th scope="col">attendance_id</th><th scope="col">Name</th><th scope="col">Purpose</th>
+        <th scope="col" class="num">time_in</th><th scope="col" class="num">time_out</th><th scope="col">notes</th>
+      </tr></thead>
+      <tbody>
+        <tr data-date="2026-11-23" data-purpose="Study" data-kind="visitor" data-inside="yes"><td data-label="attendance_id" class="id">218</td><td data-label="Name">Nico Ferrer<span class="sub">Visitor, PUP student (no member row)</span></td><td data-label="Purpose">Study</td><td data-label="time_in" class="num">09:20</td><td data-label="time_out" class="num"><span class="tag tag-in">Still inside</span></td><td data-label="notes"></td></tr>
+        <tr data-date="2026-11-23" data-purpose="Workshop" data-kind="visitor" data-inside="yes"><td data-label="attendance_id" class="id">217</td><td data-label="Name">Lara Gomez<span class="sub">Visitor, TUP Manila</span></td><td data-label="Purpose">Workshop</td><td data-label="time_in" class="num">09:02</td><td data-label="time_out" class="num"><span class="tag tag-in">Still inside</span></td><td data-label="notes">Arduino workshop guest</td></tr>
+        <tr data-date="2026-11-23" data-purpose="Tool use" data-kind="member" data-inside="yes"><td data-label="attendance_id" class="id">216</td><td data-label="Name">Carlo Mendoza<span class="sub">Member</span></td><td data-label="Purpose">Tool use</td><td data-label="time_in" class="num">08:30</td><td data-label="time_out" class="num"><span class="tag tag-in">Still inside</span></td><td data-label="notes"></td></tr>
+        <tr data-date="2026-11-23" data-purpose="Project work" data-kind="member" data-inside="yes"><td data-label="attendance_id" class="id">215</td><td data-label="Name">Mika Reyes<span class="sub">Member</span></td><td data-label="Purpose">Project work</td><td data-label="time_in" class="num">08:15</td><td data-label="time_out" class="num"><span class="tag tag-in">Still inside</span></td><td data-label="notes">Chassis welding prep</td></tr>
+        <tr data-date="2026-11-23" data-purpose="Meeting" data-kind="member" data-inside="no"><td data-label="attendance_id" class="id">214</td><td data-label="Name">Bea Villanueva<span class="sub">President</span></td><td data-label="Purpose">Meeting</td><td data-label="time_in" class="num">07:55</td><td data-label="time_out" class="num">09:12</td><td data-label="notes"></td></tr>
+        <tr data-date="2026-11-23" data-purpose="Meeting" data-kind="member" data-inside="no"><td data-label="attendance_id" class="id">213</td><td data-label="Name">Paolo Santos<span class="sub">Officer</span></td><td data-label="Purpose">Meeting</td><td data-label="time_in" class="num">07:52</td><td data-label="time_out" class="num">09:10</td><td data-label="notes"></td></tr>
+        <tr data-date="2026-11-21" data-purpose="Project work" data-kind="member" data-inside="no"><td data-label="attendance_id" class="id">212</td><td data-label="Name">Ken Bautista<span class="sub">Officer</span></td><td data-label="Purpose">Project work</td><td data-label="time_in" class="num">13:05</td><td data-label="time_out" class="num">17:40</td><td data-label="notes"></td></tr>
+        <tr data-date="2026-11-21" data-purpose="Project work" data-kind="member" data-inside="no"><td data-label="attendance_id" class="id">211</td><td data-label="Name">Mika Reyes<span class="sub">Member</span></td><td data-label="Purpose">Project work</td><td data-label="time_in" class="num">13:00</td><td data-label="time_out" class="num">17:35</td><td data-label="notes"></td></tr>
+        <tr data-date="2026-11-21" data-purpose="Visit" data-kind="visitor" data-inside="no"><td data-label="attendance_id" class="id">210</td><td data-label="Name">Lara Gomez<span class="sub">Visitor, TUP Manila</span></td><td data-label="Purpose">Visit</td><td data-label="time_in" class="num">10:20</td><td data-label="time_out" class="num">11:05</td><td data-label="notes">Asked about the workshop</td></tr>
+        <tr data-date="2026-11-21" data-purpose="Study" data-kind="member" data-inside="no"><td data-label="attendance_id" class="id">209</td><td data-label="Name">Carlo Mendoza<span class="sub">Member</span></td><td data-label="Purpose">Study</td><td data-label="time_in" class="num">09:40</td><td data-label="time_out" class="num">12:15</td><td data-label="notes"></td></tr>
+      </tbody>
+    </table>
+    <p class="empty" id="log-table-empty" hidden>No visits match these filters. Clear the filters to see the whole log.</p>
+  </section>
+</main>
+<footer class="site-foot">
+  <p>Hygears HQ System prototype for Database Administration, Group 11. Every name, number and record here is sample data.</p>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>

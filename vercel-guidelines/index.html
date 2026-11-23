@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1B1D22">
+  <title>Door Kiosk | Hygears HQ System</title>
+  <link rel="icon" href="../assets/hygears-logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="kiosk" class="kiosk">
+  <a class="skip-link" href="#signin-h">Skip to sign in</a>
+
+  <!-- Same charcoal header as the officer pages; the officer menu stays off the door device -->
+  <header class="kiosk-top">
+    <a class="brand" href="index.html">
+      <img src="../assets/hygears-logo.png" alt="Hygears logo" width="36" height="36">
+      <span><strong translate="no">Hygears HQ</strong><span>Door attendance</span></span>
+    </a>
+    <div class="clock" aria-hidden="true"><b id="clock-time">10:42 AM</b><span id="clock-date">Mon, 23 Nov</span></div>
+  </header>
+
+  <main class="kiosk-main" id="main">
+
+    <!-- SIGN IN: writes one row to attendance (and person, for a new visitor) -->
+    <section class="panel" aria-labelledby="signin-h">
+      <div id="signin-step">
+        <h1 id="signin-h" tabindex="-1">Sign In</h1>
+        <p class="muted">Arriving? Fill this in. Leaving? Tap Sign Out on your name.</p>
+        <a class="btn btn-block jump-out" href="#inside-h">Leaving? Go to Sign Out</a>
+
+        <form id="signin-form" novalidate>
+          <fieldset>
+            <legend class="visually-hidden">Who is signing in</legend>
+            <div class="segmented">
+              <label class="is-on"><input type="radio" name="kind" value="student" checked> PUP Student</label>
+              <label><input type="radio" name="kind" value="visitor"> Visitor</label>
+            </div>
+          </fieldset>
+
+          <!-- PUP student: looked up by person.student_id -->
+          <div id="student-fields">
+            <div class="field">
+              <label for="k-sid">Student number <span class="col">student_id</span></label>
+              <input id="k-sid" class="big-input" name="student_id" type="text" autocomplete="off" spellcheck="false" autocapitalize="characters" maxlength="20" placeholder="2023-00101-MN-0…" aria-describedby="k-sid-hint k-sid-match k-sid-err">
+              <p class="hint" id="k-sid-hint">Type the whole number, or only its 5 middle digits. Sample: <span class="mono">00101</span> is Mika.</p>
+              <p class="hint" id="k-sid-match" aria-live="polite"></p>
+              <p class="error" id="k-sid-err" hidden></p>
+            </div>
+          </div>
+
+          <!-- Visitor: new person row with an empty student_id -->
+          <div id="visitor-fields" class="form-grid cols-2" hidden>
+            <p class="hint span-2">No PUP student number needed. You’ll be logged as a visitor.</p>
+            <div class="field">
+              <label for="k-first">First name <span class="col">first_name</span></label>
+              <input id="k-first" name="first_name" type="text" autocomplete="given-name" maxlength="50" placeholder="e.g. Lea…">
+              <p class="error" id="k-first-err" hidden>Enter your first name.</p>
+            </div>
+            <div class="field">
+              <label for="k-last">Last name <span class="col">last_name</span></label>
+              <input id="k-last" name="last_name" type="text" autocomplete="family-name" maxlength="50" placeholder="e.g. Navarro…">
+              <p class="error" id="k-last-err" hidden>Enter your last name.</p>
+            </div>
+            <div class="field">
+              <label for="k-contact">Mobile number <span class="col">contact_number</span></label>
+              <input id="k-contact" name="contact_number" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="0918 555 0123…">
+              <p class="error" id="k-contact-err" hidden>Enter a mobile number so the HQ can reach you.</p>
+            </div>
+            <div class="field">
+              <label for="k-aff">School or organization <span class="col">affiliation</span></label>
+              <input id="k-aff" name="affiliation" type="text" autocomplete="organization" maxlength="100" placeholder="e.g. TUP Manila…">
+              <p class="error" id="k-aff-err" hidden>Enter your school or organization.</p>
+            </div>
+          </div>
+
+          <fieldset class="mt" aria-describedby="k-purpose-err">
+            <legend class="label">Purpose <span class="col">purpose_id</span></legend>
+            <div class="purposes" id="purposes">
+              <label><input type="radio" name="purpose_id" value="1"> Meeting</label>
+              <label><input type="radio" name="purpose_id" value="2"> Project work</label>
+              <label><input type="radio" name="purpose_id" value="3"> Workshop</label>
+              <label><input type="radio" name="purpose_id" value="4"> Tool use</label>
+              <label><input type="radio" name="purpose_id" value="5"> Study</label>
+              <label><input type="radio" name="purpose_id" value="6"> Visit</label>
+            </div>
+            <p class="error" id="k-purpose-err" hidden>Choose why you’re here.</p>
+          </fieldset>
+
+          <button class="btn btn-primary btn-block" type="submit">Sign In</button>
+        </form>
+      </div>
+
+      <!-- Confirmation shown after a sign-in -->
+      <div id="done-step" class="done-card" hidden>
+        <div class="tick" aria-hidden="true">✓</div>
+        <h2 id="done-title" tabindex="-1">You’re Signed In</h2>
+        <p id="done-text"></p>
+        <p class="hint">This screen resets in a few seconds.</p>
+        <button class="btn btn-dark btn-block" type="button" id="next-person">Next Person</button>
+      </div>
+    </section>
+
+    <!-- IN THE HQ NOW: attendance rows with time_out IS NULL -->
+    <section class="panel" aria-labelledby="inside-h">
+      <h2 id="inside-h">In the HQ Now <span class="muted" id="inside-count">(4)</span></h2>
+      <p class="hint">Tap Sign Out when you leave. This sets <span class="mono">time_out</span>.</p>
+      <ul class="inside-list" id="inside-list"></ul>
+      <p class="empty" id="inside-empty" hidden>Nobody is signed in right now.</p>
+    </section>
+
+    <p class="small muted">Sample data. <a href="dashboard.html">Officer pages</a></p>
+  </main>
+
+  <div class="toast-region" id="toast-region" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>

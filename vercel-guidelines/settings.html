@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1B1D22">
+  <title>Settings | Hygears HQ System</title>
+  <link rel="icon" href="../assets/hygears-logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="settings">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div class="app">
+
+    <!-- Shared sidebar (becomes header.php in the PHP rebuild) -->
+    <header class="sidebar" id="sidebar">
+      <div class="sidebar-top">
+        <a class="brand" href="dashboard.html">
+          <img src="../assets/hygears-logo.png" alt="Hygears logo" width="36" height="36">
+          <span><strong translate="no">Hygears HQ</strong><span>Officer system</span></span>
+        </a>
+        <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+      </div>
+      <nav class="nav" id="nav" aria-label="Main">
+        <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="attendance.html">Attendance</a></li>
+        <li><a href="people.html">People</a></li>
+        <li><a href="items.html">Items</a></li>
+        <li><a href="requests.html">Requests</a></li>
+        <li><a href="reports.html">Reports</a></li>
+        <li><a href="settings.html" aria-current="page">Settings</a></li>
+        </ul>
+        <p class="nav-group">At the door</p>
+        <ul>
+          <li><a href="index.html">Attendance Kiosk</a></li>
+        </ul>
+      </nav>
+      <div class="whoami">
+        Signed in as
+        <strong>Paolo Reyes</strong>
+        Officer, <span class="mono">can_approve = 1</span><br>
+        <span class="sample-tag">Sample data</span>
+      </div>
+    </header>
+
+    <main class="main" id="main" tabindex="-1">
+      <div class="page-head">
+        <h1>Settings</h1>
+        <p>The lookup lists other screens use. Names must be unique. Rows already used elsewhere can’t be deleted, so there is no delete here.</p>
+        <p class="tables-used">Reads/writes <code>role</code> <code>purpose</code> <code>category</code></p>
+      </div>
+
+      <section class="panel" aria-labelledby="roles-h">
+        <div class="panel-head">
+          <h2 id="roles-h">Roles</h2>
+          <p>Only roles with <span class="mono">can_approve = 1</span> can decide requests.</p>
+        </div>
+        <div class="table-wrap">
+          <table class="reflow" id="role-table">
+            <thead><tr><th scope="col">#<span class="col">role_id</span></th><th scope="col">Name<span class="col">name</span></th><th scope="col">Can approve<span class="col">can_approve</span></th><th scope="col" class="num">Members</th></tr></thead>
+            <tbody>
+              <tr><td data-label="#" class="num">1</td><td data-label="Name">Member</td><td data-label="Can approve"><span class="status done"><span class="ico" aria-hidden="true">✕</span>No</span></td><td data-label="Members" class="num">3</td></tr>
+              <tr><td data-label="#" class="num">2</td><td data-label="Name">Officer</td><td data-label="Can approve"><span class="status"><span class="ico" aria-hidden="true">✓</span>Yes</span></td><td data-label="Members" class="num">1</td></tr>
+              <tr><td data-label="#" class="num">3</td><td data-label="Name">President</td><td data-label="Can approve"><span class="status"><span class="ico" aria-hidden="true">✓</span>Yes</span></td><td data-label="Members" class="num">1</td></tr>
+              <tr><td data-label="#" class="num">4</td><td data-label="Name">Adviser</td><td data-label="Can approve"><span class="status"><span class="ico" aria-hidden="true">✓</span>Yes</span></td><td data-label="Members" class="num">1</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <form class="filters lookup-form mt" data-table="role-table" novalidate>
+          <div class="field">
+            <label for="role-name">New role name <span class="col">name</span></label>
+            <input id="role-name" name="name" type="text" autocomplete="off" maxlength="30" required placeholder="e.g. Treasurer…">
+            <p class="error" hidden></p>
+          </div>
+          <label class="check"><input type="checkbox" name="can_approve"> Can approve requests</label>
+          <button class="btn btn-dark" type="submit">Add Role</button>
+        </form>
+      </section>
+
+      <div class="grid-2">
+        <section class="panel" aria-labelledby="purposes-h">
+          <div class="panel-head"><h2 id="purposes-h">Purposes</h2><p>Choices on the door kiosk.</p></div>
+          <div class="table-wrap">
+            <table class="reflow" id="purpose-table">
+              <thead><tr><th scope="col">#<span class="col">purpose_id</span></th><th scope="col">Name<span class="col">name</span></th></tr></thead>
+              <tbody>
+                <tr><td data-label="#" class="num">1</td><td data-label="Name">Meeting</td></tr>
+                <tr><td data-label="#" class="num">2</td><td data-label="Name">Project work</td></tr>
+                <tr><td data-label="#" class="num">3</td><td data-label="Name">Workshop</td></tr>
+                <tr><td data-label="#" class="num">4</td><td data-label="Name">Tool use</td></tr>
+                <tr><td data-label="#" class="num">5</td><td data-label="Name">Study</td></tr>
+                <tr><td data-label="#" class="num">6</td><td data-label="Name">Visit</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <form class="filters lookup-form mt" data-table="purpose-table" novalidate>
+            <div class="field">
+              <label for="purpose-name">New purpose <span class="col">name</span></label>
+              <input id="purpose-name" name="name" type="text" autocomplete="off" maxlength="50" required placeholder="e.g. Fabrication…">
+              <p class="error" hidden></p>
+            </div>
+            <button class="btn btn-dark" type="submit">Add Purpose</button>
+          </form>
+        </section>
+
+        <section class="panel" aria-labelledby="cats-h">
+          <div class="panel-head"><h2 id="cats-h">Categories</h2><p>Groups for inventory items.</p></div>
+          <div class="table-wrap">
+            <table class="reflow" id="category-table">
+              <thead><tr><th scope="col">#<span class="col">category_id</span></th><th scope="col">Name<span class="col">name</span></th></tr></thead>
+              <tbody>
+                <tr><td data-label="#" class="num">1</td><td data-label="Name">Hand tools</td></tr>
+                <tr><td data-label="#" class="num">2</td><td data-label="Name">Power tools</td></tr>
+                <tr><td data-label="#" class="num">3</td><td data-label="Name">Electronics</td></tr>
+                <tr><td data-label="#" class="num">4</td><td data-label="Name">Measuring instruments</td></tr>
+                <tr><td data-label="#" class="num">5</td><td data-label="Name">Cutting consumables</td></tr>
+                <tr><td data-label="#" class="num">6</td><td data-label="Name">Soldering consumables</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <form class="filters lookup-form mt" data-table="category-table" novalidate>
+            <div class="field">
+              <label for="cat-name">New category <span class="col">name</span></label>
+              <input id="cat-name" name="name" type="text" autocomplete="off" maxlength="50" required placeholder="e.g. Safety gear…">
+              <p class="error" hidden></p>
+            </div>
+            <button class="btn btn-dark" type="submit">Add Category</button>
+          </form>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast-region" id="toast-region" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>

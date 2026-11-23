@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reports | Hygears HQ System</title>
+  <link rel="icon" href="../assets/hygears-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="dashboard.html"><img src="../assets/hygears-logo.png" alt="" width="36" height="36">Hygears HQ</a>
+    <button class="btn menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <a href="index.html">Door</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="attendance.html">Attendance</a>
+      <a href="people.html">People</a>
+      <a href="items.html">Items</a>
+      <a href="requests.html">Requests</a>
+      <a href="reports.html" aria-current="page">Reports</a>
+      <a href="settings.html">Settings</a>
+    </nav>
+    <p class="user"><strong>Paolo Santos</strong>Officer</p>
+  </div>
+</header>
+<main id="main">
+  <section class="titleblock" aria-label="Page">
+    <div class="tb-title">
+      <h1>Reports</h1>
+      <p>Ready-made queries. Each result sits beside the SQL that makes it.</p>
+    </div>
+    <dl class="tb-cells">
+      <div><dt>Views</dt><dd>v_open_loans, v_low_stock, v_item_stock</dd></div>
+      <div><dt>Database</dt><dd>hygears_db</dd></div>
+      <div><dt>Sheet</dt><dd>07 / 08</dd></div>
+    </dl>
+  </section>
+
+  <nav class="panel panel-body" aria-label="Reports on this page">
+    <div class="btn-row">
+      <a class="btn" href="#r-loans">Open loans</a><a class="btn" href="#r-overdue">Overdue</a><a class="btn" href="#r-low">Low stock</a>
+      <a class="btn" href="#r-day">Attendance per day</a><a class="btn" href="#r-purpose">Attendance per purpose</a><a class="btn" href="#r-most">Most borrowed</a>
+    </div>
+  </nav>
+
+  <section class="panel" id="r-loans" aria-labelledby="r-loans-title">
+    <div class="panel-head"><h2 id="r-loans-title">1. Open loans</h2><p class="hint">Who has which tool right now</p></div>
+    <div class="report">
+      <div class="result">
+        <table class="stack">
+          <thead><tr><th scope="col">request_id</th><th scope="col">Borrower</th><th scope="col">item_name</th><th scope="col" class="num">quantity</th><th scope="col">due_date</th><th scope="col">is_overdue</th></tr></thead>
+          <tbody>
+            <tr><td data-label="request_id" class="id">1036</td><td data-label="Borrower">Ken Bautista</td><td data-label="item_name">Torque wrench</td><td data-label="quantity" class="num">1</td><td data-label="due_date">2026-11-20</td><td data-label="is_overdue"><span class="tag tag-alert">1 (yes)</span></td></tr>
+            <tr><td data-label="request_id" class="id">1038</td><td data-label="Borrower">Mika Reyes</td><td data-label="item_name">Cordless drill</td><td data-label="quantity" class="num">1</td><td data-label="due_date">2026-11-24</td><td data-label="is_overdue">0</td></tr>
+            <tr><td data-label="request_id" class="id">1038</td><td data-label="Borrower">Mika Reyes</td><td data-label="item_name">Digital multimeter</td><td data-label="quantity" class="num">2</td><td data-label="due_date">2026-11-24</td><td data-label="is_overdue">0</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <pre><code>SELECT request_id, first_name, last_name,
+       item_name, quantity, due_date, is_overdue
+FROM v_open_loans
+ORDER BY due_date;</code></pre>
+    </div>
+  </section>
+
+  <section class="panel" id="r-overdue" aria-labelledby="r-overdue-title">
+    <div class="panel-head"><h2 id="r-overdue-title">2. Overdue tools</h2><p class="hint">With a number to call</p></div>
+    <div class="report">
+      <div class="result">
+        <table class="stack">
+          <thead><tr><th scope="col">Borrower</th><th scope="col">contact_number</th><th scope="col">item_name</th><th scope="col">due_date</th><th scope="col" class="num">days_late</th></tr></thead>
+          <tbody>
+            <tr class="row-alert"><td data-label="Borrower">Ken Bautista</td><td data-label="contact_number">0917 000 0106</td><td data-label="item_name">Torque wrench</td><td data-label="due_date">2026-11-20</td><td data-label="days_late" class="num">3</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <pre><code>SELECT first_name, last_name, contact_number,
+       item_name, due_date,
+       DATEDIFF(CURDATE(), due_date) AS days_late
+FROM v_open_loans
+WHERE is_overdue = 1
+ORDER BY days_late DESC;</code></pre>
+    </div>
+  </section>
+
+  <section class="panel" id="r-low" aria-labelledby="r-low-title">
+    <div class="panel-head"><h2 id="r-low-title">3. Low stock</h2><p class="hint">Active items at or below reorder_level</p></div>
+    <div class="report">
+      <div class="result">
+        <table class="stack">
+          <thead><tr><th scope="col">name</th><th scope="col">item_type</th><th scope="col" class="num">quantity_available</th><th scope="col" class="num">reorder_level</th></tr></thead>
+          <tbody>
+            <tr><td data-label="name">Solder wire 0.8 mm</td><td data-label="item_type">consumable</td><td data-label="quantity_available" class="num">2</td><td data-label="reorder_level" class="num">3</td></tr>
+            <tr><td data-label="name">Cutting disc 4 in</td><td data-label="item_type">consumable</td><td data-label="quantity_available" class="num">3</td><td data-label="reorder_level" class="num">5</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <pre><code>SELECT name, item_type,
+       quantity_available, reorder_level
+FROM v_low_stock
+ORDER BY quantity_available - reorder_level;</code></pre>
+    </div>
+  </section>
+
+  <section class="panel" id="r-day" aria-labelledby="r-day-title">
+    <div class="panel-head"><h2 id="r-day-title">4. Attendance per day</h2><p class="hint">Visits, split into members and visitors</p></div>
+    <div class="report">
+      <div class="result">
+        <table class="stack">
+          <thead><tr><th scope="col">visit_date</th><th scope="col" class="num">visits</th><th scope="col" class="num">members</th><th scope="col" class="num">visitors</th></tr></thead>
+          <tbody>
+            <tr><td data-label="visit_date">2026-11-23</td><td data-label="visits" class="num">6</td><td data-label="members" class="num">4</td><td data-label="visitors" class="num">2</td></tr>
+            <tr><td data-label="visit_date">2026-11-21</td><td data-label="visits" class="num">4</td><td data-label="members" class="num">3</td><td data-label="visitors" class="num">1</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <pre><code>SELECT DATE(a.time_in) AS visit_date,
+       COUNT(*) AS visits,
+       COUNT(m.person_id) AS members,
+       COUNT(*) - COUNT(m.person_id) AS visitors
+FROM attendance a
+LEFT JOIN member m ON m.person_id = a.person_id
+GROUP BY DATE(a.time_in)
+ORDER BY visit_date DESC;</code></pre>
+    </div>
+  </section>
+
+  <section class="panel" id="r-purpose" aria-labelledby="r-purpose-title">
+    <div class="panel-head"><h2 id="r-purpose-title">5. Attendance per purpose</h2><p class="hint">This month</p></div>
+    <div class="report">
+      <div class="result">
+        <table class="stack">
+          <thead><tr><th scope="col">purpose</th><th scope="col" class="num">visits</th></tr></thead>
+          <tbody>
+            <tr><td data-label="purpose">Project work</td><td data-label="visits" class="num">3</td></tr>
+            <tr><td data-label="purpose">Meeting</td><td data-label="visits" class="num">2</td></tr>
+            <tr><td data-label="purpose">Study</td><td data-label="visits" class="num">2</td></tr>
+            <tr><td data-label="purpose">Tool use</td><td data-label="visits" class="num">1</td></tr>
+            <tr><td data-label="purpose">Workshop</td><td data-label="visits" class="num">1</td></tr>
+            <tr><td data-label="purpose">Visit</td><td data-label="visits" class="num">1</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <pre><code>SELECT p.name AS purpose, COUNT(*) AS visits
+FROM attendance a
+JOIN purpose p ON p.purpose_id = a.purpose_id
+WHERE a.time_in &gt;= DATE_FORMAT(CURDATE(), '%Y-%m-01')
+GROUP BY p.purpose_id, p.name
+ORDER BY visits DESC;</code></pre>
+    </div>
+  </section>
+
+  <section class="panel" id="r-most" aria-labelledby="r-most-title">
+    <div class="panel-head"><h2 id="r-most-title">6. Most borrowed items</h2><p class="hint">Approved and completed requests</p></div>
+    <div class="report">
+      <div class="result">
+        <table class="stack">
+          <thead><tr><th scope="col">name</th><th scope="col">item_type</th><th scope="col" class="num">times_requested</th><th scope="col" class="num">total_quantity</th></tr></thead>
+          <tbody>
+            <tr><td data-label="name">Solder wire 0.8 mm</td><td data-label="item_type">consumable</td><td data-label="times_requested" class="num">5</td><td data-label="total_quantity" class="num">8</td></tr>
+            <tr><td data-label="name">Digital multimeter</td><td data-label="item_type">tool</td><td data-label="times_requested" class="num">4</td><td data-label="total_quantity" class="num">6</td></tr>
+            <tr><td data-label="name">Cutting disc 4 in</td><td data-label="item_type">consumable</td><td data-label="times_requested" class="num">3</td><td data-label="total_quantity" class="num">9</td></tr>
+            <tr><td data-label="name">Torque wrench</td><td data-label="item_type">tool</td><td data-label="times_requested" class="num">2</td><td data-label="total_quantity" class="num">2</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <pre><code>SELECT i.name, i.item_type,
+       COUNT(*) AS times_requested,
+       SUM(rl.quantity) AS total_quantity
+FROM request_line rl
+JOIN item_request q ON q.request_id = rl.request_id
+JOIN item i ON i.item_id = rl.item_id
+WHERE q.status IN ('approved', 'completed')
+GROUP BY i.item_id, i.name, i.item_type
+ORDER BY times_requested DESC
+LIMIT 5;</code></pre>
+    </div>
+  </section>
+</main>
+<footer class="site-foot">
+  <p>Hygears HQ System prototype for Database Administration, Group 11. Every name, number and record here is sample data.</p>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>

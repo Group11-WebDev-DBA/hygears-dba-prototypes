@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1B1D22">
+  <title>Dashboard | Hygears HQ System</title>
+  <link rel="icon" href="../assets/hygears-logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="dashboard">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div class="app">
+
+    <!-- Shared sidebar (becomes header.php in the PHP rebuild) -->
+    <header class="sidebar" id="sidebar">
+      <div class="sidebar-top">
+        <a class="brand" href="dashboard.html">
+          <img src="../assets/hygears-logo.png" alt="Hygears logo" width="36" height="36">
+          <span><strong translate="no">Hygears HQ</strong><span>Officer system</span></span>
+        </a>
+        <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+      </div>
+      <nav class="nav" id="nav" aria-label="Main">
+        <ul>
+        <li><a href="dashboard.html" aria-current="page">Dashboard</a></li>
+        <li><a href="attendance.html">Attendance</a></li>
+        <li><a href="people.html">People</a></li>
+        <li><a href="items.html">Items</a></li>
+        <li><a href="requests.html">Requests</a></li>
+        <li><a href="reports.html">Reports</a></li>
+        <li><a href="settings.html">Settings</a></li>
+        </ul>
+        <p class="nav-group">At the door</p>
+        <ul>
+          <li><a href="index.html">Attendance Kiosk</a></li>
+        </ul>
+      </nav>
+      <div class="whoami">
+        Signed in as
+        <strong>Paolo Reyes</strong>
+        Officer, <span class="mono">can_approve = 1</span><br>
+        <span class="sample-tag">Sample data</span>
+      </div>
+    </header>
+
+    <main class="main" id="main" tabindex="-1">
+      <div class="page-head">
+        <h1>Dashboard</h1>
+        <p>What needs an officer today, <time datetime="2026-11-23" data-format="long">Monday, 23 November 2026</time>.</p>
+        <p class="tables-used">Reads <code>attendance</code> <code>item_request</code> <code>v_open_loans</code> <code>v_low_stock</code></p>
+      </div>
+
+      <!-- Counts: each one links to the screen that handles it -->
+      <div class="stats">
+        <a class="stat" href="#in-hq"><b>4</b><span>In the HQ now</span></a>
+        <a class="stat alert" href="requests.html#pending"><b>3</b><span>Pending requests</span></a>
+        <a class="stat alert" href="requests.html#loans"><b>2</b><span>Overdue tools</span></a>
+        <a class="stat alert" href="items.html?low=yes"><b>2</b><span>Low-stock consumables</span></a>
+        <a class="stat" href="attendance.html?date=2026-11-23"><b>7</b><span>Sign-ins today</span></a>
+      </div>
+
+      <div class="grid-2">
+        <section class="panel" aria-labelledby="in-hq">
+          <div class="panel-head">
+            <h2 id="in-hq">In the HQ Now</h2>
+            <p class="mono">attendance.time_out IS NULL</p>
+          </div>
+          <ul class="rows">
+            <li><span class="who"><strong>Paolo Reyes</strong><span class="muted small">Officer · Meeting · since <time datetime="2026-11-23T09:05" data-format="time">9:05 AM</time></span></span></li>
+            <li><span class="who"><strong>Ana Lim</strong><span class="muted small">President · Meeting · since <time datetime="2026-11-23T10:15" data-format="time">10:15 AM</time></span></span></li>
+            <li><span class="who"><strong>Lea Navarro</strong><span class="muted small">Visitor, TUP Manila · Workshop · since <time datetime="2026-11-23T10:00" data-format="time">10:00 AM</time></span></span></li>
+            <li><span class="who"><strong>Rafael Cruz</strong><span class="muted small">Adviser · Workshop · since <time datetime="2026-11-23T10:30" data-format="time">10:30 AM</time></span></span></li>
+          </ul>
+        </section>
+
+        <section class="panel" aria-labelledby="pending-h">
+          <div class="panel-head">
+            <h2 id="pending-h">Pending Requests</h2>
+            <a href="requests.html#pending">Review all 3</a>
+          </div>
+          <ul class="rows">
+            <li><span class="who"><strong>#1012 Mika Santos</strong><span class="muted small">Digital multimeter ×2, Solder wire 0.8 mm ×1</span></span><span class="status alert"><span class="ico" aria-hidden="true">!</span>Short on stock</span></li>
+            <li><span class="who"><strong>#1013 Jun Bautista</strong><span class="muted small">Vernier caliper ×1, Cutting disc 4 in ×2</span></span><span class="status"><span class="ico" aria-hidden="true">○</span>Pending</span></li>
+            <li><span class="who"><strong>#1014 Paolo Reyes</strong><span class="muted small">Oscilloscope ×1 · your own request</span></span><span class="status"><span class="ico" aria-hidden="true">○</span>Pending</span></li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="grid-2">
+        <section class="panel" aria-labelledby="overdue-h">
+          <div class="panel-head">
+            <h2 id="overdue-h">Overdue Tools</h2>
+            <p class="mono">v_open_loans.is_overdue = 1</p>
+          </div>
+          <ul class="rows">
+            <li><span class="who"><strong>Socket wrench set ×1</strong><span class="muted small">Jun Bautista · 0917 555 0104 · due <time datetime="2026-11-20" data-format="date">20 Nov</time></span></span><span class="status alert"><span class="ico" aria-hidden="true">!</span>3 days late</span></li>
+            <li><span class="who"><strong>Angle grinder ×1</strong><span class="muted small">Ana Lim · 0917 555 0103 · due <time datetime="2026-11-22" data-format="date">22 Nov</time></span></span><span class="status alert"><span class="ico" aria-hidden="true">!</span>1 day late</span></li>
+          </ul>
+        </section>
+
+        <section class="panel" aria-labelledby="low-h">
+          <div class="panel-head">
+            <h2 id="low-h">Low-Stock Consumables</h2>
+            <p class="mono">v_low_stock</p>
+          </div>
+          <ul class="rows">
+            <li><span class="who"><strong>Solder wire 0.8 mm</strong><span class="muted small">Soldering consumables · reorder at 4</span></span><span class="status alert"><span class="ico" aria-hidden="true">!</span>3 left</span></li>
+            <li><span class="who"><strong>Cutting disc 4 in</strong><span class="muted small">Cutting consumables · reorder at 5</span></span><span class="status alert"><span class="ico" aria-hidden="true">!</span>4 left</span></li>
+          </ul>
+          <p class="small mt"><a href="items.html#restock">Record a Restock</a></p>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast-region" id="toast-region" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>

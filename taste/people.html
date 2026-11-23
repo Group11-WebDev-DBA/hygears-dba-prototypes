@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>People | Hygears HQ System</title>
+  <meta name="description" content="People and members of Hygears: add a person, make them a member, set role and status.">
+  <link rel="icon" href="../assets/hygears-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="people">
+<a class="skip" href="#main">Skip to content</a>
+<!-- Shared header: becomes header.php in the PHP rebuild -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="dashboard.html"><img src="../assets/hygears-logo.png" alt="Hygears" width="36" height="36"><span>HQ System<small>Logbook and inventory</small></span></a>
+    <span class="sample-tag">Sample data</span>
+    <p class="who">Signed in as <strong>Paolo Reyes</strong><br>Officer</p>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+<nav class="nav" id="nav" aria-label="Main">
+  <ul>
+      <li><a href="index.html">Door kiosk</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="attendance.html">Attendance</a></li>
+      <li><a href="people.html" aria-current="page">People</a></li>
+      <li><a href="items.html">Inventory</a></li>
+      <li><a href="requests.html">Requests <span class="count">3<span class="visually-hidden"> pending</span></span></a></li>
+      <li><a href="reports.html">Reports</a></li>
+      <li><a href="settings.html">Settings</a></li>
+  </ul>
+</nav>
+
+<main id="main">
+  <div class="page-head">
+    <div>
+      <h1>People and members</h1>
+      <p>Everyone who signs the log is a person. Members are people with a student number, a role and a join date.</p>
+    </div>
+    <a class="btn btn-primary" href="#add-person">Add a person</a>
+  </div>
+
+  <section class="panel" aria-labelledby="list-title">
+    <div class="panel-head">
+      <h2 id="list-title">People (<span id="people-count">8</span>)</h2>
+      <span class="source">person LEFT JOIN member LEFT JOIN role</span>
+    </div>
+    <div class="filters" role="search" aria-label="Filter people">
+      <div class="field">
+        <label for="p-search">Search name or student number</label>
+        <input id="p-search" type="search" placeholder="Example: Santos or 2022-00141">
+      </div>
+      <div class="field">
+        <label for="p-kind">Show</label>
+        <select id="p-kind">
+          <option value="">Everyone</option>
+          <option value="member">Members</option>
+          <option value="visitor">Visitors (not members)</option>
+          <option value="inactive">Inactive members</option>
+        </select>
+      </div>
+    </div>
+
+    <table class="rtable" id="people">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col"><code>student_id</code></th>
+          <th scope="col"><code>contact_number</code></th>
+          <th scope="col">Role</th>
+          <th scope="col"><code>joined_on</code></th>
+          <th scope="col"><code>is_active</code></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-kind="member">
+          <td class="id" data-label="person_id">3</td>
+          <td class="lead" data-label="Name">Andrea Cruz <span class="sub">andrea.cruz@hygears.example</span></td>
+          <td class="mono" data-label="student_id">2021-00088-MN-0</td>
+          <td class="mono" data-label="contact_number">0900-000-0003</td>
+          <td data-label="Role">President</td>
+          <td class="mono" data-label="joined_on">2023-09-04</td>
+          <td data-label="is_active"><span class="status status-ok">Active</span></td>
+        </tr>
+        <tr data-kind="member">
+          <td class="id" data-label="person_id">4</td>
+          <td class="lead" data-label="Name">Jun Bautista <span class="sub">jun.bautista@hygears.example</span></td>
+          <td class="mono" data-label="student_id">2023-00452-MN-0</td>
+          <td class="mono" data-label="contact_number">0900-000-0004</td>
+          <td data-label="Role">Member</td>
+          <td class="mono" data-label="joined_on">2025-09-01</td>
+          <td data-label="is_active"><span class="status status-ok">Active</span></td>
+        </tr>
+        <tr data-kind="member">
+          <td class="id" data-label="person_id">5</td>
+          <td class="lead" data-label="Name">Bea Lim <span class="sub">bea.lim@hygears.example</span></td>
+          <td class="mono" data-label="student_id">2022-00219-MN-0</td>
+          <td class="mono" data-label="contact_number">0900-000-0005</td>
+          <td data-label="Role">Officer</td>
+          <td class="mono" data-label="joined_on">2024-09-02</td>
+          <td data-label="is_active"><span class="status status-ok">Active</span></td>
+        </tr>
+        <tr data-kind="inactive">
+          <td class="id" data-label="person_id">6</td>
+          <td class="lead" data-label="Name">Lara Mendoza <span class="sub">lara.mendoza@hygears.example</span></td>
+          <td class="mono" data-label="student_id">2022-00377-MN-0</td>
+          <td class="mono" data-label="contact_number">0900-000-0006</td>
+          <td data-label="Role">Member</td>
+          <td class="mono" data-label="joined_on">2024-08-20</td>
+          <td data-label="is_active"><span class="status status-off">Inactive</span></td>
+        </tr>
+        <tr data-kind="visitor">
+          <td class="id" data-label="person_id">7</td>
+          <td class="lead" data-label="Name">Carlo Navarro <span class="tag">visitor</span><span class="sub">Sample Tech Institute</span></td>
+          <td class="mono" data-label="student_id">&ndash;</td>
+          <td class="mono" data-label="contact_number">0900-000-0007</td>
+          <td data-label="Role">Not a member</td>
+          <td class="mono" data-label="joined_on">&ndash;</td>
+          <td data-label="is_active">&ndash;</td>
+        </tr>
+        <tr data-kind="member">
+          <td class="id" data-label="person_id">2</td>
+          <td class="lead" data-label="Name">Paolo Reyes <span class="sub">paolo.reyes@hygears.example</span></td>
+          <td class="mono" data-label="student_id">2021-00317-MN-0</td>
+          <td class="mono" data-label="contact_number">0900-000-0002</td>
+          <td data-label="Role">Officer</td>
+          <td class="mono" data-label="joined_on">2024-08-20</td>
+          <td data-label="is_active"><span class="status status-ok">Active</span></td>
+        </tr>
+        <tr data-kind="member">
+          <td class="id" data-label="person_id">1</td>
+          <td class="lead" data-label="Name">Mika Santos <span class="sub">mika.santos@hygears.example</span></td>
+          <td class="mono" data-label="student_id">2022-00141-MN-0</td>
+          <td class="mono" data-label="contact_number">0900-000-0001</td>
+          <td data-label="Role">Member</td>
+          <td class="mono" data-label="joined_on">2025-08-18</td>
+          <td data-label="is_active"><span class="status status-ok">Active</span></td>
+        </tr>
+        <tr data-kind="visitor">
+          <td class="id" data-label="person_id">8</td>
+          <td class="lead" data-label="Name">Rina Torres <span class="tag">visitor</span><span class="sub">PUP Manila, ECE</span></td>
+          <td class="mono" data-label="student_id">2023-01120-MN-0</td>
+          <td class="mono" data-label="contact_number">0900-000-0008</td>
+          <td data-label="Role">Not a member</td>
+          <td class="mono" data-label="joined_on">&ndash;</td>
+          <td data-label="is_active">&ndash;</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="empty" id="people-empty" hidden>Nobody matches that search.</p>
+  </section>
+
+  <div class="cols">
+    <!-- INSERT INTO person -->
+    <section class="panel" id="add-person" aria-labelledby="add-title">
+      <div class="panel-head"><h2 id="add-title">Add a person</h2><span class="source">INSERT INTO person</span></div>
+      <form class="form" id="person-form" novalidate>
+        <div class="form-row">
+          <div class="field">
+            <label for="np-first">First name <span class="col">first_name</span></label>
+            <input id="np-first" name="first_name" type="text" required aria-describedby="np-first-msg">
+            <div id="np-first-msg"></div>
+          </div>
+          <div class="field">
+            <label for="np-last">Last name <span class="col">last_name</span></label>
+            <input id="np-last" name="last_name" type="text" required aria-describedby="np-last-msg">
+            <div id="np-last-msg"></div>
+          </div>
+        </div>
+        <div class="field">
+          <label for="np-sid">Student number <span class="col">student_id</span></label>
+          <input id="np-sid" name="student_id" type="text" class="mono" placeholder="2024-00000-MN-0" aria-describedby="np-sid-hint np-sid-msg">
+          <p class="hint" id="np-sid-hint">Leave blank for outside visitors. Required before the person can become a member.</p>
+          <div id="np-sid-msg"></div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label for="np-contact">Contact number <span class="col">contact_number</span></label>
+            <input id="np-contact" name="contact_number" type="tel" required aria-describedby="np-contact-msg">
+            <div id="np-contact-msg"></div>
+          </div>
+          <div class="field">
+            <label for="np-aff">Affiliation <span class="col">affiliation</span></label>
+            <input id="np-aff" name="affiliation" type="text" aria-describedby="np-aff-hint">
+            <p class="hint" id="np-aff-hint">School or company, for outsiders.</p>
+          </div>
+        </div>
+        <div class="actions"><button class="btn btn-primary" type="submit">Save person</button></div>
+        <div id="person-result" aria-live="polite"></div>
+      </form>
+    </section>
+
+    <!-- INSERT INTO member / UPDATE member -->
+    <section class="panel" id="make-member" aria-labelledby="mem-title">
+      <div class="panel-head"><h2 id="mem-title">Make a member</h2><span class="source">INSERT INTO member</span></div>
+      <form class="form" id="member-form" novalidate>
+        <div class="field">
+          <label for="m-person">Person <span class="col">person_id</span></label>
+          <select id="m-person" name="person_id" aria-describedby="m-person-hint m-person-msg">
+            <option value="">Choose a person</option>
+            <option value="7" data-sid="">Carlo Navarro (no student number)</option>
+            <option value="8" data-sid="2023-01120-MN-0">Rina Torres, 2023-01120-MN-0</option>
+            <option value="6" data-sid="2022-00377-MN-0">Lara Mendoza, already a member</option>
+          </select>
+          <p class="hint" id="m-person-hint">Only people who are not members yet. A member must have a student number.</p>
+          <div id="m-person-msg"></div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label for="m-role">Role <span class="col">role_id</span></label>
+            <select id="m-role" name="role_id">
+              <option value="1">Member</option>
+              <option value="2">Officer (can approve)</option>
+              <option value="3">President (can approve)</option>
+              <option value="4">Adviser (can approve)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="m-joined">Joined on <span class="col">joined_on</span></label>
+            <input id="m-joined" name="joined_on" type="date" value="2026-11-23">
+          </div>
+        </div>
+        <div class="field">
+          <label for="m-email">Email <span class="col">email</span></label>
+          <input id="m-email" name="email" type="email" aria-describedby="m-email-hint">
+          <p class="hint" id="m-email-hint">Optional.</p>
+        </div>
+        <label class="check"><input type="checkbox" name="is_active" checked> Active member <span class="col">is_active</span></label>
+        <div class="actions"><button class="btn btn-primary" type="submit">Save member</button></div>
+        <div id="member-result" aria-live="polite"></div>
+      </form>
+    </section>
+  </div>
+</main>
+
+<!-- Shared footer: becomes footer.php -->
+<footer class="foot">
+  <p>Hygears HQ System &middot; Engineering Innovation &bull; Research &bull; Technology &bull; Leadership &middot; Prototype with sample data, database <code>hygears_db</code></p>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>

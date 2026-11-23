@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inventory | Hygears HQ System</title>
+  <meta name="description" content="Hygears HQ inventory: tools and consumables, stock available, restocks and low-stock flags.">
+  <link rel="icon" href="../assets/hygears-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="items">
+<a class="skip" href="#main">Skip to content</a>
+<!-- Shared header: becomes header.php in the PHP rebuild -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="dashboard.html"><img src="../assets/hygears-logo.png" alt="Hygears" width="36" height="36"><span>HQ System<small>Logbook and inventory</small></span></a>
+    <span class="sample-tag">Sample data</span>
+    <p class="who">Signed in as <strong>Paolo Reyes</strong><br>Officer</p>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+<nav class="nav" id="nav" aria-label="Main">
+  <ul>
+      <li><a href="index.html">Door kiosk</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="attendance.html">Attendance</a></li>
+      <li><a href="people.html">People</a></li>
+      <li><a href="items.html" aria-current="page">Inventory</a></li>
+      <li><a href="requests.html">Requests <span class="count">3<span class="visually-hidden"> pending</span></span></a></li>
+      <li><a href="reports.html">Reports</a></li>
+      <li><a href="settings.html">Settings</a></li>
+  </ul>
+</nav>
+
+<main id="main">
+  <div class="page-head">
+    <div>
+      <h1>Inventory</h1>
+      <p>Tools are lent and returned. Consumables are used up and restocked. &ldquo;Available&rdquo; comes from the view, so it never drifts.</p>
+    </div>
+    <div class="actions">
+      <a class="btn" href="#item-form-panel">Add an item</a>
+      <a class="btn btn-primary" href="#restock">Restock</a>
+    </div>
+  </div>
+
+  <section class="panel" aria-labelledby="inv-title">
+    <div class="panel-head">
+      <h2 id="inv-title">Items (<span id="item-count">12</span>)</h2>
+      <span class="source">item JOIN category JOIN v_item_stock</span>
+    </div>
+    <div class="filters" role="search" aria-label="Filter items">
+      <div class="field">
+        <label for="i-search">Search items</label>
+        <input id="i-search" type="search" placeholder="Example: solder">
+      </div>
+      <div class="field">
+        <label for="i-cat">Category <span class="col">category_id</span></label>
+        <select id="i-cat">
+          <option value="">All categories</option>
+          <option>Hand tools</option><option>Power tools</option><option>Electronics</option>
+          <option>Measuring instruments</option><option>Cutting consumables</option><option>Soldering consumables</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="i-type">Type <span class="col">item_type</span></label>
+        <select id="i-type">
+          <option value="">Tools and consumables</option>
+          <option value="tool">Tools</option>
+          <option value="consumable">Consumables</option>
+        </select>
+      </div>
+      <label class="check"><input id="i-low" type="checkbox"> Low stock only</label>
+    </div>
+
+    <table class="rtable" id="items">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Item</th>
+          <th scope="col">Type</th>
+          <th scope="col" class="num">Total</th>
+          <th scope="col" class="num">Available</th>
+          <th scope="col" class="num">Reorder at</th>
+          <th scope="col">Status</th>
+          <th scope="col"><span class="visually-hidden">Action</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-id="1" data-cat="Hand tools" data-type="tool" data-total="2" data-reorder="" data-active="1">
+          <td class="id" data-label="item_id">1</td>
+          <td class="lead" data-label="Item"><span class="iname">Torque wrench set</span><span class="sub">Hand tools</span></td>
+          <td data-label="Type">Tool</td>
+          <td class="num" data-label="quantity_total">2</td>
+          <td class="num avail" data-label="quantity_available">1</td>
+          <td class="num" data-label="reorder_level">&ndash;</td>
+          <td data-label="Status"><span class="status status-ok">1 out on loan</span></td>
+          <td class="act"><button class="btn" type="button" data-action="edit-item">Edit</button></td>
+        </tr>
+        <tr data-id="2" data-cat="Hand tools" data-type="tool" data-total="4" data-reorder="" data-active="1">
+          <td class="id" data-label="item_id">2</td>
+          <td class="lead" data-label="Item"><span class="iname">Hex key set</span><span class="sub">Hand tools</span></td>
+          <td data-label="Type">Tool</td>
+          <td class="num" data-label="quantity_total">4</td>
+          <td class="num avail" data-label="quantity_available">3</td>
+          <td class="num" data-label="reorder_level">&ndash;</td>
+          <td data-label="Status"><span class="status status-ok">1 out on loan</span></td>
+          <td class="act"><button class="btn" type="button" data-action="edit-item">Edit</button></td>
+        </tr>
+        <tr data-id="3" data-cat="Power tools" data-type="tool" data-total="2" data-reorder="" data-active="1">
+          <td class="id" data-label="item_id">3</td>
+          <td class="lead" data-label="Item"><span class="iname">Cordless drill</span><span class="sub">Power tools</span></td>
+          <td data-label="Type">Tool</td>
+          <td class="num" data-label="quantity_total">2</td>
+          <td class="num avail" data-label="quantity_available">0</td>
+          <td class="num" data-label="reorder_level">&ndash;</td>
+          <td data-label="Status"><span class="status status-wait">All out on loan</span></td>
+          <td class="act"><button class="btn" type="button" data-action="edit-item">Edit</button></td>
+        </tr>
+        <tr data-id="4" data-cat="Power tools" data-type="tool" data-total="1" data-reorder="" data-active="0">
+          <td class="id" data-label="item_id">4</td>
+          <td class="lead" data-label="Item"><span class="iname">Angle grinder</span><span class="sub">Power tools</span></td>
+          <td data-label="Type">Tool</td>
+          <td class="num" data-label="quantity_total">1</td>
+          <td class="num avail" data-label="quantity_available">1</td>
+          <td class="num" data-label="reorder_level">&ndash;</td>
+          <td data-label="Status"><span class="status status-off">Inactive, under repair</span></td>
+          <td class="act"><button class="btn" type="button" data-action="edit-item">Edit</button></td>
+        </tr>
+        <tr data-id="5" data-cat="Electronics" data-type="tool" data-total="1" data-reorder="" data-active="1">
+          <td class="id" data-label="item_id">5</td>
+          <td class="lead" data-label="Item"><span class="iname">Bench power supply</span><span class="sub">Electronics</span></td>
+          <td data-label="Type">Tool</td>
+          <td class="num" data-label="quantity_total">1</td>
+          <td class="num avail" data-label="quantity_available">1</td>
+          <td class="num" data-label="reorder_level">&ndash;</td>
+          <td data-label="Status"><span class="status status-ok">In the HQ</span></td>
+          <td class="act"><button class="btn" type="button" data-action="edit-item">Edit</button></td>
+        </tr>
+        <tr data-id="12" data-cat="Electronics" data-type="tool" data-total="3" data-reorder="" data-active="1">
+          <td class="id" data-label="item_id">12</td>
+          <td class="lead" data-label="Item"><span class="iname">Soldering iron 60 W</span><span class="sub">Electronics</span></td>
+          <td data-label="Type">Tool</td>
+          <td class="num" data-label="quantity_total">3</td>
+          <td class="num avail" data-label="quantity_available">3</td>
+          <td class="num" data-label="reorder_level">&ndash;</td>
+          <td data-label="Status"><span class="status status-ok">In the HQ</span></td>
+          <td class="act"><button class="btn" type="button" data-action="edit-item">Edit</button></td>
+        </tr>
+        <tr data-id="6" data-cat="Measuring instruments" data-type="tool" data-total="3" data-reorder="" data-active="1">
+          <td class="id" data-label="item_id">6</td>
+          <td class="lead" data-label="Item"><span class="iname">Digital multimeter</span><span class="sub">Measuring instruments</span></td>
+          <td data-label="Type">Tool</td>
+          <td class="num" data-label="quantity_total">3</td>
+          <td class="num avail" data-label="quantity_available">1</td>
+          <td class="num" data-label="reorder_level">&ndash;</td>
+          <td data-label="Status"><span class="status status-ok">2 out on loan</span></td>
+          <td class="act"><button class="btn" type="button" data-action="edit-item">Edit</button></td>
+        </tr>
+        <tr data-id="7" data-cat="Measuring instruments" data-type="tool" data-total="2" data-reorder="" data-active="1">
+          <td class="id" data-label="item_id">7</td>
+          <td class="lead" data-label="Item"><span class="iname">Vernier caliper</span><span class="sub">Measuring instruments</span></td>
+          <td data-label="Type">Tool</td>
+          <td class="num" data-label="quantity_total">2</td>
+          <td class="num avail" data-label="quantity_available">2</td>
+          <td class="num" data-label="reorder_level">&ndash;</td>
+          <td data-label="Status"><span class="status status-ok">In the HQ</span></td>
+          <td class="act"><button class="btn" type="button" data-action="edit-item">Edit</button></td>
+        </tr>
+        <tr class="flag" data-id="8" data-cat="Cutting consumables" data-type="consumable" data-total="20" data-reorder="10" data-active="1">
+          <td class="id" data-label="item_id">8</td>
+          <td class="lead" data-label="Item"><span class="iname">Cutting disc 4 in</span><span class="sub">Cutting consumables</span></td>
+          <td data-label="Type">Consumable</td>
+          <td class="num" data-label="quantity_total">20</td>
+          <td class="num avail" data-label="quantity_available">6</td>
+          <td class="num" data-label="reorder_level">10</td>
+          <td data-label="Status"><span class="status status-alert">Low stock</span></td>
+          <td class="act"><button class="btn" type="button" data-action="edit-item">Edit</button></td>
+        </tr>
+        <tr data-id="9" data-cat="Cutting consumables" data-type="consumable" data-total="50" data-reorder="15" data-active="1">
+          <td class="id" data-label="item_id">9</td>
+          <td class="lead" data-label="Item"><span class="iname">Sandpaper sheet 120 grit</span><span class="sub">Cutting consumables</span></td>
+          <td data-label="Type">Consumable</td>
+          <td class="num" data-label="quantity_total">50</td>
+          <td class="num avail" data-label="quantity_available">32</td>
+          <td class="num" data-label="reorder_level">15</td>
+          <td data-label="Status"><span class="status status-ok">In stock</span></td>
+          <td class="act"><button class="btn" type="button" data-action="edit-item">Edit</button></td>
+        </tr>
+        <tr class="flag" data-id="10" data-cat="Soldering consumables" data-type="consumable" data-total="4" data-reorder="2" data-active="1">
+          <td class="id" data-label="item_id">10</td>
+          <td class="lead" data-label="Item"><span class="iname">Solder wire 0.8 mm spool</span><span class="sub">Soldering consumables</span></td>
+          <td data-label="Type">Consumable</td>
+          <td class="num" data-label="quantity_total">4</td>
+          <td class="num avail" data-label="quantity_available">1</td>
+          <td class="num" data-label="reorder_level">2</td>
+          <td data-label="Status"><span class="status status-alert">Low stock</span></td>
+          <td class="act"><button class="btn" type="button" data-action="edit-item">Edit</button></td>
+        </tr>
+        <tr data-id="11" data-cat="Soldering consumables" data-type="consumable" data-total="3" data-reorder="1" data-active="1">
+          <td class="id" data-label="item_id">11</td>
+          <td class="lead" data-label="Item"><span class="iname">Flux paste tub</span><span class="sub">Soldering consumables</span></td>
+          <td data-label="Type">Consumable</td>
+          <td class="num" data-label="quantity_total">3</td>
+          <td class="num avail" data-label="quantity_available">2</td>
+          <td class="num" data-label="reorder_level">1</td>
+          <td data-label="Status"><span class="status status-ok">In stock</span></td>
+          <td class="act"><button class="btn" type="button" data-action="edit-item">Edit</button></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="empty" id="items-empty" hidden>No items match these filters.</p>
+  </section>
+
+  <div class="cols">
+    <!-- INSERT INTO item, or UPDATE item when editing -->
+    <section class="panel" id="item-form-panel" aria-labelledby="item-form-title">
+      <div class="panel-head"><h2 id="item-form-title">Add an item</h2><span class="source" id="item-form-sql">INSERT INTO item</span></div>
+      <form class="form" id="item-form" novalidate>
+        <input type="hidden" name="item_id" id="it-id">
+        <div class="field">
+          <label for="it-name">Item name <span class="col">name</span></label>
+          <input id="it-name" name="name" type="text" aria-describedby="it-name-hint it-name-msg">
+          <p class="hint" id="it-name-hint">Short and specific, with the size: &ldquo;Heat shrink tube 3 mm pack&rdquo;. Names are unique.</p>
+          <div id="it-name-msg"></div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label for="it-cat">Category <span class="col">category_id</span></label>
+            <select id="it-cat" name="category_id">
+              <option value="1">Hand tools</option><option value="2">Power tools</option><option value="3">Electronics</option>
+              <option value="4">Measuring instruments</option><option value="5">Cutting consumables</option><option value="6">Soldering consumables</option>
+            </select>
+          </div>
+          <fieldset class="field">
+            <legend class="label">Type <span class="col">item_type</span></legend>
+            <div class="choices" style="grid-template-columns:1fr 1fr">
+              <label class="choice"><input type="radio" name="item_type" value="tool" checked><span>Tool</span></label>
+              <label class="choice"><input type="radio" name="item_type" value="consumable"><span>Consumable</span></label>
+            </div>
+          </fieldset>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label for="it-total">Quantity <span class="col">quantity_total</span></label>
+            <input id="it-total" name="quantity_total" type="number" min="0" step="1" inputmode="numeric" aria-describedby="it-total-hint it-total-msg">
+            <p class="hint" id="it-total-hint">Tools: units owned. Consumables: starting stock; later stock goes through Restock.</p>
+            <div id="it-total-msg"></div>
+          </div>
+          <div class="field">
+            <label for="it-reorder">Reorder at <span class="col">reorder_level</span></label>
+            <input id="it-reorder" name="reorder_level" type="number" min="0" step="1" inputmode="numeric" aria-describedby="it-reorder-hint">
+            <p class="hint" id="it-reorder-hint">Optional. Flags the item as low stock at or below this number.</p>
+          </div>
+        </div>
+        <label class="check"><input type="checkbox" id="it-active" name="is_active" checked> Active, can be requested <span class="col">is_active</span></label>
+        <div class="actions">
+          <button class="btn btn-primary" type="submit" id="item-submit">Save item</button>
+          <button class="btn btn-quiet" type="button" data-action="cancel-edit" id="cancel-edit" hidden>Cancel editing</button>
+        </div>
+        <div id="item-result" aria-live="polite"></div>
+      </form>
+    </section>
+
+    <!-- INSERT INTO restock -->
+    <section class="panel" id="restock" aria-labelledby="restock-title">
+      <div class="panel-head"><h2 id="restock-title">Restock a consumable</h2><span class="source">INSERT INTO restock</span></div>
+      <form class="form" id="restock-form" novalidate>
+        <div class="field">
+          <label for="rs-item">Consumable <span class="col">item_id</span></label>
+          <select id="rs-item" name="item_id" aria-describedby="rs-item-msg">
+            <option value="">Choose a consumable</option>
+            <option value="8">Cutting disc 4 in (6 left, low)</option>
+            <option value="9">Sandpaper sheet 120 grit (32 left)</option>
+            <option value="10">Solder wire 0.8 mm spool (1 left, low)</option>
+            <option value="11">Flux paste tub (2 left)</option>
+          </select>
+          <div id="rs-item-msg"></div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label for="rs-qty">Quantity added <span class="col">quantity</span></label>
+            <input id="rs-qty" name="quantity" type="number" min="1" step="1" inputmode="numeric" aria-describedby="rs-qty-hint rs-qty-msg">
+            <p class="hint" id="rs-qty-hint">More than 0.</p>
+            <div id="rs-qty-msg"></div>
+          </div>
+          <div class="field">
+            <label for="rs-date">Restocked on <span class="col">restocked_on</span></label>
+            <input id="rs-date" name="restocked_on" type="date" value="2026-11-23">
+          </div>
+        </div>
+        <div class="field">
+          <label for="rs-notes">Notes <span class="col">notes</span></label>
+          <input id="rs-notes" name="notes" type="text" aria-describedby="rs-notes-hint">
+          <p class="hint" id="rs-notes-hint">Optional. Where it was bought, receipt number.</p>
+        </div>
+        <div class="actions"><button class="btn btn-primary" type="submit">Save restock</button></div>
+        <div id="restock-result" aria-live="polite"></div>
+      </form>
+
+      <h3 style="margin-top:1.5rem">Recent restocks</h3>
+      <table class="rtable">
+        <thead><tr><th scope="col">Item</th><th scope="col" class="num">Qty</th><th scope="col">Date</th><th scope="col">Notes</th></tr></thead>
+        <tbody id="restock-log">
+          <tr><td class="lead" data-label="Item">Sandpaper sheet 120 grit</td><td class="num" data-label="quantity">20</td><td class="mono" data-label="restocked_on">2026-11-12</td><td data-label="notes">Hardware store, sample</td></tr>
+          <tr><td class="lead" data-label="Item">Solder wire 0.8 mm spool</td><td class="num" data-label="quantity">2</td><td class="mono" data-label="restocked_on">2026-11-05</td><td data-label="notes">Org fund</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+</main>
+
+<!-- Shared footer: becomes footer.php -->
+<footer class="foot">
+  <p>Hygears HQ System &middot; Engineering Innovation &bull; Research &bull; Technology &bull; Leadership &middot; Prototype with sample data, database <code>hygears_db</code></p>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>

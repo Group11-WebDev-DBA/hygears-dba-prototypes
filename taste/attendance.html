@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Attendance | Hygears HQ System</title>
+  <meta name="description" content="Attendance log of the Hygears HQ with time in and time out.">
+  <link rel="icon" href="../assets/hygears-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="attendance">
+<a class="skip" href="#main">Skip to content</a>
+<!-- Shared header: becomes header.php in the PHP rebuild -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="dashboard.html"><img src="../assets/hygears-logo.png" alt="Hygears" width="36" height="36"><span>HQ System<small>Logbook and inventory</small></span></a>
+    <span class="sample-tag">Sample data</span>
+    <p class="who">Signed in as <strong>Paolo Reyes</strong><br>Officer</p>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+<nav class="nav" id="nav" aria-label="Main">
+  <ul>
+      <li><a href="index.html">Door kiosk</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="attendance.html" aria-current="page">Attendance</a></li>
+      <li><a href="people.html">People</a></li>
+      <li><a href="items.html">Inventory</a></li>
+      <li><a href="requests.html">Requests <span class="count">3<span class="visually-hidden"> pending</span></span></a></li>
+      <li><a href="reports.html">Reports</a></li>
+      <li><a href="settings.html">Settings</a></li>
+  </ul>
+</nav>
+
+<main id="main">
+  <div class="page-head">
+    <div>
+      <h1>Attendance log</h1>
+      <p>Every sign-in at the door, newest first. Replaces the paper logbook.</p>
+    </div>
+    <button class="btn" type="button" data-action="export">Export CSV</button>
+  </div>
+  <div id="export-msg" aria-live="polite"></div>
+
+  <section class="panel" aria-labelledby="log-title">
+    <div class="panel-head">
+      <h2 id="log-title">Log entries (<span id="log-count">9</span>)</h2>
+      <span class="source">attendance JOIN person JOIN purpose LEFT JOIN member</span>
+    </div>
+
+    <form class="filters" id="log-filters" role="search" aria-label="Filter the log">
+      <div class="field">
+        <label for="f-date">Date <span class="col">DATE(time_in)</span></label>
+        <input id="f-date" type="date" value="2026-11-23">
+      </div>
+      <div class="field">
+        <label for="f-purpose">Purpose <span class="col">purpose_id</span></label>
+        <select id="f-purpose">
+          <option value="">All purposes</option>
+          <option>Meeting</option><option>Project work</option><option>Workshop</option>
+          <option>Tool use</option><option>Study</option><option>Visit</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="f-who">People</label>
+        <select id="f-who">
+          <option value="">Members and visitors</option>
+          <option value="member">Members only</option>
+          <option value="visitor">Visitors only</option>
+        </select>
+      </div>
+      <label class="check"><input id="f-inside" type="checkbox"> Still inside only</label>
+      <button class="btn btn-quiet" type="reset">Clear filters</button>
+    </form>
+
+    <table class="rtable" id="log">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Student no.</th>
+          <th scope="col">Purpose</th>
+          <th scope="col" class="num">Time in</th>
+          <th scope="col" class="num">Time out</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-date="2026-11-23" data-purpose="Meeting" data-who="member" data-inside="1">
+          <td class="id" data-label="attendance_id">0235</td>
+          <td class="lead" data-label="Name">Andrea Cruz</td>
+          <td class="mono" data-label="Student no.">2021-00088-MN-0</td>
+          <td data-label="Purpose">Meeting</td>
+          <td class="num" data-label="Time in">09:02</td>
+          <td class="num" data-label="Time out">&ndash;</td>
+          <td data-label="Status"><span class="status status-ok">Inside</span></td>
+        </tr>
+        <tr data-date="2026-11-23" data-purpose="Visit" data-who="visitor" data-inside="0">
+          <td class="id" data-label="attendance_id">0236</td>
+          <td class="lead" data-label="Name">Rina Torres <span class="tag">visitor</span><span class="sub">PUP Manila, ECE</span></td>
+          <td class="mono" data-label="Student no.">2023-01120-MN-0</td>
+          <td data-label="Purpose">Visit</td>
+          <td class="num" data-label="Time in">09:20</td>
+          <td class="num" data-label="Time out">09:45</td>
+          <td data-label="Status"><span class="status status-off">Signed out</span></td>
+        </tr>
+        <tr data-date="2026-11-23" data-purpose="Tool use" data-who="member" data-inside="1">
+          <td class="id" data-label="attendance_id">0234</td>
+          <td class="lead" data-label="Name">Jun Bautista</td>
+          <td class="mono" data-label="Student no.">2023-00452-MN-0</td>
+          <td data-label="Purpose">Tool use</td>
+          <td class="num" data-label="Time in">08:50</td>
+          <td class="num" data-label="Time out">&ndash;</td>
+          <td data-label="Status"><span class="status status-ok">Inside</span></td>
+        </tr>
+        <tr data-date="2026-11-23" data-purpose="Workshop" data-who="visitor" data-inside="1">
+          <td class="id" data-label="attendance_id">0233</td>
+          <td class="lead" data-label="Name">Carlo Navarro <span class="tag">visitor</span><span class="sub">Sample Tech Institute</span></td>
+          <td class="mono" data-label="Student no.">&ndash;</td>
+          <td data-label="Purpose">Workshop</td>
+          <td class="num" data-label="Time in">08:30</td>
+          <td class="num" data-label="Time out">&ndash;</td>
+          <td data-label="Status"><span class="status status-ok">Inside</span></td>
+        </tr>
+        <tr data-date="2026-11-23" data-purpose="Meeting" data-who="member" data-inside="1">
+          <td class="id" data-label="attendance_id">0232</td>
+          <td class="lead" data-label="Name">Paolo Reyes</td>
+          <td class="mono" data-label="Student no.">2021-00317-MN-0</td>
+          <td data-label="Purpose">Meeting</td>
+          <td class="num" data-label="Time in">08:15</td>
+          <td class="num" data-label="Time out">&ndash;</td>
+          <td data-label="Status"><span class="status status-ok">Inside</span></td>
+        </tr>
+        <tr data-date="2026-11-23" data-purpose="Project work" data-who="member" data-inside="0">
+          <td class="id" data-label="attendance_id">0231</td>
+          <td class="lead" data-label="Name">Mika Santos</td>
+          <td class="mono" data-label="Student no.">2022-00141-MN-0</td>
+          <td data-label="Purpose">Project work</td>
+          <td class="num" data-label="Time in">07:58</td>
+          <td class="num" data-label="Time out">09:10</td>
+          <td data-label="Status"><span class="status status-off">Signed out</span></td>
+        </tr>
+        <tr data-date="2026-11-20" data-purpose="Project work" data-who="member" data-inside="0">
+          <td class="id" data-label="attendance_id">0230</td>
+          <td class="lead" data-label="Name">Mika Santos</td>
+          <td class="mono" data-label="Student no.">2022-00141-MN-0</td>
+          <td data-label="Purpose">Project work</td>
+          <td class="num" data-label="Time in">13:05</td>
+          <td class="num" data-label="Time out">17:40</td>
+          <td data-label="Status"><span class="status status-off">Signed out</span></td>
+        </tr>
+        <tr data-date="2026-11-20" data-purpose="Study" data-who="member" data-inside="0">
+          <td class="id" data-label="attendance_id">0229</td>
+          <td class="lead" data-label="Name">Bea Lim</td>
+          <td class="mono" data-label="Student no.">2022-00219-MN-0</td>
+          <td data-label="Purpose">Study</td>
+          <td class="num" data-label="Time in">10:30</td>
+          <td class="num" data-label="Time out">12:00</td>
+          <td data-label="Status"><span class="status status-off">Signed out</span></td>
+        </tr>
+        <tr data-date="2026-11-20" data-purpose="Workshop" data-who="visitor" data-inside="0">
+          <td class="id" data-label="attendance_id">0228</td>
+          <td class="lead" data-label="Name">Carlo Navarro <span class="tag">visitor</span><span class="sub">Sample Tech Institute</span></td>
+          <td class="mono" data-label="Student no.">&ndash;</td>
+          <td data-label="Purpose">Workshop</td>
+          <td class="num" data-label="Time in">09:00</td>
+          <td class="num" data-label="Time out">11:30</td>
+          <td data-label="Status"><span class="status status-off">Signed out</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="empty" id="log-empty" hidden>No sign-ins match these filters.</p>
+  </section>
+</main>
+
+<!-- Shared footer: becomes footer.php -->
+<footer class="foot">
+  <p>Hygears HQ System &middot; Engineering Innovation &bull; Research &bull; Technology &bull; Leadership &middot; Prototype with sample data, database <code>hygears_db</code></p>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>

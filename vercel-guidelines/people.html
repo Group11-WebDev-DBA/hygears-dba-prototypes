@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1B1D22">
+  <title>People | Hygears HQ System</title>
+  <link rel="icon" href="../assets/hygears-logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="people">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div class="app">
+
+    <!-- Shared sidebar (becomes header.php in the PHP rebuild) -->
+    <header class="sidebar" id="sidebar">
+      <div class="sidebar-top">
+        <a class="brand" href="dashboard.html">
+          <img src="../assets/hygears-logo.png" alt="Hygears logo" width="36" height="36">
+          <span><strong translate="no">Hygears HQ</strong><span>Officer system</span></span>
+        </a>
+        <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+      </div>
+      <nav class="nav" id="nav" aria-label="Main">
+        <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="attendance.html">Attendance</a></li>
+        <li><a href="people.html" aria-current="page">People</a></li>
+        <li><a href="items.html">Items</a></li>
+        <li><a href="requests.html">Requests</a></li>
+        <li><a href="reports.html">Reports</a></li>
+        <li><a href="settings.html">Settings</a></li>
+        </ul>
+        <p class="nav-group">At the door</p>
+        <ul>
+          <li><a href="index.html">Attendance Kiosk</a></li>
+        </ul>
+      </nav>
+      <div class="whoami">
+        Signed in as
+        <strong>Paolo Reyes</strong>
+        Officer, <span class="mono">can_approve = 1</span><br>
+        <span class="sample-tag">Sample data</span>
+      </div>
+    </header>
+
+    <main class="main" id="main" tabindex="-1">
+      <div class="page-head">
+        <h1>People and Members</h1>
+        <p>Everyone who has signed the log. A person becomes a member when they get a row in <span class="mono">member</span>; visitors never do.</p>
+        <p class="tables-used">Reads/writes <code>person</code> <code>member</code> · reads <code>role</code></p>
+      </div>
+
+      <section class="panel" aria-labelledby="list-h">
+        <div class="panel-head">
+          <h2 id="list-h">Directory</h2>
+          <a class="btn btn-sm btn-dark" href="#add-h">Add Person</a>
+        </div>
+
+        <form class="filters" data-filter-table="people-table" role="search" aria-label="Search people">
+          <div class="field">
+            <label for="q">Search name, student ID or school</label>
+            <input id="q" name="q" type="search" autocomplete="off" spellcheck="false" placeholder="e.g. Santos or 2023-00101…">
+          </div>
+          <div class="field">
+            <label for="f-who">Show</label>
+            <select id="f-who" name="who">
+              <option value="">Everyone</option>
+              <option value="member">Members</option>
+              <option value="visitor">Visitors</option>
+            </select>
+          </div>
+          <button class="btn btn-quiet" type="reset">Clear</button>
+        </form>
+        <p class="small muted" id="people-count" data-noun="people" aria-live="polite">Showing 8 of 8 people</p>
+
+        <div class="table-wrap">
+          <table class="reflow" id="people-table">
+            <thead>
+              <tr>
+                <th scope="col">#<span class="col">person_id</span></th>
+                <th scope="col">Name<span class="col">last_name, first_name</span></th>
+                <th scope="col">Student ID<span class="col">student_id</span></th>
+                <th scope="col">Contact<span class="col">contact_number</span></th>
+                <th scope="col">Affiliation<span class="col">affiliation</span></th>
+                <th scope="col">Role<span class="col">member.role_id</span></th>
+                <th scope="col">Status<span class="col">is_active</span></th>
+                <th scope="col"><span class="visually-hidden">Actions</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-who="member">
+                <td data-label="#" class="num">1</td>
+                <td data-label="Name"><strong>Santos, Mika</strong><span class="sub">mika.santos@example.com</span></td>
+                <td data-label="Student ID" class="mono">2023-00101-MN-0</td>
+                <td data-label="Contact" class="num">0917 555 0101</td>
+                <td data-label="Affiliation">PUP Manila, BSME</td>
+                <td data-label="Role">Member</td>
+                <td data-label="Status"><span class="status"><span class="ico" aria-hidden="true">✓</span>Active</span></td>
+                <td class="actions-cell"><button class="btn btn-sm" type="button" data-toggle-active aria-label="Mark Mika Santos inactive">Mark Inactive</button></td>
+              </tr>
+              <tr data-who="member">
+                <td data-label="#" class="num">2</td>
+                <td data-label="Name"><strong>Reyes, Paolo</strong><span class="sub">paolo.reyes@example.com</span></td>
+                <td data-label="Student ID" class="mono">2022-00214-MN-0</td>
+                <td data-label="Contact" class="num">0917 555 0102</td>
+                <td data-label="Affiliation">PUP Manila, BSECE</td>
+                <td data-label="Role">Officer</td>
+                <td data-label="Status"><span class="status"><span class="ico" aria-hidden="true">✓</span>Active</span></td>
+                <td class="actions-cell"><button class="btn btn-sm" type="button" data-toggle-active aria-label="Mark Paolo Reyes inactive">Mark Inactive</button></td>
+              </tr>
+              <tr data-who="member">
+                <td data-label="#" class="num">3</td>
+                <td data-label="Name"><strong>Lim, Ana</strong><span class="sub">ana.lim@example.com</span></td>
+                <td data-label="Student ID" class="mono">2022-00187-MN-0</td>
+                <td data-label="Contact" class="num">0917 555 0103</td>
+                <td data-label="Affiliation">PUP Manila, BSME</td>
+                <td data-label="Role">President</td>
+                <td data-label="Status"><span class="status"><span class="ico" aria-hidden="true">✓</span>Active</span></td>
+                <td class="actions-cell"><button class="btn btn-sm" type="button" data-toggle-active aria-label="Mark Ana Lim inactive">Mark Inactive</button></td>
+              </tr>
+              <tr data-who="member">
+                <td data-label="#" class="num">4</td>
+                <td data-label="Name"><strong>Bautista, Jun</strong><span class="sub">jun.bautista@example.com</span></td>
+                <td data-label="Student ID" class="mono">2024-00342-MN-0</td>
+                <td data-label="Contact" class="num">0917 555 0104</td>
+                <td data-label="Affiliation">PUP Manila, BSEE</td>
+                <td data-label="Role">Member</td>
+                <td data-label="Status"><span class="status"><span class="ico" aria-hidden="true">✓</span>Active</span></td>
+                <td class="actions-cell"><button class="btn btn-sm" type="button" data-toggle-active aria-label="Mark Jun Bautista inactive">Mark Inactive</button></td>
+              </tr>
+              <tr data-who="member" class="row-muted">
+                <td data-label="#" class="num">5</td>
+                <td data-label="Name"><strong>Mendoza, Carla</strong><span class="sub">carla.mendoza@example.com</span></td>
+                <td data-label="Student ID" class="mono">2023-00456-MN-0</td>
+                <td data-label="Contact" class="num">0917 555 0105</td>
+                <td data-label="Affiliation">PUP Manila, BSIE</td>
+                <td data-label="Role">Member</td>
+                <td data-label="Status"><span class="status done"><span class="ico" aria-hidden="true">–</span>Inactive</span></td>
+                <td class="actions-cell"><button class="btn btn-sm" type="button" data-toggle-active aria-label="Mark Carla Mendoza active">Mark Active</button></td>
+              </tr>
+              <tr data-who="member">
+                <td data-label="#" class="num">6</td>
+                <td data-label="Name"><strong>Cruz, Rafael</strong><span class="sub">rafael.cruz@example.com</span></td>
+                <td data-label="Student ID" class="mono">FAC-2019-0042</td>
+                <td data-label="Contact" class="num">0917 555 0106</td>
+                <td data-label="Affiliation">PUP Manila, faculty</td>
+                <td data-label="Role">Adviser</td>
+                <td data-label="Status"><span class="status"><span class="ico" aria-hidden="true">✓</span>Active</span></td>
+                <td class="actions-cell"><button class="btn btn-sm" type="button" data-toggle-active aria-label="Mark Rafael Cruz inactive">Mark Inactive</button></td>
+              </tr>
+              <tr data-who="visitor">
+                <td data-label="#" class="num">7</td>
+                <td data-label="Name"><strong>Navarro, Lea</strong></td>
+                <td data-label="Student ID" class="muted">none (visitor)</td>
+                <td data-label="Contact" class="num">0918 555 0107</td>
+                <td data-label="Affiliation">TUP Manila</td>
+                <td data-label="Role" class="muted">Visitor</td>
+                <td data-label="Status" class="muted">—</td>
+                <td class="actions-cell"><span class="small muted">Needs a student ID to be a member</span></td>
+              </tr>
+              <tr data-who="visitor">
+                <td data-label="#" class="num">8</td>
+                <td data-label="Name"><strong>Diaz, Marco</strong></td>
+                <td data-label="Student ID" class="muted">none (visitor)</td>
+                <td data-label="Contact" class="num">0918 555 0108</td>
+                <td data-label="Affiliation">Mapúa University</td>
+                <td data-label="Role" class="muted">Visitor</td>
+                <td data-label="Status" class="muted">—</td>
+                <td class="actions-cell"><span class="small muted">Needs a student ID to be a member</span></td>
+              </tr>
+              <tr class="empty-row" hidden><td colspan="8" class="empty">Nobody matches that search. Check the spelling, or add the person below.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="add-h">
+        <div class="panel-head">
+          <h2 id="add-h">Add Person</h2>
+          <p class="mono">INSERT INTO person … ; INSERT INTO member …</p>
+        </div>
+
+        <form id="person-form" class="form-grid cols-2" novalidate data-guard>
+          <div class="field">
+            <label for="p-first">First name <span class="col">first_name</span></label>
+            <input id="p-first" name="first_name" type="text" autocomplete="off" maxlength="50" required placeholder="e.g. Bea…">
+            <p class="error" id="p-first-err" hidden>Enter a first name.</p>
+          </div>
+          <div class="field">
+            <label for="p-last">Last name <span class="col">last_name</span></label>
+            <input id="p-last" name="last_name" type="text" autocomplete="off" maxlength="50" required placeholder="e.g. Ramos…">
+            <p class="error" id="p-last-err" hidden>Enter a last name.</p>
+          </div>
+          <div class="field">
+            <label for="p-sid">Student ID <span class="col">student_id</span></label>
+            <input id="p-sid" name="student_id" type="text" autocomplete="off" spellcheck="false" autocapitalize="characters" maxlength="20" placeholder="2025-00123-MN-0…" aria-describedby="p-sid-hint">
+            <p class="hint" id="p-sid-hint">Leave empty for visitors from other schools. Must be unique.</p>
+            <p class="error" id="p-sid-err" hidden>That student ID is already used by another person.</p>
+          </div>
+          <div class="field">
+            <label for="p-contact">Contact number <span class="col">contact_number</span></label>
+            <input id="p-contact" name="contact_number" type="tel" inputmode="tel" autocomplete="off" maxlength="20" required placeholder="0917 555 0123…">
+            <p class="error" id="p-contact-err" hidden>Enter a contact number so an officer can reach them about borrowed tools.</p>
+          </div>
+          <div class="field span-2">
+            <label for="p-aff">Affiliation <span class="col">affiliation</span></label>
+            <input id="p-aff" name="affiliation" type="text" autocomplete="off" maxlength="100" placeholder="e.g. PUP Manila, BSME or TUP Manila…">
+          </div>
+
+          <fieldset class="span-2">
+            <legend class="visually-hidden">Membership</legend>
+            <label class="check"><input type="checkbox" id="p-is-member" name="make_member" aria-describedby="p-member-hint"> Make this person a member</label>
+            <p class="hint" id="p-member-hint">Members need a student ID (trigger <span class="mono">trg_member_requires_student_id_ins</span>).</p>
+            <p class="error" id="p-member-err" hidden>Add a student ID first. Visitors without one can’t be members.</p>
+          </fieldset>
+
+          <div class="form-grid cols-2 span-2" id="member-fields" hidden>
+            <div class="field">
+              <label for="p-role">Role <span class="col">role_id</span></label>
+              <select id="p-role" name="role_id">
+                <option value="1">Member</option>
+                <option value="2">Officer (can approve)</option>
+                <option value="3">President (can approve)</option>
+                <option value="4">Adviser (can approve)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="p-email">Email <span class="col">email</span></label>
+              <input id="p-email" name="email" type="email" inputmode="email" autocomplete="off" spellcheck="false" maxlength="100" placeholder="name@example.com…">
+            </div>
+            <div class="field">
+              <label for="p-joined">Joined on <span class="col">joined_on</span></label>
+              <input id="p-joined" name="joined_on" type="date" autocomplete="off" value="2026-11-23">
+            </div>
+            <label class="check"><input type="checkbox" name="is_active" checked> Active <span class="col">is_active</span></label>
+          </div>
+
+          <div class="actions span-2">
+            <button class="btn btn-primary" type="submit">Save Person</button>
+            <button class="btn" type="reset">Clear Form</button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast-region" id="toast-region" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>

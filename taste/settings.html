@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Settings | Hygears HQ System</title>
+  <meta name="description" content="Lookup lists of the Hygears HQ System: roles, purposes, categories.">
+  <link rel="icon" href="../assets/hygears-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="settings">
+<a class="skip" href="#main">Skip to content</a>
+<!-- Shared header: becomes header.php in the PHP rebuild -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="dashboard.html"><img src="../assets/hygears-logo.png" alt="Hygears" width="36" height="36"><span>HQ System<small>Logbook and inventory</small></span></a>
+    <span class="sample-tag">Sample data</span>
+    <p class="who">Signed in as <strong>Paolo Reyes</strong><br>Officer</p>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+<nav class="nav" id="nav" aria-label="Main">
+  <ul>
+      <li><a href="index.html">Door kiosk</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="attendance.html">Attendance</a></li>
+      <li><a href="people.html">People</a></li>
+      <li><a href="items.html">Inventory</a></li>
+      <li><a href="requests.html">Requests <span class="count">3<span class="visually-hidden"> pending</span></span></a></li>
+      <li><a href="reports.html">Reports</a></li>
+      <li><a href="settings.html" aria-current="page">Settings</a></li>
+  </ul>
+</nav>
+
+<main id="main">
+  <div class="page-head">
+    <div>
+      <h1>Settings: lookup lists</h1>
+      <p>The short lists other tables point to. Names are unique. Rows in use are renamed, never deleted.</p>
+    </div>
+  </div>
+
+  <div class="cols">
+    <section class="panel" id="roles" aria-labelledby="roles-title">
+      <div class="panel-head"><h2 id="roles-title">Roles</h2><span class="source">table role</span></div>
+      <table class="rtable">
+        <thead><tr><th scope="col">role_id</th><th scope="col">name</th><th scope="col">can_approve</th><th scope="col" class="num">Members</th></tr></thead>
+        <tbody>
+          <tr><td class="id" data-label="role_id">1</td><td class="lead" data-label="name">Member</td><td data-label="can_approve"><span class="status status-off">No, can only request</span></td><td class="num" data-label="Members">3</td></tr>
+          <tr><td class="id" data-label="role_id">2</td><td class="lead" data-label="name">Officer</td><td data-label="can_approve"><span class="status status-ok">Yes, can approve</span></td><td class="num" data-label="Members">2</td></tr>
+          <tr><td class="id" data-label="role_id">3</td><td class="lead" data-label="name">President</td><td data-label="can_approve"><span class="status status-ok">Yes, can approve</span></td><td class="num" data-label="Members">1</td></tr>
+          <tr><td class="id" data-label="role_id">4</td><td class="lead" data-label="name">Adviser</td><td data-label="can_approve"><span class="status status-ok">Yes, can approve</span></td><td class="num" data-label="Members">0</td></tr>
+        </tbody>
+      </table>
+      <form class="form lookup-form" data-table="role" novalidate style="margin-top:1rem">
+        <div class="field">
+          <label for="new-role">New role <span class="col">role.name</span></label>
+          <input id="new-role" type="text" maxlength="30" aria-describedby="new-role-msg">
+          <div id="new-role-msg"></div>
+        </div>
+        <label class="check"><input type="checkbox" id="new-role-approve"> Can approve requests <span class="col">can_approve</span></label>
+        <div class="actions"><button class="btn btn-primary" type="submit">Add role</button></div>
+      </form>
+    </section>
+
+    <div class="stack">
+      <section class="panel" id="purposes" aria-labelledby="pur-title">
+        <div class="panel-head"><h2 id="pur-title">Purposes</h2><span class="source">table purpose</span></div>
+        <table class="rtable">
+          <thead><tr><th scope="col">purpose_id</th><th scope="col">name</th></tr></thead>
+          <tbody>
+            <tr><td class="id" data-label="purpose_id">1</td><td class="lead" data-label="name">Meeting</td></tr>
+            <tr><td class="id" data-label="purpose_id">2</td><td class="lead" data-label="name">Project work</td></tr>
+            <tr><td class="id" data-label="purpose_id">3</td><td class="lead" data-label="name">Workshop</td></tr>
+            <tr><td class="id" data-label="purpose_id">4</td><td class="lead" data-label="name">Tool use</td></tr>
+            <tr><td class="id" data-label="purpose_id">5</td><td class="lead" data-label="name">Study</td></tr>
+            <tr><td class="id" data-label="purpose_id">6</td><td class="lead" data-label="name">Visit</td></tr>
+          </tbody>
+        </table>
+        <form class="form lookup-form" data-table="purpose" novalidate style="margin-top:1rem">
+          <div class="field">
+            <label for="new-purpose">New purpose <span class="col">purpose.name</span></label>
+            <input id="new-purpose" type="text" maxlength="50" aria-describedby="new-purpose-msg">
+            <div id="new-purpose-msg"></div>
+          </div>
+          <div class="actions"><button class="btn btn-primary" type="submit">Add purpose</button></div>
+        </form>
+      </section>
+
+      <section class="panel" id="categories" aria-labelledby="cat-title">
+        <div class="panel-head"><h2 id="cat-title">Categories</h2><span class="source">table category</span></div>
+        <table class="rtable">
+          <thead><tr><th scope="col">category_id</th><th scope="col">name</th><th scope="col" class="num">Items</th></tr></thead>
+          <tbody>
+            <tr><td class="id" data-label="category_id">1</td><td class="lead" data-label="name">Hand tools</td><td class="num" data-label="Items">2</td></tr>
+            <tr><td class="id" data-label="category_id">2</td><td class="lead" data-label="name">Power tools</td><td class="num" data-label="Items">2</td></tr>
+            <tr><td class="id" data-label="category_id">3</td><td class="lead" data-label="name">Electronics</td><td class="num" data-label="Items">2</td></tr>
+            <tr><td class="id" data-label="category_id">4</td><td class="lead" data-label="name">Measuring instruments</td><td class="num" data-label="Items">2</td></tr>
+            <tr><td class="id" data-label="category_id">5</td><td class="lead" data-label="name">Cutting consumables</td><td class="num" data-label="Items">2</td></tr>
+            <tr><td class="id" data-label="category_id">6</td><td class="lead" data-label="name">Soldering consumables</td><td class="num" data-label="Items">2</td></tr>
+          </tbody>
+        </table>
+        <form class="form lookup-form" data-table="category" novalidate style="margin-top:1rem">
+          <div class="field">
+            <label for="new-category">New category <span class="col">category.name</span></label>
+            <input id="new-category" type="text" maxlength="50" aria-describedby="new-category-msg">
+            <div id="new-category-msg"></div>
+          </div>
+          <div class="actions"><button class="btn btn-primary" type="submit">Add category</button></div>
+        </form>
+      </section>
+    </div>
+  </div>
+</main>
+
+<!-- Shared footer: becomes footer.php -->
+<footer class="foot">
+  <p>Hygears HQ System &middot; Engineering Innovation &bull; Research &bull; Technology &bull; Leadership &middot; Prototype with sample data, database <code>hygears_db</code></p>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>

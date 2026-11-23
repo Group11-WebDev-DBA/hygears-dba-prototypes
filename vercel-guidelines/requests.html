@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1B1D22">
+  <title>Requests | Hygears HQ System</title>
+  <link rel="icon" href="../assets/hygears-logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="requests">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div class="app">
+
+    <!-- Shared sidebar (becomes header.php in the PHP rebuild) -->
+    <header class="sidebar" id="sidebar">
+      <div class="sidebar-top">
+        <a class="brand" href="dashboard.html">
+          <img src="../assets/hygears-logo.png" alt="Hygears logo" width="36" height="36">
+          <span><strong translate="no">Hygears HQ</strong><span>Officer system</span></span>
+        </a>
+        <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+      </div>
+      <nav class="nav" id="nav" aria-label="Main">
+        <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="attendance.html">Attendance</a></li>
+        <li><a href="people.html">People</a></li>
+        <li><a href="items.html">Items</a></li>
+        <li><a href="requests.html" aria-current="page">Requests</a></li>
+        <li><a href="reports.html">Reports</a></li>
+        <li><a href="settings.html">Settings</a></li>
+        </ul>
+        <p class="nav-group">At the door</p>
+        <ul>
+          <li><a href="index.html">Attendance Kiosk</a></li>
+        </ul>
+      </nav>
+      <div class="whoami">
+        Signed in as
+        <strong>Paolo Reyes</strong>
+        Officer, <span class="mono">can_approve = 1</span><br>
+        <span class="sample-tag">Sample data</span>
+      </div>
+    </header>
+
+    <main class="main" id="main" tabindex="-1">
+      <div class="page-head">
+        <h1>Borrowing Requests</h1>
+        <p>Approve or reject pending requests, then mark tools returned. Approving is checked against stock here because the database does not block it.</p>
+        <p class="tables-used">Reads/writes <code>item_request</code> <code>request_line</code> · reads <code>v_item_stock</code> <code>v_open_loans</code></p>
+      </div>
+
+      <!-- PENDING: approve/reject. app.js checks v_item_stock.quantity_available before approving. -->
+      <section class="panel" aria-labelledby="pending">
+        <div class="panel-head">
+          <h2 id="pending" tabindex="-1">Pending <span class="muted" id="pending-count">(3)</span></h2>
+          <p class="mono">status = 'pending'</p>
+        </div>
+        <div class="table-wrap">
+          <table class="reflow" id="pending-table">
+            <thead>
+              <tr>
+                <th scope="col">Request<span class="col">request_id</span></th>
+                <th scope="col">Requested by<span class="col">requested_by</span></th>
+                <th scope="col">Items<span class="col">request_line</span></th>
+                <th scope="col">Requested<span class="col">requested_at</span></th>
+                <th scope="col">Status<span class="col">status</span></th>
+                <th scope="col"><span class="visually-hidden">Decision</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-request="1012" data-requested-by="1" data-name="Mika Santos">
+                <td data-label="Request" class="num">#1012</td>
+                <td data-label="Requested by"><strong>Mika Santos</strong><span class="sub">Member</span></td>
+                <td data-label="Items">
+                  <ul class="lines">
+                    <li data-item-id="2" data-qty="2">Digital multimeter ×2 <span class="muted small">· due <time datetime="2026-11-25" data-format="date">25 Nov</time></span></li>
+                    <li data-item-id="8" data-qty="1">Solder wire 0.8 mm ×1 <span class="muted small">· consumable, no due date</span></li>
+                  </ul>
+                </td>
+                <td data-label="Requested" class="num"><time datetime="2026-11-23T08:20" data-format="datetime">23 Nov, 8:20 AM</time></td>
+                <td data-label="Status" class="status-cell"><span class="status"><span class="ico" aria-hidden="true">○</span>Pending</span></td>
+                <td class="actions-cell">
+                  <button class="btn btn-sm btn-primary" type="button" data-approve>Approve</button>
+                  <button class="btn btn-sm" type="button" data-reject>Reject</button>
+                </td>
+              </tr>
+              <tr data-request="1013" data-requested-by="4" data-name="Jun Bautista">
+                <td data-label="Request" class="num">#1013</td>
+                <td data-label="Requested by"><strong>Jun Bautista</strong><span class="sub">Member</span></td>
+                <td data-label="Items">
+                  <ul class="lines">
+                    <li data-item-id="4" data-qty="1">Vernier caliper ×1 <span class="muted small">· due <time datetime="2026-11-24" data-format="date">24 Nov</time></span></li>
+                    <li data-item-id="10" data-qty="2">Cutting disc 4 in ×2 <span class="muted small">· consumable, no due date</span></li>
+                  </ul>
+                </td>
+                <td data-label="Requested" class="num"><time datetime="2026-11-23T09:40" data-format="datetime">23 Nov, 9:40 AM</time></td>
+                <td data-label="Status" class="status-cell"><span class="status"><span class="ico" aria-hidden="true">○</span>Pending</span></td>
+                <td class="actions-cell">
+                  <button class="btn btn-sm btn-primary" type="button" data-approve>Approve</button>
+                  <button class="btn btn-sm" type="button" data-reject>Reject</button>
+                </td>
+              </tr>
+              <tr data-request="1014" data-requested-by="2" data-name="Paolo Reyes">
+                <td data-label="Request" class="num">#1014</td>
+                <td data-label="Requested by"><strong>Paolo Reyes</strong><span class="sub">Officer (you)</span></td>
+                <td data-label="Items">
+                  <ul class="lines">
+                    <li data-item-id="7" data-qty="1">Oscilloscope ×1 <span class="muted small">· due <time datetime="2026-11-26" data-format="date">26 Nov</time></span></li>
+                  </ul>
+                </td>
+                <td data-label="Requested" class="num"><time datetime="2026-11-23T10:05" data-format="datetime">23 Nov, 10:05 AM</time></td>
+                <td data-label="Status" class="status-cell"><span class="status"><span class="ico" aria-hidden="true">○</span>Pending</span></td>
+                <td class="actions-cell">
+                  <button class="btn btn-sm btn-primary" type="button" data-approve>Approve</button>
+                  <button class="btn btn-sm" type="button" data-reject>Reject</button>
+                </td>
+              </tr>
+              <tr class="empty-row" hidden><td colspan="6" class="empty">No pending requests. New ones appear here.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- OPEN LOANS: v_open_loans, overdue first -->
+      <section class="panel" aria-labelledby="loans">
+        <div class="panel-head">
+          <h2 id="loans" tabindex="-1">Tools Out Now</h2>
+          <p class="mono">SELECT * FROM v_open_loans ORDER BY is_overdue DESC, due_date</p>
+        </div>
+        <div class="table-wrap">
+          <table class="reflow" id="loans-table">
+            <thead>
+              <tr>
+                <th scope="col">Line<span class="col">line_id</span></th>
+                <th scope="col">Tool<span class="col">item_name</span></th>
+                <th scope="col">Borrower<span class="col">first_name, last_name</span></th>
+                <th scope="col">Contact<span class="col">contact_number</span></th>
+                <th scope="col" class="num">Due<span class="col">due_date</span></th>
+                <th scope="col">Status<span class="col">is_overdue</span></th>
+                <th scope="col"><span class="visually-hidden">Return</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="row-alert" data-item-id="5" data-qty="1">
+                <td data-label="Line" class="num">21 <span class="muted small">(#1009)</span></td>
+                <td data-label="Tool"><strong>Socket wrench set ×1</strong></td>
+                <td data-label="Borrower">Jun Bautista</td>
+                <td data-label="Contact"><a href="tel:09175550104">0917 555 0104</a></td>
+                <td data-label="Due" class="num"><time datetime="2026-11-20" data-format="date">20 Nov</time></td>
+                <td data-label="Status"><span class="status alert"><span class="ico" aria-hidden="true">!</span>Overdue</span></td>
+                <td class="actions-cell"><button class="btn btn-sm" type="button" data-return aria-label="Mark Socket wrench set returned by Jun Bautista">Mark Returned</button></td>
+              </tr>
+              <tr class="row-alert" data-item-id="6" data-qty="1">
+                <td data-label="Line" class="num">25 <span class="muted small">(#1011)</span></td>
+                <td data-label="Tool"><strong>Angle grinder ×1</strong></td>
+                <td data-label="Borrower">Ana Lim</td>
+                <td data-label="Contact"><a href="tel:09175550103">0917 555 0103</a></td>
+                <td data-label="Due" class="num"><time datetime="2026-11-22" data-format="date">22 Nov</time></td>
+                <td data-label="Status"><span class="status alert"><span class="ico" aria-hidden="true">!</span>Overdue</span></td>
+                <td class="actions-cell"><button class="btn btn-sm" type="button" data-return aria-label="Mark Angle grinder returned by Ana Lim">Mark Returned</button></td>
+              </tr>
+              <tr data-item-id="2" data-qty="2">
+                <td data-label="Line" class="num">22 <span class="muted small">(#1010)</span></td>
+                <td data-label="Tool"><strong>Digital multimeter ×2</strong></td>
+                <td data-label="Borrower">Mika Santos</td>
+                <td data-label="Contact"><a href="tel:09175550101">0917 555 0101</a></td>
+                <td data-label="Due" class="num"><time datetime="2026-11-24" data-format="date">24 Nov</time></td>
+                <td data-label="Status"><span class="status"><span class="ico" aria-hidden="true">→</span>Out</span></td>
+                <td class="actions-cell"><button class="btn btn-sm" type="button" data-return aria-label="Mark Digital multimeter returned by Mika Santos">Mark Returned</button></td>
+              </tr>
+              <tr data-item-id="3" data-qty="1">
+                <td data-label="Line" class="num">23 <span class="muted small">(#1010)</span></td>
+                <td data-label="Tool"><strong>Soldering iron 60 W ×1</strong></td>
+                <td data-label="Borrower">Mika Santos</td>
+                <td data-label="Contact"><a href="tel:09175550101">0917 555 0101</a></td>
+                <td data-label="Due" class="num"><time datetime="2026-11-24" data-format="date">24 Nov</time></td>
+                <td data-label="Status"><span class="status"><span class="ico" aria-hidden="true">→</span>Out</span></td>
+                <td class="actions-cell"><button class="btn btn-sm" type="button" data-return aria-label="Mark Soldering iron 60 W returned by Mika Santos">Mark Returned</button></td>
+              </tr>
+              <tr data-item-id="1" data-qty="1">
+                <td data-label="Line" class="num">24 <span class="muted small">(#1011)</span></td>
+                <td data-label="Tool"><strong>Cordless drill ×1</strong></td>
+                <td data-label="Borrower">Ana Lim</td>
+                <td data-label="Contact"><a href="tel:09175550103">0917 555 0103</a></td>
+                <td data-label="Due" class="num"><time datetime="2026-11-27" data-format="date">27 Nov</time></td>
+                <td data-label="Status"><span class="status"><span class="ico" aria-hidden="true">→</span>Out</span></td>
+                <td class="actions-cell"><button class="btn btn-sm" type="button" data-return aria-label="Mark Cordless drill returned by Ana Lim">Mark Returned</button></td>
+              </tr>
+              <tr class="empty-row" hidden><td colspan="7" class="empty">No tools are out right now.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="hint mt">When every tool line of a request is returned, the request becomes <span class="mono">completed</span>.</p>
+      </section>
+
+      <!-- HISTORY: decided requests -->
+      <section class="panel" aria-labelledby="history-h">
+        <div class="panel-head">
+          <h2 id="history-h">Decided</h2>
+          <p class="mono">status IN ('approved','rejected','completed')</p>
+        </div>
+        <div class="table-wrap">
+          <table class="reflow" id="history-table">
+            <thead>
+              <tr>
+                <th scope="col">Request</th>
+                <th scope="col">Requested by</th>
+                <th scope="col">Status<span class="col">status</span></th>
+                <th scope="col">Decided by<span class="col">decided_by</span></th>
+                <th scope="col" class="num">Decided<span class="col">decided_at</span></th>
+                <th scope="col">Remarks<span class="col">remarks</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td data-label="Request" class="num">#1011</td><td data-label="Requested by">Ana Lim</td><td data-label="Status"><span class="status"><span class="ico" aria-hidden="true">✓</span>Approved</span></td><td data-label="Decided by">Paolo Reyes</td><td data-label="Decided" class="num"><time datetime="2026-11-21T14:10" data-format="datetime">21 Nov, 2:10 PM</time></td><td data-label="Remarks" class="muted">—</td></tr>
+              <tr><td data-label="Request" class="num">#1010</td><td data-label="Requested by">Mika Santos</td><td data-label="Status"><span class="status"><span class="ico" aria-hidden="true">✓</span>Approved</span></td><td data-label="Decided by">Ana Lim</td><td data-label="Decided" class="num"><time datetime="2026-11-20T13:20" data-format="datetime">20 Nov, 1:20 PM</time></td><td data-label="Remarks" class="muted">—</td></tr>
+              <tr><td data-label="Request" class="num">#1009</td><td data-label="Requested by">Jun Bautista</td><td data-label="Status"><span class="status"><span class="ico" aria-hidden="true">✓</span>Approved</span></td><td data-label="Decided by">Paolo Reyes</td><td data-label="Decided" class="num"><time datetime="2026-11-18T15:45" data-format="datetime">18 Nov, 3:45 PM</time></td><td data-label="Remarks" class="muted">—</td></tr>
+              <tr><td data-label="Request" class="num">#1007</td><td data-label="Requested by">Carla Mendoza</td><td data-label="Status"><span class="status done"><span class="ico" aria-hidden="true">✕</span>Rejected</span></td><td data-label="Decided by">Ana Lim</td><td data-label="Decided" class="num"><time datetime="2026-11-17T10:00" data-format="datetime">17 Nov, 10:00 AM</time></td><td data-label="Remarks">Angle grinder already out. Request again on Friday.</td></tr>
+              <tr><td data-label="Request" class="num">#1005</td><td data-label="Requested by">Mika Santos</td><td data-label="Status"><span class="status done"><span class="ico" aria-hidden="true">✓</span>Completed</span></td><td data-label="Decided by">Rafael Cruz</td><td data-label="Decided" class="num"><time datetime="2026-11-12T09:30" data-format="datetime">12 Nov, 9:30 AM</time></td><td data-label="Remarks" class="muted">—</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- NEW REQUEST -->
+      <section class="panel" aria-labelledby="new-h">
+        <div class="panel-head">
+          <h2 id="new-h">New Request</h2>
+          <p class="mono">INSERT INTO item_request …; INSERT INTO request_line …</p>
+        </div>
+        <form id="request-form" novalidate data-guard>
+          <div class="field narrow">
+            <label for="n-member">Requested by <span class="col">requested_by</span></label>
+            <select id="n-member" name="requested_by" required aria-describedby="n-member-hint">
+              <option value="">Choose a member</option>
+              <option value="1">Mika Santos</option>
+              <option value="2">Paolo Reyes</option>
+              <option value="3">Ana Lim</option>
+              <option value="4">Jun Bautista</option>
+              <option value="6">Rafael Cruz</option>
+            </select>
+            <p class="hint" id="n-member-hint">Only active members can request. Visitors and inactive members are not listed.</p>
+            <p class="error" id="n-member-err" hidden>Choose who is borrowing.</p>
+          </div>
+
+          <div id="lines"></div>
+
+          <template id="line-template">
+            <fieldset class="line-row">
+              <legend class="visually-hidden">Item line</legend>
+              <div class="field">
+                <label>Item <span class="col">item_id</span></label>
+                <select name="item_id" required>
+                  <option value="">Choose an item</option>
+                  <optgroup label="Tools (returned, need a due date)">
+                    <option value="1">Cordless drill (1 available)</option>
+                    <option value="2">Digital multimeter (1 available)</option>
+                    <option value="3">Soldering iron 60 W (3 available)</option>
+                    <option value="4">Vernier caliper (2 available)</option>
+                    <option value="5">Socket wrench set (1 available)</option>
+                    <option value="6">Angle grinder (0 available)</option>
+                    <option value="7">Oscilloscope (1 available)</option>
+                  </optgroup>
+                  <optgroup label="Consumables (used up, no due date)">
+                    <option value="8">Solder wire 0.8 mm (3 available)</option>
+                    <option value="9">Flux paste (5 available)</option>
+                    <option value="10">Cutting disc 4 in (4 available)</option>
+                    <option value="11">Heat-shrink tubing pack (9 available)</option>
+                    <option value="12">Hacksaw blade (11 available)</option>
+                  </optgroup>
+                </select>
+              </div>
+              <div class="field">
+                <label>Quantity <span class="col">quantity</span></label>
+                <input name="quantity" type="number" inputmode="numeric" min="1" step="1" value="1" autocomplete="off" required>
+              </div>
+              <div class="field due-field">
+                <label>Due date <span class="col">due_date</span></label>
+                <input name="due_date" type="date" autocomplete="off" min="2026-11-23">
+                <p class="hint due-hint">Pick an item first.</p>
+              </div>
+              <button class="btn btn-quiet remove-line" type="button">Remove</button>
+              <p class="error line-err" hidden></p>
+            </fieldset>
+          </template>
+
+          <div class="actions">
+            <button class="btn" type="button" id="add-line">Add Another Item</button>
+            <button class="btn btn-primary" type="submit">Submit Request</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Confirm dialog used for Approve and Reject -->
+      <dialog id="decide-dialog" aria-labelledby="decide-title">
+        <form method="dialog" id="decide-form">
+          <h2 id="decide-title">Approve Request</h2>
+          <div id="decide-body"></div>
+          <div class="field" id="remarks-field" hidden>
+            <label for="d-remarks">Reason for rejecting <span class="col">remarks</span></label>
+            <textarea id="d-remarks" name="remarks" maxlength="255" autocomplete="off" placeholder="e.g. Multimeters are all out until Friday…"></textarea>
+            <p class="hint">The member sees this, so say what to do next.</p>
+          </div>
+          <div class="actions">
+            <button class="btn" type="button" value="cancel" id="decide-cancel">Cancel</button>
+            <button class="btn btn-primary" type="submit" value="ok" id="decide-ok">Approve</button>
+          </div>
+        </form>
+      </dialog>
+    </main>
+  </div>
+
+  <div class="toast-region" id="toast-region" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>

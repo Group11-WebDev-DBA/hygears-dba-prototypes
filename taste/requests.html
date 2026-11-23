@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Requests | Hygears HQ System</title>
+  <meta name="description" content="Borrowing requests at the Hygears HQ: approve or reject, open loans, overdue tools, returns.">
+  <link rel="icon" href="../assets/hygears-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="requests">
+<a class="skip" href="#main">Skip to content</a>
+<!-- Shared header: becomes header.php in the PHP rebuild -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="dashboard.html"><img src="../assets/hygears-logo.png" alt="Hygears" width="36" height="36"><span>HQ System<small>Logbook and inventory</small></span></a>
+    <span class="sample-tag">Sample data</span>
+    <p class="who">Signed in as <strong>Paolo Reyes</strong><br>Officer</p>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+<nav class="nav" id="nav" aria-label="Main">
+  <ul>
+      <li><a href="index.html">Door kiosk</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="attendance.html">Attendance</a></li>
+      <li><a href="people.html">People</a></li>
+      <li><a href="items.html">Inventory</a></li>
+      <li><a href="requests.html" aria-current="page">Requests <span class="count">3<span class="visually-hidden"> pending</span></span></a></li>
+      <li><a href="reports.html">Reports</a></li>
+      <li><a href="settings.html">Settings</a></li>
+  </ul>
+</nav>
+
+<main id="main">
+  <div class="page-head">
+    <div>
+      <h1>Borrowing requests</h1>
+      <p>Members ask, an officer decides, tools come back. Approving checks the stock first.</p>
+    </div>
+    <a class="btn" href="#new">Write a new request</a>
+  </div>
+
+  <!-- Pending: item_request WHERE status = 'pending', lines joined to v_item_stock -->
+  <section class="panel" id="pending" aria-labelledby="pending-title">
+    <div class="panel-head">
+      <h2 id="pending-title">Pending (<span id="pending-count">3</span>)</h2>
+      <span class="source">item_request, request_line, v_item_stock</span>
+    </div>
+
+    <article class="req" data-request="1018" data-requester="Jun Bautista" data-own="0">
+      <div class="req-head">
+        <h3>Request <span class="mono">#1018</span> &middot; Jun Bautista</h3>
+        <span class="status status-wait">Pending</span>
+      </div>
+      <p class="hint">Requested 23 Nov 2026, <span class="mono">08:55</span></p>
+      <ul class="lines">
+        <li data-item="6" data-name="Digital multimeter" data-type="tool" data-qty="2" data-available="1" data-due="25 Nov">
+          <span>Digital multimeter &times;2 <span class="sub">Tool, due 25 Nov</span></span>
+          <span class="stock">1 available</span>
+        </li>
+        <li data-item="10" data-name="Solder wire 0.8 mm spool" data-type="consumable" data-qty="1" data-available="1">
+          <span>Solder wire 0.8 mm spool &times;1 <span class="sub">Consumable, no due date</span></span>
+          <span class="stock">1 available</span>
+        </li>
+      </ul>
+      <div class="req-msg" aria-live="polite"></div>
+      <div class="actions req-actions">
+        <button class="btn btn-primary" type="button" data-action="approve">Approve</button>
+        <button class="btn" type="button" data-action="reject">Reject</button>
+      </div>
+    </article>
+
+    <article class="req" data-request="1017" data-requester="Mika Santos" data-own="0">
+      <div class="req-head">
+        <h3>Request <span class="mono">#1017</span> &middot; Mika Santos</h3>
+        <span class="status status-wait">Pending</span>
+      </div>
+      <p class="hint">Requested 23 Nov 2026, <span class="mono">08:40</span></p>
+      <ul class="lines">
+        <li data-item="7" data-name="Vernier caliper" data-type="tool" data-qty="1" data-available="2" data-due="24 Nov">
+          <span>Vernier caliper &times;1 <span class="sub">Tool, due 24 Nov</span></span>
+          <span class="stock">2 available</span>
+        </li>
+        <li data-item="9" data-name="Sandpaper sheet 120 grit" data-type="consumable" data-qty="5" data-available="32">
+          <span>Sandpaper sheet 120 grit &times;5 <span class="sub">Consumable, no due date</span></span>
+          <span class="stock">32 available</span>
+        </li>
+      </ul>
+      <div class="req-msg" aria-live="polite"></div>
+      <div class="actions req-actions">
+        <button class="btn btn-primary" type="button" data-action="approve">Approve</button>
+        <button class="btn" type="button" data-action="reject">Reject</button>
+      </div>
+    </article>
+
+    <article class="req" data-request="1016" data-requester="Paolo Reyes" data-own="1">
+      <div class="req-head">
+        <h3>Request <span class="mono">#1016</span> &middot; Paolo Reyes (you)</h3>
+        <span class="status status-wait">Pending</span>
+      </div>
+      <p class="hint">Requested 22 Nov 2026, <span class="mono">16:10</span></p>
+      <ul class="lines">
+        <li data-item="1" data-name="Torque wrench set" data-type="tool" data-qty="1" data-available="1" data-due="26 Nov">
+          <span>Torque wrench set &times;1 <span class="sub">Tool, due 26 Nov</span></span>
+          <span class="stock">1 available</span>
+        </li>
+      </ul>
+      <div class="msg">
+        <p><strong>This is your own request.</strong> Another officer, the president or the adviser has to decide it. Nobody approves their own request.</p>
+      </div>
+    </article>
+  </section>
+
+  <!-- Open loans: the v_open_loans view -->
+  <section class="panel" id="loans" aria-labelledby="loans-title">
+    <div class="panel-head">
+      <h2 id="loans-title">Tools out on loan (<span id="loan-count">5</span>)</h2>
+      <span class="source">v_open_loans, overdue first</span>
+    </div>
+    <table class="rtable" id="loan-table">
+      <thead>
+        <tr>
+          <th scope="col">Request</th>
+          <th scope="col">Tool</th>
+          <th scope="col">Borrower</th>
+          <th scope="col">Due</th>
+          <th scope="col">Status</th>
+          <th scope="col"><span class="visually-hidden">Action</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="flag" data-line="2041" data-item="3" data-qty="1">
+          <td class="id" data-label="request_id">#1015</td>
+          <td class="lead" data-label="Tool">Cordless drill &times;1</td>
+          <td data-label="Borrower">Mika Santos <span class="sub mono">0900-000-0001</span></td>
+          <td class="mono" data-label="due_date">21 Nov</td>
+          <td data-label="is_overdue"><span class="status status-alert">Overdue 2 days</span></td>
+          <td class="act"><button class="btn" type="button" data-action="return">Mark returned</button></td>
+        </tr>
+        <tr class="flag" data-line="2038" data-item="1" data-qty="1">
+          <td class="id" data-label="request_id">#1013</td>
+          <td class="lead" data-label="Tool">Torque wrench set &times;1</td>
+          <td data-label="Borrower">Andrea Cruz <span class="sub mono">0900-000-0003</span></td>
+          <td class="mono" data-label="due_date">22 Nov</td>
+          <td data-label="is_overdue"><span class="status status-alert">Overdue 1 day</span></td>
+          <td class="act"><button class="btn" type="button" data-action="return">Mark returned</button></td>
+        </tr>
+        <tr data-line="2039" data-item="3" data-qty="1">
+          <td class="id" data-label="request_id">#1014</td>
+          <td class="lead" data-label="Tool">Cordless drill &times;1</td>
+          <td data-label="Borrower">Jun Bautista <span class="sub mono">0900-000-0004</span></td>
+          <td class="mono" data-label="due_date">24 Nov</td>
+          <td data-label="is_overdue"><span class="status status-ok">Due tomorrow</span></td>
+          <td class="act"><button class="btn" type="button" data-action="return">Mark returned</button></td>
+        </tr>
+        <tr data-line="2040" data-item="6" data-qty="2">
+          <td class="id" data-label="request_id">#1014</td>
+          <td class="lead" data-label="Tool">Digital multimeter &times;2</td>
+          <td data-label="Borrower">Jun Bautista <span class="sub mono">0900-000-0004</span></td>
+          <td class="mono" data-label="due_date">24 Nov</td>
+          <td data-label="is_overdue"><span class="status status-ok">Due tomorrow</span></td>
+          <td class="act"><button class="btn" type="button" data-action="return">Mark returned</button></td>
+        </tr>
+        <tr data-line="2037" data-item="2" data-qty="1">
+          <td class="id" data-label="request_id">#1013</td>
+          <td class="lead" data-label="Tool">Hex key set &times;1</td>
+          <td data-label="Borrower">Andrea Cruz <span class="sub mono">0900-000-0003</span></td>
+          <td class="mono" data-label="due_date">28 Nov</td>
+          <td data-label="is_overdue"><span class="status status-ok">On time</span></td>
+          <td class="act"><button class="btn" type="button" data-action="return">Mark returned</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="cols">
+    <!-- INSERT INTO item_request + request_line -->
+    <section class="panel" id="new" aria-labelledby="new-title">
+      <div class="panel-head"><h2 id="new-title">New request</h2><span class="source">INSERT INTO item_request, request_line</span></div>
+      <form class="form" id="request-form" novalidate>
+        <div class="field">
+          <label for="rq-member">Requested by <span class="col">requested_by</span></label>
+          <select id="rq-member" name="requested_by" aria-describedby="rq-member-hint rq-member-msg">
+            <option value="">Choose a member</option>
+            <option value="3">Andrea Cruz</option>
+            <option value="4">Jun Bautista</option>
+            <option value="5">Bea Lim</option>
+            <option value="2">Paolo Reyes</option>
+            <option value="1">Mika Santos</option>
+          </select>
+          <p class="hint" id="rq-member-hint">Active members only. Visitors can use tools inside the HQ but cannot borrow.</p>
+          <div id="rq-member-msg"></div>
+        </div>
+
+        <div id="lines">
+          <div class="line-row">
+            <div class="field">
+              <label for="rl-item-1">Item <span class="col">item_id</span></label>
+              <select id="rl-item-1" name="item_id" class="rl-item">
+                <option value="">Choose an item</option>
+                <optgroup label="Tools (returned by a due date)">
+                  <option value="1" data-type="tool" data-available="1">Torque wrench set (1 available)</option>
+                  <option value="2" data-type="tool" data-available="3">Hex key set (3 available)</option>
+                  <option value="3" data-type="tool" data-available="0">Cordless drill (0 available)</option>
+                  <option value="5" data-type="tool" data-available="1">Bench power supply (1 available)</option>
+                  <option value="12" data-type="tool" data-available="3">Soldering iron 60 W (3 available)</option>
+                  <option value="6" data-type="tool" data-available="1">Digital multimeter (1 available)</option>
+                  <option value="7" data-type="tool" data-available="2">Vernier caliper (2 available)</option>
+                </optgroup>
+                <optgroup label="Consumables (used up, not returned)">
+                  <option value="8" data-type="consumable" data-available="6">Cutting disc 4 in (6 available)</option>
+                  <option value="9" data-type="consumable" data-available="32">Sandpaper sheet 120 grit (32 available)</option>
+                  <option value="10" data-type="consumable" data-available="1">Solder wire 0.8 mm spool (1 available)</option>
+                  <option value="11" data-type="consumable" data-available="2">Flux paste tub (2 available)</option>
+                </optgroup>
+              </select>
+            </div>
+            <div class="field">
+              <label for="rl-qty-1">Quantity <span class="col">quantity</span></label>
+              <input id="rl-qty-1" name="quantity" class="rl-qty" type="number" min="1" step="1" value="1" inputmode="numeric">
+            </div>
+            <div class="field">
+              <label for="rl-due-1">Due date <span class="col">due_date</span></label>
+              <input id="rl-due-1" name="due_date" class="rl-due" type="date" min="2026-11-23">
+            </div>
+            <button class="btn btn-quiet rl-remove" type="button" data-action="remove-line">Remove</button>
+            <div class="rl-msg" aria-live="polite" style="grid-column:1/-1"></div>
+          </div>
+        </div>
+        <p class="hint">Tools need a due date. Consumables have none: the date box turns off for them.</p>
+        <div class="actions">
+          <button class="btn" type="button" data-action="add-line">Add another item</button>
+          <button class="btn btn-primary" type="submit">Send request</button>
+        </div>
+        <div id="request-result" aria-live="polite"></div>
+      </form>
+    </section>
+
+    <!-- Decided requests: status approved/completed/rejected -->
+    <section class="panel" id="history" aria-labelledby="hist-title">
+      <div class="panel-head"><h2 id="hist-title">Decided recently</h2><span class="source">item_request, status &lt;&gt; 'pending'</span></div>
+      <table class="rtable">
+        <thead><tr><th scope="col">Request</th><th scope="col">By</th><th scope="col">Decided by</th><th scope="col">Status</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="id" data-label="request_id">#1015</td>
+            <td class="lead" data-label="requested_by">Mika Santos<span class="sub">Cordless drill &times;1</span></td>
+            <td data-label="decided_by">Paolo Reyes <span class="sub mono">20 Nov 10:12</span></td>
+            <td data-label="status"><span class="status status-ok">Approved</span></td>
+          </tr>
+          <tr>
+            <td class="id" data-label="request_id">#1014</td>
+            <td class="lead" data-label="requested_by">Jun Bautista<span class="sub">Cordless drill &times;1, Digital multimeter &times;2</span></td>
+            <td data-label="decided_by">Andrea Cruz <span class="sub mono">19 Nov 14:30</span></td>
+            <td data-label="status"><span class="status status-ok">Approved</span></td>
+          </tr>
+          <tr>
+            <td class="id" data-label="request_id">#1013</td>
+            <td class="lead" data-label="requested_by">Andrea Cruz<span class="sub">Torque wrench set &times;1, Hex key set &times;1</span></td>
+            <td data-label="decided_by">Bea Lim <span class="sub mono">21 Nov 09:05</span></td>
+            <td data-label="status"><span class="status status-ok">Approved</span></td>
+          </tr>
+          <tr>
+            <td class="id" data-label="request_id">#1012</td>
+            <td class="lead" data-label="requested_by">Mika Santos<span class="sub">Soldering iron 60 W &times;1, Flux paste tub &times;1</span></td>
+            <td data-label="decided_by">Paolo Reyes <span class="sub mono">17 Nov 13:40</span></td>
+            <td data-label="status"><span class="status status-done">Completed, returned 18 Nov</span></td>
+          </tr>
+          <tr>
+            <td class="id" data-label="request_id">#1011</td>
+            <td class="lead" data-label="requested_by">Lara Mendoza<span class="sub">Angle grinder &times;1</span></td>
+            <td data-label="decided_by">Andrea Cruz <span class="sub mono">16 Nov 11:00</span></td>
+            <td data-label="status"><span class="status status-off">Rejected: grinder under repair</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+</main>
+
+<!-- Shared footer: becomes footer.php -->
+<footer class="foot">
+  <p>Hygears HQ System &middot; Engineering Innovation &bull; Research &bull; Technology &bull; Leadership &middot; Prototype with sample data, database <code>hygears_db</code></p>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>

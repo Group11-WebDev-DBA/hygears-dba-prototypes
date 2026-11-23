@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Door kiosk | Hygears HQ System</title>
+  <link rel="icon" href="../assets/hygears-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="dashboard.html"><img src="../assets/hygears-logo.png" alt="" width="36" height="36">Hygears HQ</a>
+    <button class="btn menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <a href="index.html" aria-current="page">Door</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="attendance.html">Attendance</a>
+      <a href="people.html">People</a>
+      <a href="items.html">Items</a>
+      <a href="requests.html">Requests</a>
+      <a href="reports.html">Reports</a>
+      <a href="settings.html">Settings</a>
+    </nav>
+    <p class="user"><strong>Paolo Santos</strong>Officer</p>
+  </div>
+</header>
+<main id="main">
+  <section class="titleblock titleblock-door" aria-label="Page">
+    <div class="tb-title">
+      <h1>HQ door</h1>
+      <p>Sign in when you come in. Sign out on the list when you leave.</p>
+    </div>
+    <dl class="tb-cells">
+      <div><dt>Writes</dt><dd>attendance, person</dd></div>
+      <div><dt>Today</dt><dd>Mon 23 Nov 2026</dd></div>
+      <div><dt>Sheet</dt><dd>01 / 08</dd></div>
+    </dl>
+  </section>
+
+  <nav class="kiosk-switch" aria-label="Kiosk">
+    <a href="#sign-in">Sign in</a>
+    <a href="#inside">Sign out (<span data-inside-count>4</span> inside)</a>
+  </nav>
+
+  <div class="kiosk">
+    <!-- Sign in: one attendance row (person_id, purpose_id, time_in = NOW()) -->
+    <section class="panel" id="sign-in" aria-labelledby="sign-in-title">
+      <div class="panel-head"><h2 id="sign-in-title">Sign in</h2></div>
+      <div class="panel-body">
+        <div id="kiosk-msg" class="msg" role="status" aria-live="polite" tabindex="-1" hidden></div>
+        <form id="sign-in-form" novalidate>
+          <fieldset>
+            <legend class="label">Who are you?</legend>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="who" value="student" id="who-student" checked><span>PUP student or member<small>I have a student number</small></span></label>
+              <label class="choice"><input type="radio" name="who" value="visitor" id="who-visitor"><span>Visitor<small>No PUP student number</small></span></label>
+            </div>
+          </fieldset>
+
+          <div id="member-fields">
+            <div class="field">
+              <label for="student_id">Student number</label>
+              <input class="big-input" type="text" id="student_id" name="student_id" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="2023-00141-MN-0" aria-describedby="student_id-hint student_id-error">
+              <span class="hint" id="student_id-hint">As printed on your PUP ID. Try 2023-00141-MN-0 (sample).</span>
+              <span class="error" id="student_id-error" hidden></span>
+              <p class="found tag tag-ok" id="found" aria-live="polite" hidden></p>
+            </div>
+            <!-- shown only for a student number we have never seen: a new person row -->
+            <div id="new-person" class="form-grid" hidden>
+              <p class="wide hint">First time here. Add your name and number once.</p>
+              <div class="field"><label for="n_first_name">First name</label><input type="text" id="n_first_name" autocomplete="given-name" aria-describedby="n_first_name-error"><span class="error" id="n_first_name-error" hidden></span></div>
+              <div class="field"><label for="n_last_name">Last name</label><input type="text" id="n_last_name" autocomplete="family-name" aria-describedby="n_last_name-error"><span class="error" id="n_last_name-error" hidden></span></div>
+              <div class="field wide"><label for="n_contact_number">Contact number</label><input type="tel" id="n_contact_number" autocomplete="tel" placeholder="09XX XXX XXXX" aria-describedby="n_contact_number-error"><span class="error" id="n_contact_number-error" hidden></span></div>
+            </div>
+          </div>
+
+          <!-- Visitor: person row with student_id NULL; visitors can't be members -->
+          <div id="visitor-fields" class="form-grid" hidden>
+            <div class="field"><label for="v_first_name">First name</label><input type="text" id="v_first_name" autocomplete="given-name" aria-describedby="v_first_name-error"><span class="error" id="v_first_name-error" hidden></span></div>
+            <div class="field"><label for="v_last_name">Last name</label><input type="text" id="v_last_name" autocomplete="family-name" aria-describedby="v_last_name-error"><span class="error" id="v_last_name-error" hidden></span></div>
+            <div class="field"><label for="v_contact_number">Contact number</label><input type="tel" id="v_contact_number" autocomplete="tel" placeholder="09XX XXX XXXX" aria-describedby="v_contact_number-error"><span class="error" id="v_contact_number-error" hidden></span></div>
+            <div class="field"><label for="v_affiliation">School or organization</label><input type="text" id="v_affiliation" placeholder="e.g. TUP Manila" aria-describedby="v_affiliation-hint v_affiliation-error"><span class="hint" id="v_affiliation-hint">Saved as affiliation.</span><span class="error" id="v_affiliation-error" hidden></span></div>
+          </div>
+
+          <fieldset>
+            <legend class="label">Why are you here?</legend>
+            <div class="choices choices-3" id="purpose-choices">
+              <label class="choice"><input type="radio" name="purpose_id" value="1" data-name="Meeting"><span>Meeting</span></label>
+              <label class="choice"><input type="radio" name="purpose_id" value="2" data-name="Project work"><span>Project work</span></label>
+              <label class="choice"><input type="radio" name="purpose_id" value="3" data-name="Workshop"><span>Workshop</span></label>
+              <label class="choice"><input type="radio" name="purpose_id" value="4" data-name="Tool use"><span>Tool use</span></label>
+              <label class="choice"><input type="radio" name="purpose_id" value="5" data-name="Study"><span>Study</span></label>
+              <label class="choice"><input type="radio" name="purpose_id" value="6" data-name="Visit"><span>Visit</span></label>
+            </div>
+            <span class="error" id="purpose-error" hidden>Pick a purpose.</span>
+          </fieldset>
+
+          <button class="btn btn-primary btn-big" type="submit">Sign in</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Who is inside: attendance rows where time_out IS NULL -->
+    <section class="panel" id="inside" aria-labelledby="inside-title">
+      <div class="count-block">
+        <span class="figure" data-inside-count>4</span>
+        <div><h2 id="inside-title">In the HQ now</h2><p>Tap your name's Sign out when you leave.</p></div>
+      </div>
+      <div class="search">
+        <label class="label" for="find-name">Find your name</label>
+        <input type="search" id="find-name" autocomplete="off" placeholder="Type part of your name">
+      </div>
+      <div id="signout-msg" class="msg msg-inset" role="status" aria-live="polite" hidden></div>
+      <ul class="inside-list" id="inside-list">
+        <li data-name="nico ferrer" data-sid="2025-01234-MN-0"><div><span class="who">Nico Ferrer</span><span class="sub">PUP student, not a member, Study, in since 09:20</span></div><button class="btn" type="button" data-signout>Sign out<span class="visually-hidden"> Nico Ferrer</span></button></li>
+        <li data-name="lara gomez"><div><span class="who">Lara Gomez</span><span class="sub">Visitor, TUP Manila, Workshop, in since 09:02</span></div><button class="btn" type="button" data-signout>Sign out<span class="visually-hidden"> Lara Gomez</span></button></li>
+        <li data-name="carlo mendoza" data-sid="2024-00088-MN-0"><div><span class="who">Carlo Mendoza</span><span class="sub">Member, Tool use, in since 08:30</span></div><button class="btn" type="button" data-signout>Sign out<span class="visually-hidden"> Carlo Mendoza</span></button></li>
+        <li data-name="mika reyes" data-sid="2023-00141-MN-0"><div><span class="who">Mika Reyes</span><span class="sub">Member, Project work, in since 08:15</span></div><button class="btn" type="button" data-signout>Sign out<span class="visually-hidden"> Mika Reyes</span></button></li>
+      </ul>
+      <p class="empty" id="inside-empty" hidden>Nobody matches. Everyone inside is listed here until they sign out.</p>
+    </section>
+  </div>
+</main>
+<footer class="site-foot">
+  <p>Hygears HQ System prototype for Database Administration, Group 11. Every name, number and record here is sample data.</p>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>

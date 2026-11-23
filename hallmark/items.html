@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Items | Hygears HQ System</title>
+  <link rel="icon" href="../assets/hygears-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="dashboard.html"><img src="../assets/hygears-logo.png" alt="" width="36" height="36">Hygears HQ</a>
+    <button class="btn menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <a href="index.html">Door</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="attendance.html">Attendance</a>
+      <a href="people.html">People</a>
+      <a href="items.html" aria-current="page">Items</a>
+      <a href="requests.html">Requests</a>
+      <a href="reports.html">Reports</a>
+      <a href="settings.html">Settings</a>
+    </nav>
+    <p class="user"><strong>Paolo Santos</strong>Officer</p>
+  </div>
+</header>
+<main id="main">
+  <section class="titleblock" aria-label="Page">
+    <div class="tb-title">
+      <h1>Items</h1>
+      <p>Tools are lent and returned. Consumables are used up and restocked.</p>
+    </div>
+    <dl class="tb-cells">
+      <div><dt>Tables</dt><dd>item, category, restock</dd></div>
+      <div><dt>Views</dt><dd>v_item_stock, v_low_stock</dd></div>
+      <div><dt>Sheet</dt><dd>05 / 08</dd></div>
+    </dl>
+  </section>
+
+  <section class="panel" aria-labelledby="inv-title">
+    <div class="panel-head"><h2 id="inv-title">Inventory</h2><p class="hint">quantity_available comes from v_item_stock</p></div>
+    <form class="filters" data-filters="items-table" aria-label="Filter items" onsubmit="return false">
+      <div class="field"><label for="i-search">Search</label><input type="search" id="i-search" data-filter="search" placeholder="Item name"></div>
+      <div class="field"><label for="i-cat">Category</label>
+        <select id="i-cat" data-filter="category">
+          <option value="">All categories</option>
+          <option value="1">Hand tools</option><option value="2">Power tools</option><option value="3">Electronics</option>
+          <option value="4">Measuring instruments</option><option value="5">Cutting consumables</option><option value="6">Soldering consumables</option>
+        </select></div>
+      <div class="field"><label for="i-type">item_type</label>
+        <select id="i-type" data-filter="type"><option value="">Tools and consumables</option><option value="tool">Tools</option><option value="consumable">Consumables</option></select></div>
+      <label class="check"><input type="checkbox" data-filter="low"> Low stock only</label>
+    </form>
+    <table class="stack" id="items-table">
+      <thead><tr>
+        <th scope="col">item_id</th><th scope="col">Name</th><th scope="col">item_type</th>
+        <th scope="col" class="num">quantity_total</th><th scope="col" class="num">quantity_available</th><th scope="col" class="num">reorder_level</th>
+        <th scope="col">Stock</th><th scope="col"><span class="visually-hidden">Actions</span></th>
+      </tr></thead>
+      <tbody>
+        <tr data-id="8" data-name-raw="Solder wire 0.8 mm" data-search="solder wire 0.8 mm" data-category="6" data-type="consumable" data-total="10" data-available="2" data-reorder="3" data-active="1" data-low="yes" class="row-alert">
+          <td data-label="item_id" class="id">8</td><td data-label="Name"><strong>Solder wire 0.8 mm</strong><span class="sub">Soldering consumables, rolls</span></td><td data-label="item_type">consumable</td><td data-label="quantity_total" class="num">10</td><td data-label="quantity_available" class="num avail">2</td><td data-label="reorder_level" class="num">3</td><td data-label="Stock" class="stock-cell"><span class="tag tag-alert">Low stock</span></td><td class="actions"><button class="btn" type="button" data-edit>Edit<span class="visually-hidden"> Solder wire 0.8 mm</span></button></td></tr>
+        <tr data-id="10" data-name-raw="Cutting disc 4 in" data-search="cutting disc 4 in" data-category="5" data-type="consumable" data-total="12" data-available="3" data-reorder="5" data-active="1" data-low="yes" class="row-alert">
+          <td data-label="item_id" class="id">10</td><td data-label="Name"><strong>Cutting disc 4 in</strong><span class="sub">Cutting consumables, pieces</span></td><td data-label="item_type">consumable</td><td data-label="quantity_total" class="num">12</td><td data-label="quantity_available" class="num avail">3</td><td data-label="reorder_level" class="num">5</td><td data-label="Stock" class="stock-cell"><span class="tag tag-alert">Low stock</span></td><td class="actions"><button class="btn" type="button" data-edit>Edit<span class="visually-hidden"> Cutting disc 4 in</span></button></td></tr>
+        <tr data-id="9" data-name-raw="Flux paste" data-search="flux paste" data-category="6" data-type="consumable" data-total="8" data-available="6" data-reorder="2" data-active="1" data-low="no">
+          <td data-label="item_id" class="id">9</td><td data-label="Name"><strong>Flux paste</strong><span class="sub">Soldering consumables, tubs</span></td><td data-label="item_type">consumable</td><td data-label="quantity_total" class="num">8</td><td data-label="quantity_available" class="num avail">6</td><td data-label="reorder_level" class="num">2</td><td data-label="Stock" class="stock-cell"><span class="tag tag-ok">OK</span></td><td class="actions"><button class="btn" type="button" data-edit>Edit<span class="visually-hidden"> Flux paste</span></button></td></tr>
+        <tr data-id="11" data-name-raw="Heat shrink tubing pack" data-search="heat shrink tubing pack" data-category="6" data-type="consumable" data-total="15" data-available="12" data-reorder="4" data-active="1" data-low="no">
+          <td data-label="item_id" class="id">11</td><td data-label="Name"><strong>Heat shrink tubing pack</strong><span class="sub">Soldering consumables, packs</span></td><td data-label="item_type">consumable</td><td data-label="quantity_total" class="num">15</td><td data-label="quantity_available" class="num avail">12</td><td data-label="reorder_level" class="num">4</td><td data-label="Stock" class="stock-cell"><span class="tag tag-ok">OK</span></td><td class="actions"><button class="btn" type="button" data-edit>Edit<span class="visually-hidden"> Heat shrink tubing pack</span></button></td></tr>
+        <tr data-id="12" data-name-raw="Hacksaw blade" data-search="hacksaw blade" data-category="5" data-type="consumable" data-total="10" data-available="8" data-reorder="4" data-active="1" data-low="no">
+          <td data-label="item_id" class="id">12</td><td data-label="Name"><strong>Hacksaw blade</strong><span class="sub">Cutting consumables, pieces</span></td><td data-label="item_type">consumable</td><td data-label="quantity_total" class="num">10</td><td data-label="quantity_available" class="num avail">8</td><td data-label="reorder_level" class="num">4</td><td data-label="Stock" class="stock-cell"><span class="tag tag-ok">OK</span></td><td class="actions"><button class="btn" type="button" data-edit>Edit<span class="visually-hidden"> Hacksaw blade</span></button></td></tr>
+        <tr data-id="4" data-name-raw="Torque wrench" data-search="torque wrench" data-category="1" data-type="tool" data-total="1" data-available="0" data-reorder="" data-active="1" data-low="no">
+          <td data-label="item_id" class="id">4</td><td data-label="Name"><strong>Torque wrench</strong><span class="sub">Hand tools</span></td><td data-label="item_type">tool</td><td data-label="quantity_total" class="num">1</td><td data-label="quantity_available" class="num avail">0</td><td data-label="reorder_level" class="num">-</td><td data-label="Stock" class="stock-cell"><span class="tag tag-wait">All out on loan</span></td><td class="actions"><button class="btn" type="button" data-edit>Edit<span class="visually-hidden"> Torque wrench</span></button></td></tr>
+        <tr data-id="1" data-name-raw="Cordless drill" data-search="cordless drill" data-category="2" data-type="tool" data-total="2" data-available="1" data-reorder="" data-active="1" data-low="no">
+          <td data-label="item_id" class="id">1</td><td data-label="Name"><strong>Cordless drill</strong><span class="sub">Power tools</span></td><td data-label="item_type">tool</td><td data-label="quantity_total" class="num">2</td><td data-label="quantity_available" class="num avail">1</td><td data-label="reorder_level" class="num">-</td><td data-label="Stock" class="stock-cell"><span class="tag tag-ok">1 on loan</span></td><td class="actions"><button class="btn" type="button" data-edit>Edit<span class="visually-hidden"> Cordless drill</span></button></td></tr>
+        <tr data-id="2" data-name-raw="Digital multimeter" data-search="digital multimeter" data-category="4" data-type="tool" data-total="4" data-available="2" data-reorder="" data-active="1" data-low="no">
+          <td data-label="item_id" class="id">2</td><td data-label="Name"><strong>Digital multimeter</strong><span class="sub">Measuring instruments</span></td><td data-label="item_type">tool</td><td data-label="quantity_total" class="num">4</td><td data-label="quantity_available" class="num avail">2</td><td data-label="reorder_level" class="num">-</td><td data-label="Stock" class="stock-cell"><span class="tag tag-ok">2 on loan</span></td><td class="actions"><button class="btn" type="button" data-edit>Edit<span class="visually-hidden"> Digital multimeter</span></button></td></tr>
+        <tr data-id="3" data-name-raw="Soldering station" data-search="soldering station" data-category="3" data-type="tool" data-total="3" data-available="3" data-reorder="" data-active="1" data-low="no">
+          <td data-label="item_id" class="id">3</td><td data-label="Name"><strong>Soldering station</strong><span class="sub">Electronics</span></td><td data-label="item_type">tool</td><td data-label="quantity_total" class="num">3</td><td data-label="quantity_available" class="num avail">3</td><td data-label="reorder_level" class="num">-</td><td data-label="Stock" class="stock-cell"><span class="tag tag-ok">All in</span></td><td class="actions"><button class="btn" type="button" data-edit>Edit<span class="visually-hidden"> Soldering station</span></button></td></tr>
+        <tr data-id="5" data-name-raw="Vernier caliper" data-search="vernier caliper" data-category="4" data-type="tool" data-total="3" data-available="3" data-reorder="" data-active="1" data-low="no">
+          <td data-label="item_id" class="id">5</td><td data-label="Name"><strong>Vernier caliper</strong><span class="sub">Measuring instruments</span></td><td data-label="item_type">tool</td><td data-label="quantity_total" class="num">3</td><td data-label="quantity_available" class="num avail">3</td><td data-label="reorder_level" class="num">-</td><td data-label="Stock" class="stock-cell"><span class="tag tag-ok">All in</span></td><td class="actions"><button class="btn" type="button" data-edit>Edit<span class="visually-hidden"> Vernier caliper</span></button></td></tr>
+        <tr data-id="7" data-name-raw="Hex key set" data-search="hex key set" data-category="1" data-type="tool" data-total="5" data-available="5" data-reorder="" data-active="1" data-low="no">
+          <td data-label="item_id" class="id">7</td><td data-label="Name"><strong>Hex key set</strong><span class="sub">Hand tools</span></td><td data-label="item_type">tool</td><td data-label="quantity_total" class="num">5</td><td data-label="quantity_available" class="num avail">5</td><td data-label="reorder_level" class="num">-</td><td data-label="Stock" class="stock-cell"><span class="tag tag-ok">All in</span></td><td class="actions"><button class="btn" type="button" data-edit>Edit<span class="visually-hidden"> Hex key set</span></button></td></tr>
+        <tr data-id="6" data-name-raw="Angle grinder" data-search="angle grinder" data-category="2" data-type="tool" data-total="1" data-available="1" data-reorder="" data-active="0" data-low="no">
+          <td data-label="item_id" class="id">6</td><td data-label="Name"><strong>Angle grinder</strong><span class="sub">Power tools, under repair</span></td><td data-label="item_type">tool</td><td data-label="quantity_total" class="num">1</td><td data-label="quantity_available" class="num avail">1</td><td data-label="reorder_level" class="num">-</td><td data-label="Stock" class="stock-cell"><span class="tag tag-off">Inactive</span></td><td class="actions"><button class="btn" type="button" data-edit>Edit<span class="visually-hidden"> Angle grinder</span></button></td></tr>
+      </tbody>
+    </table>
+    <p class="empty" id="items-table-empty" hidden>No items match. Clear the search or pick another category.</p>
+  </section>
+
+  <div class="columns columns-even">
+    <section class="panel" aria-labelledby="item-form-title">
+      <div class="panel-head"><h2 id="item-form-title">Add item</h2></div>
+      <div class="panel-body">
+        <div id="item-msg" class="msg" role="status" aria-live="polite" hidden></div>
+        <form id="item-form" novalidate>
+          <div class="form-grid">
+            <div class="field wide"><label for="i_name">name</label><input type="text" id="i_name" aria-describedby="i_name-error"><span class="error" id="i_name-error" hidden></span></div>
+            <div class="field wide"><label for="i_category_id">category</label>
+              <select id="i_category_id"><option value="1">Hand tools</option><option value="2">Power tools</option><option value="3">Electronics</option><option value="4">Measuring instruments</option><option value="5">Cutting consumables</option><option value="6">Soldering consumables</option></select></div>
+            <fieldset class="wide">
+              <legend class="label">item_type</legend>
+              <div class="choices">
+                <label class="choice"><input type="radio" name="item_type" value="tool" id="type-tool"><span>Tool<small>Lent with a due date, returned</small></span></label>
+                <label class="choice"><input type="radio" name="item_type" value="consumable" id="type-consumable"><span>Consumable<small>Used up, no due date</small></span></label>
+              </div>
+              <span class="error" id="type-error" hidden>Choose tool or consumable.</span>
+            </fieldset>
+            <div class="field"><label for="i_quantity_total">quantity_total</label><input type="number" id="i_quantity_total" min="0" inputmode="numeric" aria-describedby="i_quantity_total-hint i_quantity_total-error"><span class="hint" id="i_quantity_total-hint">Tools: units owned. Consumables: opening stock.</span><span class="error" id="i_quantity_total-error" hidden></span></div>
+            <div class="field"><label for="i_reorder_level">reorder_level</label><input type="number" id="i_reorder_level" min="0" inputmode="numeric" aria-describedby="i_reorder_level-hint"><span class="hint" id="i_reorder_level-hint">Flag as low at or below this. Optional.</span></div>
+          </div>
+          <label class="check"><input type="checkbox" id="i_is_active" checked> is_active (shown in requests)</label>
+          <div class="btn-row"><button class="btn btn-primary" type="submit">Save item</button><button class="btn" type="button" id="item-cancel" hidden>Cancel edit</button></div>
+        </form>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="restock-title">
+      <div class="panel-head"><h2 id="restock-title">Restock</h2></div>
+      <div class="panel-body">
+        <div id="restock-msg" class="msg" role="status" aria-live="polite" hidden></div>
+        <p class="hint">A restock row adds to a consumable's stock. To own more tools, edit the tool's quantity_total.</p>
+        <form id="restock-form" novalidate>
+          <div class="field"><label for="r_item_id">Consumable</label>
+            <select id="r_item_id" aria-describedby="r_item_id-error">
+              <option value="">Choose a consumable</option>
+              <option value="8">Solder wire 0.8 mm (2 left, low)</option>
+              <option value="10">Cutting disc 4 in (3 left, low)</option>
+              <option value="9">Flux paste (6 left)</option>
+              <option value="11">Heat shrink tubing pack (12 left)</option>
+              <option value="12">Hacksaw blade (8 left)</option>
+            </select><span class="error" id="r_item_id-error" hidden></span></div>
+          <div class="form-grid">
+            <div class="field"><label for="r_quantity">quantity</label><input type="number" id="r_quantity" min="1" inputmode="numeric" aria-describedby="r_quantity-error"><span class="error" id="r_quantity-error" hidden></span></div>
+            <div class="field"><label for="r_restocked_on">restocked_on</label><input type="date" id="r_restocked_on" value="2026-11-23"></div>
+            <div class="field wide"><label for="r_notes">notes</label><input type="text" id="r_notes" placeholder="Supplier or receipt number"></div>
+          </div>
+          <button class="btn btn-primary" type="submit">Add restock</button>
+        </form>
+      </div>
+    </section>
+  </div>
+</main>
+<footer class="site-foot">
+  <p>Hygears HQ System prototype for Database Administration, Group 11. Every name, number and record here is sample data.</p>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>

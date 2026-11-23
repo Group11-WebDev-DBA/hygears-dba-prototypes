@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard | Hygears HQ System</title>
+  <meta name="description" content="Officer overview of the Hygears HQ: who is inside, pending requests, overdue tools, low stock.">
+  <link rel="icon" href="../assets/hygears-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="dashboard">
+<a class="skip" href="#main">Skip to content</a>
+<!-- Shared header: becomes header.php in the PHP rebuild -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="dashboard.html"><img src="../assets/hygears-logo.png" alt="Hygears" width="36" height="36"><span>HQ System<small>Logbook and inventory</small></span></a>
+    <span class="sample-tag">Sample data</span>
+    <p class="who">Signed in as <strong>Paolo Reyes</strong><br>Officer</p>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+<nav class="nav" id="nav" aria-label="Main">
+  <ul>
+      <li><a href="index.html">Door kiosk</a></li>
+      <li><a href="dashboard.html" aria-current="page">Dashboard</a></li>
+      <li><a href="attendance.html">Attendance</a></li>
+      <li><a href="people.html">People</a></li>
+      <li><a href="items.html">Inventory</a></li>
+      <li><a href="requests.html">Requests <span class="count">3<span class="visually-hidden"> pending</span></span></a></li>
+      <li><a href="reports.html">Reports</a></li>
+      <li><a href="settings.html">Settings</a></li>
+  </ul>
+</nav>
+
+<main id="main">
+  <div class="page-head">
+    <div>
+      <h1>HQ today</h1>
+      <p>Monday, 23 November 2026 &middot; as of <span class="mono">09:50</span></p>
+    </div>
+    <a class="btn" href="index.html">Open the door kiosk</a>
+  </div>
+
+  <!-- Each number links to the page that explains it -->
+  <div class="stats">
+    <a class="stat" href="index.html"><span class="num">4</span><span class="label">In the HQ now</span></a>
+    <a class="stat needs" href="requests.html#pending"><span class="num">3</span><span class="label">Pending requests</span></a>
+    <a class="stat needs" href="requests.html#loans"><span class="num">2</span><span class="label">Overdue tools</span></a>
+    <a class="stat needs" href="items.html?low=1"><span class="num">2</span><span class="label">Low-stock consumables</span></a>
+    <a class="stat" href="attendance.html"><span class="num">6</span><span class="label">Sign-ins today</span></a>
+  </div>
+
+  <div class="cols wide-left">
+    <section class="panel" aria-labelledby="todo-title">
+      <div class="panel-head">
+        <h2 id="todo-title">Needs an officer</h2>
+        <span class="source">v_open_loans, item_request, v_low_stock</span>
+      </div>
+      <table class="rtable">
+        <thead>
+          <tr><th scope="col">What</th><th scope="col">Who</th><th scope="col">Status</th><th scope="col"><span class="visually-hidden">Action</span></th></tr>
+        </thead>
+        <tbody>
+          <tr class="flag">
+            <td class="lead" data-label="What">Cordless drill &times;1 <span class="sub">Request <span class="mono">#1015</span>, due 21 Nov</span></td>
+            <td data-label="Who">Mika Santos</td>
+            <td data-label="Status"><span class="status status-alert">Overdue 2 days</span></td>
+            <td class="act"><a class="btn" href="requests.html#loans">See loan</a></td>
+          </tr>
+          <tr class="flag">
+            <td class="lead" data-label="What">Torque wrench set &times;1 <span class="sub">Request <span class="mono">#1013</span>, due 22 Nov</span></td>
+            <td data-label="Who">Andrea Cruz</td>
+            <td data-label="Status"><span class="status status-alert">Overdue 1 day</span></td>
+            <td class="act"><a class="btn" href="requests.html#loans">See loan</a></td>
+          </tr>
+          <tr>
+            <td class="lead" data-label="What">3 requests waiting <span class="sub">Oldest: <span class="mono">#1016</span>, 22 Nov 16:10</span></td>
+            <td data-label="Who">Jun, Mika, Paolo</td>
+            <td data-label="Status"><span class="status status-wait">Pending</span></td>
+            <td class="act"><a class="btn btn-primary" href="requests.html#pending">Review requests</a></td>
+          </tr>
+          <tr class="flag">
+            <td class="lead" data-label="What">Solder wire 0.8 mm <span class="sub">1 spool left, reorder at 2</span></td>
+            <td data-label="Who">Inventory</td>
+            <td data-label="Status"><span class="status status-alert">Low stock</span></td>
+            <td class="act"><a class="btn" href="items.html#restock">Restock</a></td>
+          </tr>
+          <tr class="flag">
+            <td class="lead" data-label="What">Cutting disc 4 in <span class="sub">6 left, reorder at 10</span></td>
+            <td data-label="Who">Inventory</td>
+            <td data-label="Status"><span class="status status-alert">Low stock</span></td>
+            <td class="act"><a class="btn" href="items.html#restock">Restock</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="panel" aria-labelledby="in-title">
+      <div class="panel-head">
+        <h2 id="in-title">In the HQ now</h2>
+        <span class="source">attendance, time_out IS NULL</span>
+      </div>
+      <table class="rtable">
+        <thead>
+          <tr><th scope="col">Name</th><th scope="col">Purpose</th><th scope="col" class="num">Time in</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="lead" data-label="Name">Paolo Reyes</td><td data-label="Purpose">Meeting</td><td class="num" data-label="Time in">08:15</td></tr>
+          <tr><td class="lead" data-label="Name">Carlo Navarro <span class="tag">visitor</span></td><td data-label="Purpose">Workshop</td><td class="num" data-label="Time in">08:30</td></tr>
+          <tr><td class="lead" data-label="Name">Jun Bautista</td><td data-label="Purpose">Tool use</td><td class="num" data-label="Time in">08:50</td></tr>
+          <tr><td class="lead" data-label="Name">Andrea Cruz</td><td data-label="Purpose">Meeting</td><td class="num" data-label="Time in">09:02</td></tr>
+        </tbody>
+      </table>
+      <p style="margin:0.75rem 0 0"><a href="attendance.html">See today&rsquo;s full log</a></p>
+    </section>
+  </div>
+</main>
+
+<!-- Shared footer: becomes footer.php -->
+<footer class="foot">
+  <p>Hygears HQ System &middot; Engineering Innovation &bull; Research &bull; Technology &bull; Leadership &middot; Prototype with sample data, database <code>hygears_db</code></p>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>
