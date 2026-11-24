@@ -612,6 +612,7 @@ footer.foot {
     border: 0;
     padding: 0.25rem 0;
     text-align: right;
+    overflow-wrap: anywhere; /* long SQL names wrap instead of widening the page */
   }
   .rtable td::before {
     content: attr(data-label);
