@@ -87,7 +87,7 @@ code { font-size: 14px; overflow-wrap: anywhere; }
 }
 .brand img { width: 40px; height: 40px; }
 .brand small { display: block; font-weight: 400; color: var(--on-dark); font-size: 13px; }
-.menu-btn { display: none; }
+.sidebar .menu-btn { display: none; }   /* only shown on narrow screens */
 
 .nav { display: flex; flex-direction: column; padding: var(--s2) 0; }
 .nav a {
@@ -214,6 +214,8 @@ legend { font-weight: 600; padding: 0; margin-bottom: var(--s2); }
 }
 .status.alert { color: var(--red-dark); }
 .status.ok { color: var(--ink); }
+/* longer status sentences may wrap on phones */
+p.status, .status.small { white-space: normal; }
 
 /* a rubber stamp: boxed mono caps, slightly crooked */
 .stamp {
@@ -235,7 +237,6 @@ legend { font-weight: 600; padding: 0; margin-bottom: var(--s2); }
 table { width: 100%; border-collapse: collapse; font-size: 16px; }
 th, td { text-align: left; padding: var(--s2) var(--s3); border-bottom: 1px solid var(--line); vertical-align: top; overflow-wrap: anywhere; }
 th { background: var(--gray-2); font-size: 14px; font-weight: 600; }
-th small { display: block; font: 400 12px var(--mono); color: var(--muted); }
 td.num, th.num { text-align: right; font-family: var(--mono); }
 .name-cell strong { display: block; }
 .name-cell span { display: block; font-size: 14px; color: var(--muted); font-family: var(--mono); }
@@ -284,6 +285,7 @@ tr.row-inactive td { color: var(--muted); }
   font: 600 28px/1.2 var(--mono) !important; letter-spacing: .08em; text-align: center;
   min-height: 60px !important;
 }
+.sid::placeholder { color: var(--field); letter-spacing: .02em; }
 .pad { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s2); margin-top: var(--s3); }
 .pad button {
   min-height: 60px; font: 600 24px var(--mono);
@@ -319,10 +321,11 @@ tr.row-inactive td { color: var(--muted); }
 .slip .stamp-spot { margin-top: var(--s2); }
 .slip.decided { background: var(--gray); }
 .req-line {
-  display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 1fr) minmax(0, 2fr) auto;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) auto;
   gap: var(--s2); align-items: start; padding: var(--s3) 0; border-bottom: 1px dashed var(--field);
 }
 .req-line .field { margin: 0; }
+.req-line .field:first-child { grid-column: 1 / -1; }   /* item name gets a full row */
 .req-line label { font-size: 14px; }
 
 /* ---------- Dashboard strip ---------- */
@@ -353,7 +356,6 @@ pre.sql {
   font-size: 14px; line-height: 1.55;
   white-space: pre-wrap; overflow-wrap: anywhere;
 }
-.sql .kw { color: #F2B8B5; font-weight: 600; }
 
 /* ---------- Simple lists (settings) ---------- */
 .plain { list-style: none; margin: 0; padding: 0; }
@@ -380,12 +382,14 @@ pre.sql {
   .shell { display: block; }
   .sidebar { width: auto; flex-direction: row; flex-wrap: wrap; align-items: center; position: sticky; top: 0; z-index: 30; }
   .brand { padding: var(--s2) var(--s4); }
-  .menu-btn {
+  .sidebar .menu-btn {
     display: inline-flex; margin-left: auto; margin-right: var(--s3);
     background: transparent; color: var(--white); border-color: var(--white);
   }
   .menu-btn:hover { background: var(--charcoal-2); }
   .nav { display: none; width: 100%; padding-top: 0; }
+  /* jump links land below the sticky top bar instead of under it */
+  [id] { scroll-margin-top: 76px; }
   .nav.open { display: flex; }
   .side-foot { display: none; }
   .kiosk { grid-template-columns: minmax(0, 1fr); }
@@ -407,8 +411,8 @@ pre.sql {
   .card { grid-template-columns: 80px minmax(0, 1fr); }
   .card .act { grid-column: 1 / -1; border-top: 1px dashed var(--field); }
   .card .act .btn { width: 100%; }
-  .req-line { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-  .req-line .field:first-child { grid-column: 1 / -1; }
+  .req-line { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
+  .req-line .line-remove { grid-column: 1 / -1; margin-top: 0 !important; }
 
   /* tables reflow into rows: name first, then label/value pairs */
   table.reflow thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }

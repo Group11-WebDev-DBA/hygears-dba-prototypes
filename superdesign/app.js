@@ -29,7 +29,19 @@ function setError(id, message) {
   el.hidden = !message;
   el.innerHTML = message ? icon('alert') + '<span>' + esc(message) + '</span>' : '';
   const input = document.getElementById(id.replace(/-error$/, ''));
-  if (input) input.setAttribute('aria-invalid', message ? 'true' : 'false');
+  if (input) {
+    input.setAttribute('aria-invalid', message ? 'true' : 'false');
+    // link the error so screen readers read it with the field
+    const ids = (input.getAttribute('aria-describedby') || '').split(' ').filter(x => x && x !== id);
+    if (message) ids.push(id);
+    input.setAttribute('aria-describedby', ids.join(' '));
+  }
+}
+
+// After a failed submit, move focus to the first field with an error.
+function focusFirstError(form) {
+  const bad = form.querySelector('[aria-invalid="true"]');
+  if (bad) bad.focus();
 }
 
 /* ---------- Toast message (with optional Undo) ---------- */
@@ -61,6 +73,7 @@ function secondTap(btn, armedText) {
   btn.dataset.label = btn.innerHTML;
   btn.classList.add('armed');
   btn.textContent = armedText;
+  showToast('Tap the button again to confirm.');   // announced by the status region
   btn.armTimer = setTimeout(() => {
     btn.classList.remove('armed');
     btn.innerHTML = btn.dataset.label;
@@ -144,6 +157,8 @@ if ($('#punch-form')) {
     $('#already-in').hidden = true;
     if (found) {
       out.innerHTML = icon('check') + '<span>' + esc(found.name) + ' · ' + esc(found.kind) + '</span>';
+      // one-thumb: bring the purpose tiles and Punch in button up on a phone
+      if (window.innerWidth < 900) $('#purpose-legend').scrollIntoView({ block: 'start' });
     } else if (d.length === 9) {
       out.innerHTML = icon('user') + '<span>New here: add your name below</span>';
     } else {
@@ -196,7 +211,11 @@ if ($('#punch-form')) {
     }
     const purpose = $('input[name="purpose_id"]:checked');
     setError('purpose-error', purpose ? '' : 'Pick why you are here.');
-    if (!ok || !purpose) return;
+    if (!ok || !purpose) {
+      focusFirstError(form);
+      if (ok && !purpose) $('#p1').focus();
+      return;
+    }
 
     // stop a double sign-in: one open attendance row per person
     const open = cardFor(studentId, name);
@@ -385,7 +404,7 @@ if ($('#person-form')) {
     const sidVal = sidInput.value.trim();
     const taken = sidVal && $all('.name-cell span', table).some(s => s.textContent === sidVal);
     setError('student_id-error', taken ? 'That student number already belongs to someone.' : '');
-    if (!ok || taken) return;
+    if (!ok || taken) { focusFirstError(e.target); return; }
 
     const name = $('#first_name').value.trim() + ' ' + $('#last_name').value.trim();
     const member = memberBox.checked;
@@ -480,7 +499,7 @@ if ($('#item-form')) {
     setError('name-error', !name ? 'Item name is required.' : dup ? 'An item with this name already exists.' : '');
     setError('category_id-error', cat.value ? '' : 'Choose a category.');
     setError('quantity_total-error', qty !== '' && Number(qty) >= 0 && Number.isInteger(Number(qty)) ? '' : 'Enter a whole number, 0 or more.');
-    if (!name || dup || !cat.value || $('#quantity_total-error').hidden === false) return;
+    if (!name || dup || !cat.value || $('#quantity_total-error').hidden === false) { focusFirstError(form); return; }
 
     const type = $('input[name="item_type"]:checked').value;
     const reorder = $('#reorder_level').value;
@@ -738,7 +757,10 @@ if ($('#request-form')) {
     const box = $('#lines-error');
     box.hidden = problems.length === 0;
     box.innerHTML = problems.length ? icon('alert') + '<span>' + problems.map(esc).join('<br>') + '</span>' : '';
-    if (!by.value || problems.length) return;
+    if (!by.value || problems.length) {
+      if (!by.value) by.focus(); else box.focus();
+      return;
+    }
     showToast('Slip #' + nextRequestId++ + ' sent for ' + by.options[by.selectedIndex].text + '. It waits as pending for an officer.');
     e.target.reset();
     $('#lines').innerHTML = '';
