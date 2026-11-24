@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Settings · Hygears HQ</title>
+<link rel="icon" href="../assets/hygears-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="settings">
+<a class="skip" href="#main">Skip to content</a>
+<div class="shell">
+  <!-- Shared header (header.php in the rebuild). Set aria-current on the current page. -->
+  <header class="side">
+    <div class="brand">
+      <img src="../assets/hygears-logo.png" alt="Hygears logo" width="44" height="44">
+      <span class="brand-text"><strong>Hygears HQ</strong><span>Logbook + inventory</span></span>
+      <button class="btn menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    </div>
+    <nav class="nav" id="nav" aria-label="Main">
+      <ul>
+      <li><a href="index.html"><span class="num" aria-hidden="true">01</span> Door kiosk</a></li>
+      <li class="group" aria-hidden="true">Officers</li>
+      <li><a href="dashboard.html"><span class="num" aria-hidden="true">02</span> Dashboard</a></li>
+      <li><a href="attendance.html"><span class="num" aria-hidden="true">03</span> Attendance</a></li>
+      <li><a href="people.html"><span class="num" aria-hidden="true">04</span> People</a></li>
+      <li><a href="items.html"><span class="num" aria-hidden="true">05</span> Items</a></li>
+      <li><a href="requests.html"><span class="num" aria-hidden="true">06</span> Requests</a></li>
+      <li><a href="reports.html"><span class="num" aria-hidden="true">07</span> Reports</a></li>
+      <li><a href="settings.html" aria-current="page"><span class="num" aria-hidden="true">08</span> Settings</a></li>
+      </ul>
+    </nav>
+    <p class="who">Signed in as <strong>Paolo Reyes</strong> Officer · <span class="sql">can_approve = 1</span></p>
+  </header>
+
+  <main class="main" id="main" tabindex="-1">
+    <div class="pagehead">
+      <div>
+        <h1>Settings</h1>
+        <p class="lede">Lookup tables. Names must be unique (<code>UNIQUE KEY</code> on each).</p>
+        <ul class="uses" aria-label="Tables and views used"><li class="sql">role</li><li class="sql">purpose</li><li class="sql">category</li></ul>
+      </div>
+    </div>
+
+    <section class="panel" aria-labelledby="s-role">
+      <span class="bin-tag">role</span>
+      <h2 id="s-role">Roles</h2>
+      <p class="rule">Only active members whose role has <span class="sql">can_approve = 1</span> may decide requests: <span class="sql">trg_request_approver_ins</span> / <span class="sql">trg_request_approver_upd</span>.</p>
+      <div class="grid-2">
+        <div class="table-wrap"><table id="role-table">
+          <thead><tr><th class="num">#<span class="col">role_<wbr>id</span></th><th>Name<span class="col">name</span></th><th>Approves<span class="col">can_<wbr>approve</span></th></tr></thead>
+          <tbody>
+            <tr><td data-label="role_id" class="num">1</td><td data-label="name"><strong>Member</strong></td><td data-label="can_approve"><span class="tag off"><span class="ico" aria-hidden="true">✕</span>Cannot approve</span></td></tr>
+            <tr><td data-label="role_id" class="num">2</td><td data-label="name"><strong>Officer</strong></td><td data-label="can_approve"><span class="tag dark"><span class="ico" aria-hidden="true">✓</span>Can approve</span></td></tr>
+            <tr><td data-label="role_id" class="num">3</td><td data-label="name"><strong>President</strong></td><td data-label="can_approve"><span class="tag dark"><span class="ico" aria-hidden="true">✓</span>Can approve</span></td></tr>
+            <tr><td data-label="role_id" class="num">4</td><td data-label="name"><strong>Adviser</strong></td><td data-label="can_approve"><span class="tag dark"><span class="ico" aria-hidden="true">✓</span>Can approve</span></td></tr>
+          </tbody>
+        </table></div>
+        <form class="lookup-form" id="role-form" novalidate>
+          <div class="field"><label for="role-form-name">New role <span class="col">role.name</span></label><input id="role-form-name" name="name" type="text" maxlength="50" aria-describedby="role-form-hint"><span class="hint" id="role-form-hint">Like Treasurer.</span><span class="error" id="role-form-name-err" hidden></span></div>
+          <label class="check"><input type="checkbox" name="can_approve" value="1"> Can approve requests</label>
+          <button class="btn btn-primary" type="submit">Add role</button>
+        </form>
+      </div>
+    </section>
+
+    <div class="grid-2">
+      <section class="panel" aria-labelledby="s-purpose">
+        <span class="bin-tag">purpose</span>
+        <h2 id="s-purpose">Visit purposes</h2>
+        <div class="table-wrap"><table id="purpose-table">
+          <thead><tr><th class="num">#<span class="col">purpose_<wbr>id</span></th><th>Name<span class="col">name</span></th></tr></thead>
+          <tbody>
+            <tr><td data-label="purpose_id" class="num">1</td><td data-label="name"><strong>Meeting</strong></td></tr>
+            <tr><td data-label="purpose_id" class="num">2</td><td data-label="name"><strong>Project work</strong></td></tr>
+            <tr><td data-label="purpose_id" class="num">3</td><td data-label="name"><strong>Workshop</strong></td></tr>
+            <tr><td data-label="purpose_id" class="num">4</td><td data-label="name"><strong>Tool use</strong></td></tr>
+            <tr><td data-label="purpose_id" class="num">5</td><td data-label="name"><strong>Study</strong></td></tr>
+            <tr><td data-label="purpose_id" class="num">6</td><td data-label="name"><strong>Visit</strong></td></tr>
+          </tbody>
+        </table></div>
+        <form class="lookup-form" id="purpose-form" novalidate>
+          <div class="field"><label for="purpose-form-name">New purpose <span class="col">purpose.name</span></label><input id="purpose-form-name" name="name" type="text" maxlength="50" aria-describedby="purpose-form-hint"><span class="hint" id="purpose-form-hint">Shows as a button on the door kiosk.</span><span class="error" id="purpose-form-name-err" hidden></span></div>
+          
+          <button class="btn btn-primary" type="submit">Add purpose</button>
+        </form>
+      </section>
+
+      <section class="panel" aria-labelledby="s-cat">
+        <span class="bin-tag">category</span>
+        <h2 id="s-cat">Item categories</h2>
+        <div class="table-wrap"><table id="category-table">
+          <thead><tr><th class="num">#<span class="col">category_<wbr>id</span></th><th>Name<span class="col">name</span></th></tr></thead>
+          <tbody>
+            <tr><td data-label="category_id" class="num">1</td><td data-label="name"><strong>Hand tools</strong></td></tr>
+            <tr><td data-label="category_id" class="num">2</td><td data-label="name"><strong>Power tools</strong></td></tr>
+            <tr><td data-label="category_id" class="num">3</td><td data-label="name"><strong>Electronics</strong></td></tr>
+            <tr><td data-label="category_id" class="num">4</td><td data-label="name"><strong>Measuring instruments</strong></td></tr>
+            <tr><td data-label="category_id" class="num">5</td><td data-label="name"><strong>Cutting consumables</strong></td></tr>
+            <tr><td data-label="category_id" class="num">6</td><td data-label="name"><strong>Soldering consumables</strong></td></tr>
+          </tbody>
+        </table></div>
+        <form class="lookup-form" id="category-form" novalidate>
+          <div class="field"><label for="category-form-name">New category <span class="col">category.name</span></label><input id="category-form-name" name="name" type="text" maxlength="50" aria-describedby="category-form-hint"><span class="hint" id="category-form-hint">Like Safety gear.</span><span class="error" id="category-form-name-err" hidden></span></div>
+          
+          <button class="btn btn-primary" type="submit">Add category</button>
+        </form>
+      </section>
+    </div>
+  </main>
+</div>
+<div id="toast-region" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>

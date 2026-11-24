@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Attendance · Hygears HQ</title>
+<link rel="icon" href="../assets/hygears-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="attendance">
+<a class="skip" href="#main">Skip to content</a>
+<div class="shell">
+  <!-- Shared header (header.php in the rebuild). Set aria-current on the current page. -->
+  <header class="side">
+    <div class="brand">
+      <img src="../assets/hygears-logo.png" alt="Hygears logo" width="44" height="44">
+      <span class="brand-text"><strong>Hygears HQ</strong><span>Logbook + inventory</span></span>
+      <button class="btn menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    </div>
+    <nav class="nav" id="nav" aria-label="Main">
+      <ul>
+      <li><a href="index.html"><span class="num" aria-hidden="true">01</span> Door kiosk</a></li>
+      <li class="group" aria-hidden="true">Officers</li>
+      <li><a href="dashboard.html"><span class="num" aria-hidden="true">02</span> Dashboard</a></li>
+      <li><a href="attendance.html" aria-current="page"><span class="num" aria-hidden="true">03</span> Attendance</a></li>
+      <li><a href="people.html"><span class="num" aria-hidden="true">04</span> People</a></li>
+      <li><a href="items.html"><span class="num" aria-hidden="true">05</span> Items</a></li>
+      <li><a href="requests.html"><span class="num" aria-hidden="true">06</span> Requests</a></li>
+      <li><a href="reports.html"><span class="num" aria-hidden="true">07</span> Reports</a></li>
+      <li><a href="settings.html"><span class="num" aria-hidden="true">08</span> Settings</a></li>
+      </ul>
+    </nav>
+    <p class="who">Signed in as <strong>Paolo Reyes</strong> Officer · <span class="sql">can_approve = 1</span></p>
+  </header>
+
+  <main class="main" id="main" tabindex="-1">
+    <div class="pagehead">
+      <div>
+        <h1>Attendance log</h1>
+        <p class="lede">Replaces the paper entry/exit logbook. Rows with no <code>time_out</code> are people still inside.</p>
+        <ul class="uses" aria-label="Tables and views used"><li class="sql">attendance</li><li class="sql">person</li><li class="sql">purpose</li><li class="sql">member</li></ul>
+      </div>
+    </div>
+
+    <section class="panel" aria-labelledby="a-h">
+      <span class="bin-tag">attendance JOIN person JOIN purpose</span>
+      <div class="panel-head"><h2 id="a-h">Entries</h2><button class="btn" type="button" id="export-btn">Export CSV</button></div>
+      <form class="filters" id="att-filters" data-filter-table="att-table" role="search">
+        <div class="field"><label for="f-date">Date <span class="col">DATE(time_<wbr>in)</span></label>
+          <select id="f-date" name="date"><option value="">All dates</option><option value="2026-11-24" selected>Today, 24 Nov</option><option value="2026-11-23">Mon, 23 Nov</option></select></div>
+        <div class="field"><label for="f-purpose">Purpose</label><select id="f-purpose" name="purpose"><option value="">All purposes</option><option value="Meeting">Meeting</option><option value="Project work">Project work</option><option value="Workshop">Workshop</option><option value="Tool use">Tool use</option><option value="Study">Study</option><option value="Visit">Visit</option></select></div>
+        <div class="field"><label for="f-who">Members or visitors</label><select id="f-who" name="who"><option value="">Everyone</option><option value="member">Members</option><option value="visitor">Visitors (no member row)</option></select></div>
+        <label class="check"><input type="checkbox" name="inside" value="yes"> Still inside only</label>
+        <button class="btn" type="reset">Clear filters</button>
+      </form>
+      <p class="count" id="att-count" aria-live="polite" data-noun="entries"></p>
+      <div class="table-wrap"><table id="att-table">
+        <thead><tr><th class="num">#<span class="col">attendance_<wbr>id</span></th><th>Name</th><th>Type</th><th>Purpose</th><th class="num">Date</th><th class="num">In<span class="col">time_<wbr>in</span></th><th class="num">Out<span class="col">time_<wbr>out</span></th><th>Notes<span class="col">notes</span></th></tr></thead>
+        <tbody>
+            <tr data-date="2026-11-24" data-purpose="Workshop" data-who="member" data-inside="yes"><td data-label="attendance_id" class="num">36</td><td data-label="Name"><strong>Rafael Cruz</strong></td><td data-label="Type">Adviser</td><td data-label="Purpose">Workshop</td><td data-label="Date" class="num">24 Nov</td><td data-label="time_in" class="num">10:30 AM</td><td data-label="time_out" class="num"><span class="tag dark"><span class="ico" aria-hidden="true">●</span>Still inside</span></td><td data-label="notes"><span class="muted">None</span></td></tr>
+            <tr data-date="2026-11-24" data-purpose="Meeting" data-who="member" data-inside="yes"><td data-label="attendance_id" class="num">35</td><td data-label="Name"><strong>Ana Lim</strong></td><td data-label="Type">President</td><td data-label="Purpose">Meeting</td><td data-label="Date" class="num">24 Nov</td><td data-label="time_in" class="num">10:15 AM</td><td data-label="time_out" class="num"><span class="tag dark"><span class="ico" aria-hidden="true">●</span>Still inside</span></td><td data-label="notes"><span class="muted">None</span></td></tr>
+            <tr data-date="2026-11-24" data-purpose="Workshop" data-who="visitor" data-inside="yes"><td data-label="attendance_id" class="num">34</td><td data-label="Name"><strong>Lea Navarro</strong></td><td data-label="Type">Visitor, TUP Manila</td><td data-label="Purpose">Workshop</td><td data-label="Date" class="num">24 Nov</td><td data-label="time_in" class="num">10:00 AM</td><td data-label="time_out" class="num"><span class="tag dark"><span class="ico" aria-hidden="true">●</span>Still inside</span></td><td data-label="notes">Soldering workshop guest</td></tr>
+            <tr data-date="2026-11-24" data-purpose="Meeting" data-who="member" data-inside="yes"><td data-label="attendance_id" class="num">33</td><td data-label="Name"><strong>Paolo Reyes</strong></td><td data-label="Type">Officer</td><td data-label="Purpose">Meeting</td><td data-label="Date" class="num">24 Nov</td><td data-label="time_in" class="num">9:05 AM</td><td data-label="time_out" class="num"><span class="tag dark"><span class="ico" aria-hidden="true">●</span>Still inside</span></td><td data-label="notes"><span class="muted">None</span></td></tr>
+            <tr data-date="2026-11-24" data-purpose="Visit" data-who="visitor" data-inside="no"><td data-label="attendance_id" class="num">32</td><td data-label="Name"><strong>Ben Ocampo</strong></td><td data-label="Type">Visitor, Mapúa University</td><td data-label="Purpose">Visit</td><td data-label="Date" class="num">24 Nov</td><td data-label="time_in" class="num">8:45 AM</td><td data-label="time_out" class="num">9:40 AM</td><td data-label="notes">Campus tour with Ana</td></tr>
+            <tr data-date="2026-11-24" data-purpose="Tool use" data-who="member" data-inside="no"><td data-label="attendance_id" class="num">31</td><td data-label="Name"><strong>Jun Bautista</strong></td><td data-label="Type">Member</td><td data-label="Purpose">Tool use</td><td data-label="Date" class="num">24 Nov</td><td data-label="time_in" class="num">8:30 AM</td><td data-label="time_out" class="num">10:10 AM</td><td data-label="notes">Used the drill press</td></tr>
+            <tr data-date="2026-11-23" data-purpose="Tool use" data-who="member" data-inside="no"><td data-label="attendance_id" class="num">30</td><td data-label="Name"><strong>Carla Mendoza</strong></td><td data-label="Type">Member</td><td data-label="Purpose">Tool use</td><td data-label="Date" class="num">23 Nov</td><td data-label="time_in" class="num">3:30 PM</td><td data-label="time_out" class="num">4:15 PM</td><td data-label="notes"><span class="muted">None</span></td></tr>
+            <tr data-date="2026-11-23" data-purpose="Meeting" data-who="member" data-inside="no"><td data-label="attendance_id" class="num">29</td><td data-label="Name"><strong>Paolo Reyes</strong></td><td data-label="Type">Officer</td><td data-label="Purpose">Meeting</td><td data-label="Date" class="num">23 Nov</td><td data-label="time_in" class="num">3:00 PM</td><td data-label="time_out" class="num">5:00 PM</td><td data-label="notes">Officers&#x27; meeting</td></tr>
+            <tr data-date="2026-11-23" data-purpose="Study" data-who="member" data-inside="no"><td data-label="attendance_id" class="num">28</td><td data-label="Name"><strong>Jun Bautista</strong></td><td data-label="Type">Member</td><td data-label="Purpose">Study</td><td data-label="Date" class="num">23 Nov</td><td data-label="time_in" class="num">2:00 PM</td><td data-label="time_out" class="num">4:00 PM</td><td data-label="notes"><span class="muted">None</span></td></tr>
+            <tr data-date="2026-11-23" data-purpose="Project work" data-who="member" data-inside="no"><td data-label="attendance_id" class="num">27</td><td data-label="Name"><strong>Mika Santos</strong></td><td data-label="Type">Member</td><td data-label="Purpose">Project work</td><td data-label="Date" class="num">23 Nov</td><td data-label="time_in" class="num">1:00 PM</td><td data-label="time_out" class="num">5:20 PM</td><td data-label="notes">Motor mount fitting</td></tr>
+          <tr class="empty-row" hidden><td colspan="8" class="empty">No entries match these filters. Try "All dates" or clear the filters.</td></tr>
+        </tbody>
+      </table></div>
+      <p class="rule">The database rejects a sign-out earlier than the sign-in: <span class="sql">chk_attendance_times</span> (time_out &gt; time_in).</p>
+    </section>
+  </main>
+</div>
+<div id="toast-region" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>

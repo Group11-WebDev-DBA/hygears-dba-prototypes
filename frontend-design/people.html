@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>People | Hygears HQ System</title>
+  <link rel="icon" href="../assets/hygears-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600&amp;family=Saira+Condensed:wght@600;700&amp;display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script>document.documentElement.className = "js";</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="shell">
+<!-- Shared header: becomes header.php in the rebuild -->
+<header class="rack">
+  <a class="brand" href="dashboard.html"><img src="../assets/hygears-logo.png" alt="Hygears logo" width="40" height="40">Hygears HQ</a>
+  <button class="btn btn-quiet menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+  <nav class="site-nav" id="site-nav" aria-label="Main">
+    <ul>
+      <li class="nav-door"><a href="index.html">HQ door</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="attendance.html">Attendance</a></li>
+      <li><a href="people.html" aria-current="page">People</a></li>
+      <li><a href="items.html">Items</a></li>
+      <li><a href="requests.html">Requests</a></li>
+      <li><a href="reports.html">Reports</a></li>
+      <li><a href="settings.html">Settings</a></li>
+    </ul>
+  </nav>
+  <p class="user"><strong>Paolo Santos</strong>Officer, signed in</p>
+</header>
+<main id="main" class="page">
+  <div class="page-head">
+    <h1>People</h1>
+    <p>Everyone who has signed the log. A visitor is a person with no member row. Only people with a student number can become members.</p>
+    <p class="from">From <code>person</code>, <code>member</code> and <code>role</code>.</p>
+  </div>
+
+  <form class="filters" id="people-filters" aria-label="Search people" role="search">
+    <div class="field">
+      <label for="p-search">Search name or student number</label>
+      <input id="p-search" type="search" placeholder="Reyes or 2023-">
+    </div>
+    <div class="field">
+      <label for="p-kind">Show</label>
+      <select id="p-kind"><option value="">Everyone</option><option value="member">Members</option><option value="visitor">Visitors</option></select>
+    </div>
+  </form>
+  <div id="people-msg" class="msg" role="status" aria-live="polite" tabindex="-1" hidden></div>
+
+  <table class="reflow" id="people-table">
+    <thead><tr><th scope="col">person_id</th><th scope="col">Name</th><th scope="col">student_id</th><th scope="col">contact_number</th><th scope="col">role</th><th scope="col">is_active</th><th scope="col"><span class="visually-hidden">Actions</span></th></tr></thead>
+    <tbody>
+      <tr data-kind="member"><td data-label="person_id">3</td><td class="cell-main">Bea Villanueva<span class="sub">bea.villanueva@sample.edu, joined 2023-08-21</span></td><td data-label="student_id">2022-00512-MN-0</td><td data-label="contact_number">0917 000 0103</td><td data-label="role">President</td><td data-label="is_active" class="active-cell"><span class="status status-ok"><span class="glyph" aria-hidden="true">&#10003;</span>Active</span></td><td class="actions"><button class="btn btn-small" type="button" data-toggle-active>Deactivate<span class="visually-hidden"> Bea Villanueva</span></button></td></tr>
+      <tr data-kind="member"><td data-label="person_id">2</td><td class="cell-main">Paolo Santos<span class="sub">paolo.santos@sample.edu, joined 2023-08-21</span></td><td data-label="student_id">2022-00377-MN-0</td><td data-label="contact_number">0917 000 0102</td><td data-label="role">Officer</td><td data-label="is_active" class="active-cell"><span class="status status-ok"><span class="glyph" aria-hidden="true">&#10003;</span>Active</span></td><td class="actions"><button class="btn btn-small" type="button" data-toggle-active>Deactivate<span class="visually-hidden"> Paolo Santos</span></button></td></tr>
+      <tr data-kind="member"><td data-label="person_id">6</td><td class="cell-main">Ken Bautista<span class="sub">ken.bautista@sample.edu, joined 2022-09-05</span></td><td data-label="student_id">2021-00733-MN-0</td><td data-label="contact_number">0917 000 0106</td><td data-label="role">Officer</td><td data-label="is_active" class="active-cell"><span class="status status-ok"><span class="glyph" aria-hidden="true">&#10003;</span>Active</span></td><td class="actions"><button class="btn btn-small" type="button" data-toggle-active>Deactivate<span class="visually-hidden"> Ken Bautista</span></button></td></tr>
+      <tr data-kind="member"><td data-label="person_id">1</td><td class="cell-main">Mika Reyes<span class="sub">mika.reyes@sample.edu, joined 2024-08-19</span></td><td data-label="student_id">2023-00141-MN-0</td><td data-label="contact_number">0917 000 0101</td><td data-label="role">Member</td><td data-label="is_active" class="active-cell"><span class="status status-ok"><span class="glyph" aria-hidden="true">&#10003;</span>Active</span></td><td class="actions"><button class="btn btn-small" type="button" data-toggle-active>Deactivate<span class="visually-hidden"> Mika Reyes</span></button></td></tr>
+      <tr data-kind="member"><td data-label="person_id">4</td><td class="cell-main">Carlo Mendoza<span class="sub">carlo.mendoza@sample.edu, joined 2024-08-19</span></td><td data-label="student_id">2024-00088-MN-0</td><td data-label="contact_number">0917 000 0104</td><td data-label="role">Member</td><td data-label="is_active" class="active-cell"><span class="status status-ok"><span class="glyph" aria-hidden="true">&#10003;</span>Active</span></td><td class="actions"><button class="btn btn-small" type="button" data-toggle-active>Deactivate<span class="visually-hidden"> Carlo Mendoza</span></button></td></tr>
+      <tr data-kind="member"><td data-label="person_id">5</td><td class="cell-main">Jessa Ramos<span class="sub">jessa.ramos@sample.edu, joined 2023-08-21</span></td><td data-label="student_id">2023-00620-MN-0</td><td data-label="contact_number">0917 000 0105</td><td data-label="role">Member</td><td data-label="is_active" class="active-cell"><span class="status status-off"><span class="glyph" aria-hidden="true">&#8211;</span>Inactive</span></td><td class="actions"><button class="btn btn-small" type="button" data-toggle-active>Activate<span class="visually-hidden"> Jessa Ramos</span></button></td></tr>
+      <tr data-kind="visitor"><td data-label="person_id">8</td><td class="cell-main">Nico Ferrer<span class="sub">PUP CEA, BSME</span></td><td data-label="student_id">2025-01234-MN-0</td><td data-label="contact_number">0917 000 0108</td><td data-label="role">Visitor</td><td data-label="is_active">No member row</td><td class="actions"><button class="btn btn-small" type="button" data-make-member>Make member<span class="visually-hidden"> Nico Ferrer</span></button></td></tr>
+      <tr data-kind="visitor"><td data-label="person_id">7</td><td class="cell-main">Lara Gomez<span class="sub">TUP Manila</span></td><td data-label="student_id"><span class="muted">None</span></td><td data-label="contact_number">0917 000 0107</td><td data-label="role">Visitor</td><td data-label="is_active">No member row</td><td class="actions"><span class="hint">No student_id, so can't be a member</span></td></tr>
+      <tr class="empty-row" id="people-empty" hidden><td colspan="7">Nobody matches that search. Check the spelling, or add the person below.</td></tr>
+    </tbody>
+  </table>
+
+  <section class="panel after-table" aria-labelledby="add-person-title">
+    <div class="panel-head"><h2 id="add-person-title">Add a person</h2><p>Visitors are usually added at the door. Use this for new members.</p></div>
+    <div id="add-person-msg" class="msg" role="status" aria-live="polite" tabindex="-1" hidden></div>
+    <form id="add-person" novalidate>
+      <div class="form-grid">
+        <div class="field"><label for="ap-first_name">First name</label><input id="ap-first_name" name="first_name" type="text" aria-describedby="ap-first_name-error"><span class="error" id="ap-first_name-error" hidden></span></div>
+        <div class="field"><label for="ap-last_name">Last name</label><input id="ap-last_name" name="last_name" type="text" aria-describedby="ap-last_name-error"><span class="error" id="ap-last_name-error" hidden></span></div>
+        <div class="field"><label for="ap-student_id">Student number (optional)</label><input id="ap-student_id" name="student_id" type="text" placeholder="2025-00456-MN-0" aria-describedby="ap-student_id-hint ap-student_id-error"><span class="hint" id="ap-student_id-hint">Leave empty for outside visitors. Must be unique.</span><span class="error" id="ap-student_id-error" hidden></span></div>
+        <div class="field"><label for="ap-contact_number">Contact number</label><input id="ap-contact_number" name="contact_number" type="tel" aria-describedby="ap-contact_number-error"><span class="error" id="ap-contact_number-error" hidden></span></div>
+        <div class="field"><label for="ap-affiliation">Affiliation (optional)</label><input id="ap-affiliation" name="affiliation" type="text" placeholder="PUP CEA, BSECE"></div>
+      </div>
+      <label class="check"><input type="checkbox" id="ap-is-member"> Also add as a club member</label>
+      <div id="member-fields" hidden>
+        <div class="form-grid">
+          <div class="field"><label for="ap-role_id">Role</label><select id="ap-role_id" name="role_id"><option value="1">Member</option><option value="2">Officer</option><option value="3">President</option><option value="4">Adviser</option></select></div>
+          <div class="field"><label for="ap-email">Email (optional)</label><input id="ap-email" name="email" type="email" placeholder="name@sample.edu"></div>
+          <div class="field"><label for="ap-joined_on">Joined on</label><input id="ap-joined_on" name="joined_on" type="date" value="2026-11-24"></div>
+        </div>
+      </div>
+      <button class="btn btn-primary" type="submit">Add person</button>
+    </form>
+  </section>
+</main>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

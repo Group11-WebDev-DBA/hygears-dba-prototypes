@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reports · Hygears HQ</title>
+<link rel="icon" href="../assets/hygears-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="reports">
+<a class="skip" href="#main">Skip to content</a>
+<div class="shell">
+  <!-- Shared header (header.php in the rebuild). Set aria-current on the current page. -->
+  <header class="side">
+    <div class="brand">
+      <img src="../assets/hygears-logo.png" alt="Hygears logo" width="44" height="44">
+      <span class="brand-text"><strong>Hygears HQ</strong><span>Logbook + inventory</span></span>
+      <button class="btn menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    </div>
+    <nav class="nav" id="nav" aria-label="Main">
+      <ul>
+      <li><a href="index.html"><span class="num" aria-hidden="true">01</span> Door kiosk</a></li>
+      <li class="group" aria-hidden="true">Officers</li>
+      <li><a href="dashboard.html"><span class="num" aria-hidden="true">02</span> Dashboard</a></li>
+      <li><a href="attendance.html"><span class="num" aria-hidden="true">03</span> Attendance</a></li>
+      <li><a href="people.html"><span class="num" aria-hidden="true">04</span> People</a></li>
+      <li><a href="items.html"><span class="num" aria-hidden="true">05</span> Items</a></li>
+      <li><a href="requests.html"><span class="num" aria-hidden="true">06</span> Requests</a></li>
+      <li><a href="reports.html" aria-current="page"><span class="num" aria-hidden="true">07</span> Reports</a></li>
+      <li><a href="settings.html"><span class="num" aria-hidden="true">08</span> Settings</a></li>
+      </ul>
+    </nav>
+    <p class="who">Signed in as <strong>Paolo Reyes</strong> Officer · <span class="sql">can_approve = 1</span></p>
+  </header>
+
+  <main class="main" id="main" tabindex="-1">
+    <div class="pagehead">
+      <div>
+        <h1>Reports</h1>
+        <p class="lede">Ready-made queries for the paper. Each result sits beside the exact SQL that produced it.</p>
+        <ul class="uses" aria-label="Tables and views used"><li class="sql">v_open_loans</li><li class="sql">v_low_stock</li><li class="sql">v_item_stock</li><li class="sql">attendance</li></ul>
+      </div>
+    </div>
+
+    <nav aria-label="Reports on this page"><ul class="toc"><li><a class="btn" href="#r-stock">Stock per item</a></li><li><a class="btn" href="#r-loans">Open loans</a></li><li><a class="btn" href="#r-overdue">Overdue tools</a></li><li><a class="btn" href="#r-low">Low stock</a></li><li><a class="btn" href="#r-day">Attendance per day</a></li><li><a class="btn" href="#r-purpose">Attendance per purpose</a></li><li><a class="btn" href="#r-top">Most borrowed items</a></li></ul></nav>
+    <section class="panel report" id="r-stock" aria-labelledby="r-stock-h">
+      <span class="bin-tag">v_item_stock</span>
+      <h2 id="r-stock-h">Stock per item</h2>
+      <p class="muted">Live quantity for every item. Tools: owned minus out. Consumables: stock plus restocks minus issued.</p>
+      <div class="grid-2">
+        <div class="table-wrap"><table>
+          <thead><tr><th>name</th><th>item_type</th><th class="num">quantity_available</th><th class="num">reorder_level</th></tr></thead>
+          <tbody>
+            <tr><td data-label="name">Cordless drill</td><td data-label="item_type">tool</td><td data-label="quantity_available" class="num">1</td><td data-label="reorder_level" class="num">None</td></tr>
+            <tr><td data-label="name">Digital multimeter</td><td data-label="item_type">tool</td><td data-label="quantity_available" class="num">1</td><td data-label="reorder_level" class="num">None</td></tr>
+            <tr><td data-label="name">Soldering iron 60 W</td><td data-label="item_type">tool</td><td data-label="quantity_available" class="num">3</td><td data-label="reorder_level" class="num">None</td></tr>
+            <tr><td data-label="name">Vernier caliper</td><td data-label="item_type">tool</td><td data-label="quantity_available" class="num">2</td><td data-label="reorder_level" class="num">None</td></tr>
+            <tr><td data-label="name">Socket wrench set</td><td data-label="item_type">tool</td><td data-label="quantity_available" class="num">1</td><td data-label="reorder_level" class="num">None</td></tr>
+            <tr><td data-label="name">Angle grinder</td><td data-label="item_type">tool</td><td data-label="quantity_available" class="num">0</td><td data-label="reorder_level" class="num">None</td></tr>
+            <tr><td data-label="name">Oscilloscope</td><td data-label="item_type">tool</td><td data-label="quantity_available" class="num">1</td><td data-label="reorder_level" class="num">None</td></tr>
+            <tr><td data-label="name">Solder wire 0.8 mm</td><td data-label="item_type">consumable</td><td data-label="quantity_available" class="num">3</td><td data-label="reorder_level" class="num">4</td></tr>
+            <tr><td data-label="name">Flux paste</td><td data-label="item_type">consumable</td><td data-label="quantity_available" class="num">5</td><td data-label="reorder_level" class="num">2</td></tr>
+            <tr><td data-label="name">Cutting disc 4 in</td><td data-label="item_type">consumable</td><td data-label="quantity_available" class="num">4</td><td data-label="reorder_level" class="num">5</td></tr>
+            <tr><td data-label="name">Heat-shrink tubing pack</td><td data-label="item_type">consumable</td><td data-label="quantity_available" class="num">9</td><td data-label="reorder_level" class="num">3</td></tr>
+            <tr><td data-label="name">Hacksaw blade</td><td data-label="item_type">consumable</td><td data-label="quantity_available" class="num">11</td><td data-label="reorder_level" class="num">5</td></tr>
+          </tbody>
+        </table></div>
+        <div><h3 class="visually-hidden">SQL</h3><pre><code>SELECT name, item_type,
+       quantity_available, reorder_level
+FROM v_item_stock
+WHERE is_active = 1
+ORDER BY item_type, name;</code></pre></div>
+      </div>
+    </section>
+    <section class="panel report" id="r-loans" aria-labelledby="r-loans-h">
+      <span class="bin-tag">v_open_loans</span>
+      <h2 id="r-loans-h">Open loans</h2>
+      <p class="muted">Who has which tool right now. Built on the view, so it never drifts.</p>
+      <div class="grid-2">
+        <div class="table-wrap"><table>
+          <thead><tr><th>Borrower</th><th>Tool</th><th class="num">Qty</th><th class="num">due_date</th><th>is_overdue</th></tr></thead>
+          <tbody>
+            <tr><td data-label="Borrower">Jun Bautista</td><td data-label="Tool">Socket wrench set</td><td data-label="Qty" class="num">1</td><td data-label="due_date" class="num">2026-11-21</td><td data-label="is_overdue">1 (yes)</td></tr>
+            <tr><td data-label="Borrower">Ana Lim</td><td data-label="Tool">Angle grinder</td><td data-label="Qty" class="num">1</td><td data-label="due_date" class="num">2026-11-23</td><td data-label="is_overdue">1 (yes)</td></tr>
+            <tr><td data-label="Borrower">Ana Lim</td><td data-label="Tool">Cordless drill</td><td data-label="Qty" class="num">1</td><td data-label="due_date" class="num">2026-11-25</td><td data-label="is_overdue">0</td></tr>
+            <tr><td data-label="Borrower">Mika Santos</td><td data-label="Tool">Digital multimeter</td><td data-label="Qty" class="num">2</td><td data-label="due_date" class="num">2026-11-27</td><td data-label="is_overdue">0</td></tr>
+            <tr><td data-label="Borrower">Mika Santos</td><td data-label="Tool">Soldering iron 60 W</td><td data-label="Qty" class="num">1</td><td data-label="due_date" class="num">2026-11-27</td><td data-label="is_overdue">0</td></tr>
+          </tbody>
+        </table></div>
+        <div><h3 class="visually-hidden">SQL</h3><pre><code>SELECT first_name, last_name, item_name,
+       quantity, due_date, is_overdue
+FROM v_open_loans
+ORDER BY due_date;</code></pre></div>
+      </div>
+    </section>
+    <section class="panel report" id="r-overdue" aria-labelledby="r-overdue-h">
+      <span class="bin-tag">v_open_loans</span>
+      <h2 id="r-overdue-h">Overdue tools</h2>
+      <p class="muted">Loans past their due date, with the borrower's number to call.</p>
+      <div class="grid-2">
+        <div class="table-wrap"><table>
+          <thead><tr><th>Borrower</th><th>contact_number</th><th>Tool</th><th class="num">due_date</th></tr></thead>
+          <tbody>
+            <tr><td data-label="Borrower">Jun Bautista</td><td data-label="contact_number">0917 555 0104</td><td data-label="Tool">Socket wrench set</td><td data-label="due_date" class="num">2026-11-21</td></tr>
+            <tr><td data-label="Borrower">Ana Lim</td><td data-label="contact_number">0917 555 0103</td><td data-label="Tool">Angle grinder</td><td data-label="due_date" class="num">2026-11-23</td></tr>
+          </tbody>
+        </table></div>
+        <div><h3 class="visually-hidden">SQL</h3><pre><code>SELECT first_name, last_name, contact_number,
+       item_name, due_date
+FROM v_open_loans
+WHERE is_overdue = 1
+ORDER BY due_date;</code></pre></div>
+      </div>
+    </section>
+    <section class="panel report" id="r-low" aria-labelledby="r-low-h">
+      <span class="bin-tag">v_low_stock</span>
+      <h2 id="r-low-h">Low stock</h2>
+      <p class="muted">Active items at or below their reorder level.</p>
+      <div class="grid-2">
+        <div class="table-wrap"><table>
+          <thead><tr><th>name</th><th class="num">quantity_available</th><th class="num">reorder_level</th></tr></thead>
+          <tbody>
+            <tr><td data-label="name">Solder wire 0.8 mm</td><td data-label="quantity_available" class="num">3</td><td data-label="reorder_level" class="num">4</td></tr>
+            <tr><td data-label="name">Cutting disc 4 in</td><td data-label="quantity_available" class="num">4</td><td data-label="reorder_level" class="num">5</td></tr>
+          </tbody>
+        </table></div>
+        <div><h3 class="visually-hidden">SQL</h3><pre><code>SELECT name, quantity_available, reorder_level
+FROM v_low_stock
+ORDER BY quantity_available;</code></pre></div>
+      </div>
+    </section>
+    <section class="panel report" id="r-day" aria-labelledby="r-day-h">
+      <span class="bin-tag">attendance</span>
+      <h2 id="r-day-h">Attendance per day</h2>
+      <p class="muted">Visits and distinct people per day, from the logbook.</p>
+      <div class="grid-2">
+        <div class="table-wrap"><table>
+          <thead><tr><th>day</th><th class="num">visits</th><th class="num">people</th></tr></thead>
+          <tbody>
+            <tr><td data-label="day">2026-11-24</td><td data-label="visits" class="num">6</td><td data-label="people" class="num">6</td></tr>
+            <tr><td data-label="day">2026-11-23</td><td data-label="visits" class="num">4</td><td data-label="people" class="num">4</td></tr>
+          </tbody>
+        </table></div>
+        <div><h3 class="visually-hidden">SQL</h3><pre><code>SELECT DATE(time_in) AS day,
+       COUNT(*) AS visits,
+       COUNT(DISTINCT person_id) AS people
+FROM attendance
+GROUP BY DATE(time_in)
+ORDER BY day DESC;</code></pre></div>
+      </div>
+    </section>
+    <section class="panel report" id="r-purpose" aria-labelledby="r-purpose-h">
+      <span class="bin-tag">attendance JOIN purpose</span>
+      <h2 id="r-purpose-h">Attendance per purpose</h2>
+      <p class="muted">Why people come to HQ.</p>
+      <div class="grid-2">
+        <div class="table-wrap"><table>
+          <thead><tr><th>purpose</th><th class="num">visits</th></tr></thead>
+          <tbody>
+            <tr><td data-label="purpose">Meeting</td><td data-label="visits" class="num">3</td></tr>
+            <tr><td data-label="purpose">Tool use</td><td data-label="visits" class="num">2</td></tr>
+            <tr><td data-label="purpose">Workshop</td><td data-label="visits" class="num">2</td></tr>
+            <tr><td data-label="purpose">Project work</td><td data-label="visits" class="num">1</td></tr>
+            <tr><td data-label="purpose">Study</td><td data-label="visits" class="num">1</td></tr>
+            <tr><td data-label="purpose">Visit</td><td data-label="visits" class="num">1</td></tr>
+          </tbody>
+        </table></div>
+        <div><h3 class="visually-hidden">SQL</h3><pre><code>SELECT p.name AS purpose, COUNT(*) AS visits
+FROM attendance a
+JOIN purpose p ON p.purpose_id = a.purpose_id
+GROUP BY p.name
+ORDER BY visits DESC;</code></pre></div>
+      </div>
+    </section>
+    <section class="panel report" id="r-top" aria-labelledby="r-top-h">
+      <span class="bin-tag">request_line JOIN item_request JOIN item</span>
+      <h2 id="r-top-h">Most borrowed items</h2>
+      <p class="muted">Approved and completed request lines, summed per item.</p>
+      <div class="grid-2">
+        <div class="table-wrap"><table>
+          <thead><tr><th>name</th><th class="num">times_borrowed</th></tr></thead>
+          <tbody>
+            <tr><td data-label="name">Solder wire 0.8 mm</td><td data-label="times_borrowed" class="num">7</td></tr>
+            <tr><td data-label="name">Cutting disc 4 in</td><td data-label="times_borrowed" class="num">6</td></tr>
+            <tr><td data-label="name">Digital multimeter</td><td data-label="times_borrowed" class="num">4</td></tr>
+            <tr><td data-label="name">Soldering iron 60 W</td><td data-label="times_borrowed" class="num">3</td></tr>
+            <tr><td data-label="name">Cordless drill</td><td data-label="times_borrowed" class="num">2</td></tr>
+          </tbody>
+        </table></div>
+        <div><h3 class="visually-hidden">SQL</h3><pre><code>SELECT i.name, SUM(rl.quantity) AS times_borrowed
+FROM request_line rl
+JOIN item_request q ON q.request_id = rl.request_id
+JOIN item i ON i.item_id = rl.item_id
+WHERE q.status IN (&#x27;approved&#x27;, &#x27;completed&#x27;)
+GROUP BY i.item_id, i.name
+ORDER BY times_borrowed DESC
+LIMIT 5;</code></pre></div>
+      </div>
+    </section>
+  </main>
+</div>
+<div id="toast-region" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>

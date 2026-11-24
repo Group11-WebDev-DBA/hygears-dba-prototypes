@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Settings | Hygears HQ System</title>
+  <link rel="icon" href="../assets/hygears-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600&amp;family=Saira+Condensed:wght@600;700&amp;display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script>document.documentElement.className = "js";</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="shell">
+<!-- Shared header: becomes header.php in the rebuild -->
+<header class="rack">
+  <a class="brand" href="dashboard.html"><img src="../assets/hygears-logo.png" alt="Hygears logo" width="40" height="40">Hygears HQ</a>
+  <button class="btn btn-quiet menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+  <nav class="site-nav" id="site-nav" aria-label="Main">
+    <ul>
+      <li class="nav-door"><a href="index.html">HQ door</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="attendance.html">Attendance</a></li>
+      <li><a href="people.html">People</a></li>
+      <li><a href="items.html">Items</a></li>
+      <li><a href="requests.html">Requests</a></li>
+      <li><a href="reports.html">Reports</a></li>
+      <li><a href="settings.html" aria-current="page">Settings</a></li>
+    </ul>
+  </nav>
+  <p class="user"><strong>Paolo Santos</strong>Officer, signed in</p>
+</header>
+<main id="main" class="page">
+  <div class="page-head">
+    <h1>Settings</h1>
+    <p>The lookup lists the other screens choose from. Names are unique. A value in use can be renamed but not deleted, because rows point to it.</p>
+    <p class="from">Tables <code>role</code>, <code>purpose</code>, <code>category</code>.</p>
+  </div>
+  <div id="settings-msg" class="msg" role="status" aria-live="polite" tabindex="-1" hidden></div>
+
+  <section class="panel" aria-labelledby="roles-title">
+    <div class="panel-head"><h2 id="roles-title">Roles</h2><p>Only roles with <code>can_approve</code> may decide requests.</p></div>
+    <table class="reflow" id="roles-table">
+      <thead><tr><th scope="col">role_id</th><th scope="col">name</th><th scope="col">can_approve</th></tr></thead>
+      <tbody>
+        <tr><td data-label="role_id">1</td><td class="cell-main">Member</td><td data-label="can_approve"><label class="check"><input type="checkbox" data-role="Member"> <span class="can-text">No, can request only</span></label></td></tr>
+        <tr><td data-label="role_id">2</td><td class="cell-main">Officer</td><td data-label="can_approve"><label class="check"><input type="checkbox" data-role="Officer" checked> <span class="can-text">Yes, can approve</span></label></td></tr>
+        <tr><td data-label="role_id">3</td><td class="cell-main">President</td><td data-label="can_approve"><label class="check"><input type="checkbox" data-role="President" checked> <span class="can-text">Yes, can approve</span></label></td></tr>
+        <tr><td data-label="role_id">4</td><td class="cell-main">Adviser</td><td data-label="can_approve"><label class="check"><input type="checkbox" data-role="Adviser" checked> <span class="can-text">Yes, can approve</span></label></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="columns">
+    <section class="panel" aria-labelledby="purposes-title">
+      <div class="panel-head"><h2 id="purposes-title">Purposes</h2><p>Shown as tiles at the HQ door</p></div>
+      <table class="reflow lookup" id="purpose-table">
+        <thead><tr><th scope="col">purpose_id</th><th scope="col">name</th></tr></thead>
+        <tbody>
+          <tr><td data-label="purpose_id">1</td><td class="cell-main">Meeting</td></tr>
+          <tr><td data-label="purpose_id">2</td><td class="cell-main">Project work</td></tr>
+          <tr><td data-label="purpose_id">3</td><td class="cell-main">Workshop</td></tr>
+          <tr><td data-label="purpose_id">4</td><td class="cell-main">Tool use</td></tr>
+          <tr><td data-label="purpose_id">5</td><td class="cell-main">Study</td></tr>
+          <tr><td data-label="purpose_id">6</td><td class="cell-main">Visit</td></tr>
+        </tbody>
+      </table>
+      <form class="lookup-form" data-table="purpose-table" data-thing="purpose" novalidate>
+        <div class="field"><label for="new-purpose">New purpose</label><input id="new-purpose" type="text" placeholder="Competition prep" aria-describedby="new-purpose-error"><span class="error" id="new-purpose-error" hidden></span></div>
+        <button class="btn" type="submit">Add purpose</button>
+      </form>
+    </section>
+
+    <section class="panel" aria-labelledby="categories-title">
+      <div class="panel-head"><h2 id="categories-title">Categories</h2><p>Group items on the Items page</p></div>
+      <table class="reflow lookup" id="category-table">
+        <thead><tr><th scope="col">category_id</th><th scope="col">name</th></tr></thead>
+        <tbody>
+          <tr><td data-label="category_id">1</td><td class="cell-main">Hand tools</td></tr>
+          <tr><td data-label="category_id">2</td><td class="cell-main">Power tools</td></tr>
+          <tr><td data-label="category_id">3</td><td class="cell-main">Electronics</td></tr>
+          <tr><td data-label="category_id">4</td><td class="cell-main">Measuring instruments</td></tr>
+          <tr><td data-label="category_id">5</td><td class="cell-main">Cutting consumables</td></tr>
+          <tr><td data-label="category_id">6</td><td class="cell-main">Soldering consumables</td></tr>
+        </tbody>
+      </table>
+      <form class="lookup-form" data-table="category-table" data-thing="category" novalidate>
+        <div class="field"><label for="new-category">New category</label><input id="new-category" type="text" placeholder="Safety gear" aria-describedby="new-category-error"><span class="error" id="new-category-error" hidden></span></div>
+        <button class="btn" type="submit">Add category</button>
+      </form>
+    </section>
+  </div>
+</main>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

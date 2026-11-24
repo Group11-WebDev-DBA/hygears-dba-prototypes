@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Door kiosk · Hygears HQ System</title>
+<link rel="icon" href="../assets/hygears-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&amp;family=Barlow+Condensed:wght@500;600;700&amp;display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="kiosk-body">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5"/><path d="M12 13v8"/></symbol>
+  <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+</svg>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- Top bar: identical on every page (header.php in the PHP rebuild) -->
+<header class="topbar">
+  <a class="brand" href="dashboard.html"><img src="../assets/hygears-logo.png" alt="Hygears logo" width="34" height="34">HQ System</a>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  <nav class="nav" id="nav" aria-label="Main">
+    <a href="index.html" aria-current="page">Door kiosk</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="attendance.html">Attendance</a>
+    <a href="people.html">People</a>
+    <a href="items.html">Items</a>
+    <a href="requests.html">Requests</a>
+    <a href="reports.html">Reports</a>
+    <a href="settings.html">Settings</a>
+  </nav>
+  <p class="whoami">Signed in: <strong>Paolo Santos</strong> · Officer</p>
+</header>
+
+<!-- HQ door kiosk: runs on a phone or tablet at the door.
+     Sign in writes a row to `attendance` (time_out NULL); Sign out sets time_out. -->
+<main id="main" class="kiosk">
+  <h1 class="sr-only">HQ door: sign in or sign out</h1>
+
+  <!-- phone only: switch between the two panes -->
+  <div class="mode-tabs" role="group" aria-label="Sign in or sign out">
+    <button type="button" id="tab-in" aria-pressed="true" aria-controls="pane-in" data-tab="in">Sign in</button>
+    <button type="button" id="tab-out" aria-pressed="false" aria-controls="pane-out" data-tab="out">Sign out · <span id="tab-count">4</span> inside</button>
+  </div>
+
+  <!-- SIGN IN -->
+  <section class="card-k" id="pane-in" data-pane="in" aria-labelledby="in-title">
+    <div class="kiosk-clock">
+      <span class="now" id="now">11:05</span>
+      <span class="date" id="today">Tuesday, 24 November 2026</span>
+    </div>
+
+    <form id="signin-form" novalidate>
+      <h2 id="in-title">Sign in</h2>
+
+      <fieldset>
+        <legend class="sr-only">Who is signing in?</legend>
+        <div class="seg">
+          <label><input type="radio" name="kind" value="student" checked><span>I have a student number</span></label>
+          <label><input type="radio" name="kind" value="visitor"><span>Visitor, no student number</span></label>
+        </div>
+      </fieldset>
+
+      <!-- members and PUP students: person.student_id -->
+      <div id="student-fields">
+        <div class="field">
+          <label for="student_id">Student number</label>
+          <input class="big-input" type="text" id="student_id" name="student_id" autocomplete="off" inputmode="numeric" spellcheck="false" placeholder="2023-00118" aria-describedby="sid-hint sid-error">
+          <span class="hint" id="sid-hint">Numbers only is fine: 2023-00118 or 202300118.</span>
+          <p class="error" id="sid-error" hidden></p>
+        </div>
+        <div class="notice ok" id="sid-found" hidden><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><p id="sid-found-text"></p></div>
+
+        <!-- first visit by a PUP student we don't know yet: new person row -->
+        <div id="first-time" hidden>
+          <div class="notice"><svg class="icon" aria-hidden="true"><use href="#i-user"/></svg><p>First time here? Add your name once and we'll remember it.</p></div>
+          <div class="form-grid">
+            <div class="field"><label for="ft_first_name">First name</label><input type="text" id="ft_first_name" name="first_name" autocomplete="given-name"></div>
+            <div class="field"><label for="ft_last_name">Last name</label><input type="text" id="ft_last_name" name="last_name" autocomplete="family-name"></div>
+            <div class="field full"><label for="ft_contact_number">Contact number</label><input type="tel" id="ft_contact_number" name="contact_number" inputmode="tel" placeholder="0917 555 0100"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- visitors: person row with student_id NULL -->
+      <div id="visitor-fields" hidden>
+        <div class="form-grid">
+          <div class="field"><label for="v_first_name">First name</label><input type="text" id="v_first_name" disabled name="first_name" autocomplete="given-name"></div>
+          <div class="field"><label for="v_last_name">Last name</label><input type="text" id="v_last_name" disabled name="last_name" autocomplete="family-name"></div>
+          <div class="field"><label for="v_contact_number">Contact number</label><input type="tel" id="v_contact_number" disabled name="contact_number" inputmode="tel" placeholder="0917 555 0100"></div>
+          <div class="field"><label for="v_affiliation">School or organization</label><input type="text" id="v_affiliation" disabled name="affiliation" placeholder="e.g. Sample State University"></div>
+        </div>
+        <p class="hint">Your contact number is kept in the HQ log for safety only. Only members can borrow tools.</p>
+      </div>
+
+      <fieldset>
+        <legend>Purpose</legend>
+        <div class="purposes">
+          <label><input type="radio" name="purpose_id" value="1"><span>Meeting</span></label>
+          <label><input type="radio" name="purpose_id" value="2"><span>Project work</span></label>
+          <label><input type="radio" name="purpose_id" value="3"><span>Workshop</span></label>
+          <label><input type="radio" name="purpose_id" value="4"><span>Tool use</span></label>
+          <label><input type="radio" name="purpose_id" value="5"><span>Study</span></label>
+          <label><input type="radio" name="purpose_id" value="6"><span>Visit</span></label>
+        </div>
+        <p class="error" id="purpose-error" hidden></p>
+      </fieldset>
+
+      <p class="error" id="form-error" role="alert" hidden></p>
+      <button class="btn btn-primary btn-xl" type="submit"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Sign in</button>
+    </form>
+
+    <!-- confirmation, replaces the form for a few seconds -->
+    <div class="done" id="signin-done" hidden tabindex="-1">
+      <div class="big-tick"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></div>
+      <h2 id="done-name">Signed in</h2>
+      <p id="done-detail"></p>
+      <button class="btn btn-dark btn-xl" type="button" id="done-btn">Done</button>
+      <p class="small" id="done-reset">This screen clears in 8 s.</p>
+    </div>
+  </section>
+
+  <!-- SIGN OUT: the timing tower, longest stay first -->
+  <section class="tower" id="pane-out" data-pane="out" data-off aria-labelledby="out-title">
+    <div class="tower-head">
+      <h2 id="out-title">In the HQ now</h2>
+      <p><span id="inside-count">4</span> inside · tap Sign out when you leave</p>
+    </div>
+    <div class="tower-search">
+      <label for="find-me">Find your name</label>
+      <input type="search" id="find-me" placeholder="Type a name" autocomplete="off">
+    </div>
+    <ol id="inside-list">
+      <li data-name="Bea Villanueva">
+        <span class="pos">1</span>
+        <span class="who"><strong>Bea Villanueva</strong><span>Tool use · in 8:40 AM</span></span>
+        <span class="clock" data-since="2026-11-24T08:40"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>2h 25m</span>
+        <button class="out-btn" type="button" aria-label="Sign out Bea Villanueva">Sign out</button>
+      </li>
+      <li data-name="Jun Dela Rosa">
+        <span class="pos">2</span>
+        <span class="who"><strong>Jun Dela Rosa</strong><span>Project work · in 9:12 AM</span></span>
+        <span class="clock" data-since="2026-11-24T09:12"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>1h 53m</span>
+        <button class="out-btn" type="button" aria-label="Sign out Jun Dela Rosa">Sign out</button>
+      </li>
+      <li data-name="Andrea Cruz">
+        <span class="pos">3</span>
+        <span class="who"><strong>Andrea Cruz</strong><span>Project work · in 9:50 AM</span></span>
+        <span class="clock" data-since="2026-11-24T09:50"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>1h 15m</span>
+        <button class="out-btn" type="button" aria-label="Sign out Andrea Cruz">Sign out</button>
+      </li>
+      <li data-name="Rina Lopez">
+        <span class="pos">4</span>
+        <span class="who"><strong>Rina Lopez <span class="tag-visitor">Visitor</span></strong><span>Visit · in 10:15 AM</span></span>
+        <span class="clock" data-since="2026-11-24T10:15"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>0h 50m</span>
+        <button class="out-btn" type="button" aria-label="Sign out Rina Lopez">Sign out</button>
+      </li>
+    </ol>
+    <p class="empty" id="inside-empty" hidden>Nobody matches that name.</p>
+  </section>
+</main>
+
+<!-- toast messages (aria-live so screen readers hear them) -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>

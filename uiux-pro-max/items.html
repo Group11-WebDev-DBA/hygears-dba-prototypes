@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Items · Hygears HQ</title>
+<link rel="icon" href="../assets/hygears-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="items">
+<a class="skip" href="#main">Skip to content</a>
+<div class="shell">
+  <!-- Shared header (header.php in the rebuild). Set aria-current on the current page. -->
+  <header class="side">
+    <div class="brand">
+      <img src="../assets/hygears-logo.png" alt="Hygears logo" width="44" height="44">
+      <span class="brand-text"><strong>Hygears HQ</strong><span>Logbook + inventory</span></span>
+      <button class="btn menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    </div>
+    <nav class="nav" id="nav" aria-label="Main">
+      <ul>
+      <li><a href="index.html"><span class="num" aria-hidden="true">01</span> Door kiosk</a></li>
+      <li class="group" aria-hidden="true">Officers</li>
+      <li><a href="dashboard.html"><span class="num" aria-hidden="true">02</span> Dashboard</a></li>
+      <li><a href="attendance.html"><span class="num" aria-hidden="true">03</span> Attendance</a></li>
+      <li><a href="people.html"><span class="num" aria-hidden="true">04</span> People</a></li>
+      <li><a href="items.html" aria-current="page"><span class="num" aria-hidden="true">05</span> Items</a></li>
+      <li><a href="requests.html"><span class="num" aria-hidden="true">06</span> Requests</a></li>
+      <li><a href="reports.html"><span class="num" aria-hidden="true">07</span> Reports</a></li>
+      <li><a href="settings.html"><span class="num" aria-hidden="true">08</span> Settings</a></li>
+      </ul>
+    </nav>
+    <p class="who">Signed in as <strong>Paolo Reyes</strong> Officer · <span class="sql">can_approve = 1</span></p>
+  </header>
+
+  <main class="main" id="main" tabindex="-1">
+    <div class="pagehead">
+      <div>
+        <h1>Inventory</h1>
+        <p class="lede">Every tool and consumable in HQ. Available comes from the view, so it never drifts.</p>
+        <ul class="uses" aria-label="Tables and views used"><li class="sql">item</li><li class="sql">category</li><li class="sql">restock</li><li class="sql">v_item_stock</li><li class="sql">v_low_stock</li></ul>
+      </div>
+    </div>
+
+    <section class="panel" aria-labelledby="i-h">
+      <span class="bin-tag">item JOIN v_item_stock</span>
+      <div class="panel-head"><h2 id="i-h">Items</h2><div class="actions"><a class="btn" href="#restock">Restock</a><a class="btn btn-primary" href="#item-panel">Add item</a></div></div>
+      <form class="filters" id="item-filters" data-filter-table="item-table" role="search">
+        <div class="field"><label for="f-iq">Search items</label><input id="f-iq" name="q" type="search" autocomplete="off"></div>
+        <div class="field"><label for="f-cat">Category</label><select id="f-cat" name="category"><option value="">All categories</option><option value="Hand tools">Hand tools</option><option value="Power tools">Power tools</option><option value="Electronics">Electronics</option><option value="Measuring instruments">Measuring instruments</option><option value="Cutting consumables">Cutting consumables</option><option value="Soldering consumables">Soldering consumables</option></select></div>
+        <div class="field"><label for="f-itype">Type <span class="col">item_<wbr>type</span></label><select id="f-itype" name="type"><option value="">Tools and consumables</option><option value="tool">Tools</option><option value="consumable">Consumables</option></select></div>
+        <label class="check"><input type="checkbox" name="low" value="yes"> Low stock only</label>
+        <button class="btn" type="reset">Clear</button>
+      </form>
+      <p class="count" id="item-count" aria-live="polite" data-noun="items"></p>
+      <div class="table-wrap"><table id="item-table">
+        <thead><tr><th class="num">#<span class="col">item_<wbr>id</span></th><th>Item<span class="col">name</span></th><th>Category<span class="col">category_<wbr>id</span></th><th>Type<span class="col">item_<wbr>type</span></th><th class="num">Total<span class="col">quantity_<wbr>total</span></th><th class="num">Available<span class="col">quantity_<wbr>available</span></th><th class="num">Reorder at<span class="col">reorder_<wbr>level</span></th><th>Status</th><th><span class="visually-hidden">Actions</span></th></tr></thead>
+        <tbody>
+            <tr data-id="1" data-name="Cordless drill" data-category="Power tools" data-type="tool" data-total="2" data-available="1" data-reorder="" data-active="yes" data-low="no"><td data-label="item_id" class="num">1</td><td data-label="Item"><strong>Cordless drill</strong></td><td data-label="Category">Power tools</td><td data-label="item_type">tool</td><td data-label="quantity_total" class="num">2</td><td data-label="Available" class="num">1</td><td data-label="reorder_level" class="num"><span class="muted">None</span></td><td data-label="Status"><span class="tag "><span class="ico" aria-hidden="true">✓</span>In stock</span></td><td class="actions-cell"><button class="btn" type="button" data-edit aria-label="Edit Cordless drill">Edit</button></td></tr>
+            <tr data-id="2" data-name="Digital multimeter" data-category="Measuring instruments" data-type="tool" data-total="3" data-available="1" data-reorder="" data-active="yes" data-low="no"><td data-label="item_id" class="num">2</td><td data-label="Item"><strong>Digital multimeter</strong></td><td data-label="Category">Measuring instruments</td><td data-label="item_type">tool</td><td data-label="quantity_total" class="num">3</td><td data-label="Available" class="num">1</td><td data-label="reorder_level" class="num"><span class="muted">None</span></td><td data-label="Status"><span class="tag "><span class="ico" aria-hidden="true">✓</span>In stock</span></td><td class="actions-cell"><button class="btn" type="button" data-edit aria-label="Edit Digital multimeter">Edit</button></td></tr>
+            <tr data-id="3" data-name="Soldering iron 60 W" data-category="Electronics" data-type="tool" data-total="4" data-available="3" data-reorder="" data-active="yes" data-low="no"><td data-label="item_id" class="num">3</td><td data-label="Item"><strong>Soldering iron 60 W</strong></td><td data-label="Category">Electronics</td><td data-label="item_type">tool</td><td data-label="quantity_total" class="num">4</td><td data-label="Available" class="num">3</td><td data-label="reorder_level" class="num"><span class="muted">None</span></td><td data-label="Status"><span class="tag "><span class="ico" aria-hidden="true">✓</span>In stock</span></td><td class="actions-cell"><button class="btn" type="button" data-edit aria-label="Edit Soldering iron 60 W">Edit</button></td></tr>
+            <tr data-id="4" data-name="Vernier caliper" data-category="Measuring instruments" data-type="tool" data-total="2" data-available="2" data-reorder="" data-active="yes" data-low="no"><td data-label="item_id" class="num">4</td><td data-label="Item"><strong>Vernier caliper</strong></td><td data-label="Category">Measuring instruments</td><td data-label="item_type">tool</td><td data-label="quantity_total" class="num">2</td><td data-label="Available" class="num">2</td><td data-label="reorder_level" class="num"><span class="muted">None</span></td><td data-label="Status"><span class="tag "><span class="ico" aria-hidden="true">✓</span>In stock</span></td><td class="actions-cell"><button class="btn" type="button" data-edit aria-label="Edit Vernier caliper">Edit</button></td></tr>
+            <tr data-id="5" data-name="Socket wrench set" data-category="Hand tools" data-type="tool" data-total="2" data-available="1" data-reorder="" data-active="yes" data-low="no"><td data-label="item_id" class="num">5</td><td data-label="Item"><strong>Socket wrench set</strong></td><td data-label="Category">Hand tools</td><td data-label="item_type">tool</td><td data-label="quantity_total" class="num">2</td><td data-label="Available" class="num">1</td><td data-label="reorder_level" class="num"><span class="muted">None</span></td><td data-label="Status"><span class="tag "><span class="ico" aria-hidden="true">✓</span>In stock</span></td><td class="actions-cell"><button class="btn" type="button" data-edit aria-label="Edit Socket wrench set">Edit</button></td></tr>
+            <tr data-id="6" data-name="Angle grinder" data-category="Power tools" data-type="tool" data-total="1" data-available="0" data-reorder="" data-active="yes" data-low="no"><td data-label="item_id" class="num">6</td><td data-label="Item"><strong>Angle grinder</strong></td><td data-label="Category">Power tools</td><td data-label="item_type">tool</td><td data-label="quantity_total" class="num">1</td><td data-label="Available" class="num">0</td><td data-label="reorder_level" class="num"><span class="muted">None</span></td><td data-label="Status"><span class="tag off"><span class="ico" aria-hidden="true">0</span>All out</span></td><td class="actions-cell"><button class="btn" type="button" data-edit aria-label="Edit Angle grinder">Edit</button></td></tr>
+            <tr data-id="7" data-name="Oscilloscope" data-category="Measuring instruments" data-type="tool" data-total="1" data-available="1" data-reorder="" data-active="yes" data-low="no"><td data-label="item_id" class="num">7</td><td data-label="Item"><strong>Oscilloscope</strong></td><td data-label="Category">Measuring instruments</td><td data-label="item_type">tool</td><td data-label="quantity_total" class="num">1</td><td data-label="Available" class="num">1</td><td data-label="reorder_level" class="num"><span class="muted">None</span></td><td data-label="Status"><span class="tag "><span class="ico" aria-hidden="true">✓</span>In stock</span></td><td class="actions-cell"><button class="btn" type="button" data-edit aria-label="Edit Oscilloscope">Edit</button></td></tr>
+            <tr data-id="8" data-name="Solder wire 0.8 mm" data-category="Soldering consumables" data-type="consumable" data-total="10" data-available="3" data-reorder="4" data-active="yes" data-low="yes" class="row-alert"><td data-label="item_id" class="num">8</td><td data-label="Item"><strong>Solder wire 0.8 mm</strong></td><td data-label="Category">Soldering consumables</td><td data-label="item_type">consumable</td><td data-label="quantity_total" class="num">10</td><td data-label="Available" class="num">3</td><td data-label="reorder_level" class="num">4</td><td data-label="Status"><span class="tag alert"><span class="ico" aria-hidden="true">!</span>Low stock</span></td><td class="actions-cell"><button class="btn" type="button" data-edit aria-label="Edit Solder wire 0.8 mm">Edit</button></td></tr>
+            <tr data-id="9" data-name="Flux paste" data-category="Soldering consumables" data-type="consumable" data-total="6" data-available="5" data-reorder="2" data-active="yes" data-low="no"><td data-label="item_id" class="num">9</td><td data-label="Item"><strong>Flux paste</strong></td><td data-label="Category">Soldering consumables</td><td data-label="item_type">consumable</td><td data-label="quantity_total" class="num">6</td><td data-label="Available" class="num">5</td><td data-label="reorder_level" class="num">2</td><td data-label="Status"><span class="tag "><span class="ico" aria-hidden="true">✓</span>In stock</span></td><td class="actions-cell"><button class="btn" type="button" data-edit aria-label="Edit Flux paste">Edit</button></td></tr>
+            <tr data-id="10" data-name="Cutting disc 4 in" data-category="Cutting consumables" data-type="consumable" data-total="20" data-available="4" data-reorder="5" data-active="yes" data-low="yes" class="row-alert"><td data-label="item_id" class="num">10</td><td data-label="Item"><strong>Cutting disc 4 in</strong></td><td data-label="Category">Cutting consumables</td><td data-label="item_type">consumable</td><td data-label="quantity_total" class="num">20</td><td data-label="Available" class="num">4</td><td data-label="reorder_level" class="num">5</td><td data-label="Status"><span class="tag alert"><span class="ico" aria-hidden="true">!</span>Low stock</span></td><td class="actions-cell"><button class="btn" type="button" data-edit aria-label="Edit Cutting disc 4 in">Edit</button></td></tr>
+            <tr data-id="11" data-name="Heat-shrink tubing pack" data-category="Electronics" data-type="consumable" data-total="12" data-available="9" data-reorder="3" data-active="yes" data-low="no"><td data-label="item_id" class="num">11</td><td data-label="Item"><strong>Heat-shrink tubing pack</strong></td><td data-label="Category">Electronics</td><td data-label="item_type">consumable</td><td data-label="quantity_total" class="num">12</td><td data-label="Available" class="num">9</td><td data-label="reorder_level" class="num">3</td><td data-label="Status"><span class="tag "><span class="ico" aria-hidden="true">✓</span>In stock</span></td><td class="actions-cell"><button class="btn" type="button" data-edit aria-label="Edit Heat-shrink tubing pack">Edit</button></td></tr>
+            <tr data-id="12" data-name="Hacksaw blade" data-category="Cutting consumables" data-type="consumable" data-total="15" data-available="11" data-reorder="5" data-active="yes" data-low="no"><td data-label="item_id" class="num">12</td><td data-label="Item"><strong>Hacksaw blade</strong></td><td data-label="Category">Cutting consumables</td><td data-label="item_type">consumable</td><td data-label="quantity_total" class="num">15</td><td data-label="Available" class="num">11</td><td data-label="reorder_level" class="num">5</td><td data-label="Status"><span class="tag "><span class="ico" aria-hidden="true">✓</span>In stock</span></td><td class="actions-cell"><button class="btn" type="button" data-edit aria-label="Edit Hacksaw blade">Edit</button></td></tr>
+          <tr class="empty-row" hidden><td colspan="9" class="empty">No items match. Clear the filters or add the item below.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <div class="grid-2">
+      <section class="panel" id="item-panel" aria-labelledby="item-form-h" tabindex="-1">
+        <span class="bin-tag" id="item-form-tag">INSERT INTO item</span>
+        <h2 id="item-form-h">Add an item</h2>
+        <form id="item-form" novalidate>
+          <input type="hidden" name="item_id" id="if-id">
+          <div class="field"><label for="if-name">Name <span class="col">name</span></label><input id="if-name" name="name" type="text" maxlength="100" aria-describedby="if-name-hint"><span class="hint" id="if-name-hint">Short and specific, like "Solder wire 1.0 mm". Must be unique.</span><span class="error" id="if-name-err" hidden></span></div>
+          <div class="field"><label for="if-cat">Category <span class="col">category_<wbr>id</span></label><select id="if-cat" name="category_id"><option value="">Choose a category</option><option value="1">Hand tools</option><option value="2">Power tools</option><option value="3">Electronics</option><option value="4">Measuring instruments</option><option value="5">Cutting consumables</option><option value="6">Soldering consumables</option></select><span class="error" id="if-cat-err" hidden></span></div>
+          <fieldset><legend>Type <span class="col">item_<wbr>type</span></legend>
+            <label class="check"><input type="radio" name="item_type" value="tool" checked> Tool (borrowed and returned)</label>
+            <label class="check"><input type="radio" name="item_type" value="consumable"> Consumable (used up, never returned)</label>
+          </fieldset>
+          <div class="form-row">
+            <div class="field"><label for="if-total">Quantity <span class="col">quantity_<wbr>total</span></label><input id="if-total" name="quantity_total" type="number" min="0" step="1" inputmode="numeric" value="1" aria-describedby="if-total-hint"><span class="hint" id="if-total-hint">Tools: units owned. Consumables: starting stock.</span><span class="error" id="if-total-err" hidden></span></div>
+            <div class="field"><label for="if-reorder">Reorder at <span class="col">reorder_<wbr>level</span></label><input id="if-reorder" name="reorder_level" type="number" min="0" step="1" inputmode="numeric" aria-describedby="if-reorder-hint"><span class="hint" id="if-reorder-hint">Optional for tools. Needed for consumables so low stock gets flagged.</span><span class="error" id="if-reorder-err" hidden></span></div>
+          </div>
+          <label class="check"><input type="checkbox" name="is_active" id="if-active" value="1" checked> Active (shown in requests)</label>
+          <div class="actions"><button class="btn btn-primary" type="submit" id="if-submit">Save item</button><button class="btn" type="button" id="if-cancel" hidden>Cancel edit</button></div>
+        </form>
+      </section>
+
+      <section class="panel" id="restock" aria-labelledby="rs-h" tabindex="-1">
+        <span class="bin-tag">INSERT INTO restock</span>
+        <h2 id="rs-h">Restock a consumable</h2>
+        <p class="rule">Restocks add to <span class="sql">v_item_stock.quantity_available</span> for consumables. For tools, edit the item's quantity instead.</p>
+        <form id="restock-form" novalidate>
+          <div class="field"><label for="rs-item">Item <span class="col">item_<wbr>id</span></label><select id="rs-item" name="item_id"><option value="">Choose a consumable</option><option value="8">Solder wire 0.8 mm (3 left)</option><option value="9">Flux paste (5 left)</option><option value="10">Cutting disc 4 in (4 left)</option><option value="11">Heat-shrink tubing pack (9 left)</option><option value="12">Hacksaw blade (11 left)</option></select><span class="error" id="rs-item-err" hidden></span></div>
+          <div class="form-row">
+            <div class="field"><label for="rs-qty">Quantity added <span class="col">quantity</span></label><input id="rs-qty" name="quantity" type="number" min="1" step="1" inputmode="numeric"><span class="error" id="rs-qty-err" hidden></span></div>
+            <div class="field"><label for="rs-date">Date <span class="col">restocked_<wbr>on</span></label><input id="rs-date" name="restocked_on" type="date" value="2026-11-24"><span class="error" id="rs-date-err" hidden></span></div>
+          </div>
+          <div class="field"><label for="rs-notes">Notes <span class="col">notes</span></label><input id="rs-notes" name="notes" type="text" maxlength="255" aria-describedby="rs-notes-hint"><span class="hint" id="rs-notes-hint">Optional. Where it was bought, receipt number.</span></div>
+          <button class="btn btn-primary" type="submit">Add restock</button>
+        </form>
+        <h3 class="small" style="margin-top:1.5rem">Recent restocks</h3>
+        <div class="table-wrap"><table id="restock-table">
+          <thead><tr><th class="num">#<span class="col">restock_<wbr>id</span></th><th>Item</th><th class="num">Qty</th><th class="num">Date</th></tr></thead>
+          <tbody>
+            <tr><td data-label="restock_id" class="num">7</td><td data-label="Item">Heat-shrink tubing pack</td><td data-label="quantity" class="num">6</td><td data-label="restocked_on" class="num">14 Nov</td></tr>
+            <tr><td data-label="restock_id" class="num">6</td><td data-label="Item">Cutting disc 4 in</td><td data-label="quantity" class="num">10</td><td data-label="restocked_on" class="num">14 Nov</td></tr>
+            <tr><td data-label="restock_id" class="num">5</td><td data-label="Item">Solder wire 0.8 mm</td><td data-label="quantity" class="num">6</td><td data-label="restocked_on" class="num">10 Nov</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+    </div>
+  </main>
+</div>
+<div id="toast-region" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>

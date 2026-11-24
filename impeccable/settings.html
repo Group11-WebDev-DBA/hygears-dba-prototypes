@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Settings · Hygears HQ System</title>
+<link rel="icon" href="../assets/hygears-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&amp;family=Barlow+Condensed:wght@500;600;700&amp;display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5"/><path d="M12 13v8"/></symbol>
+  <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+</svg>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- Top bar: identical on every page (header.php in the PHP rebuild) -->
+<header class="topbar">
+  <a class="brand" href="dashboard.html"><img src="../assets/hygears-logo.png" alt="Hygears logo" width="34" height="34">HQ System</a>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  <nav class="nav" id="nav" aria-label="Main">
+    <a href="index.html">Door kiosk</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="attendance.html">Attendance</a>
+    <a href="people.html">People</a>
+    <a href="items.html">Items</a>
+    <a href="requests.html">Requests</a>
+    <a href="reports.html">Reports</a>
+    <a href="settings.html" aria-current="page">Settings</a>
+  </nav>
+  <p class="whoami">Signed in: <strong>Paolo Santos</strong> · Officer</p>
+</header>
+
+<main id="main" class="page">
+  <div class="page-head">
+    <div>
+      <h1>Settings</h1>
+      <p>The lookup lists other screens choose from. Values already used by records can't be deleted, only added.</p>
+    </div>
+    <span class="sample">Sample data</span>
+  </div>
+
+  <div class="settings-grid">
+    <!-- role table -->
+    <section class="panel" aria-labelledby="roles-title">
+      <div class="panel-head"><h2 id="roles-title">Roles</h2><p>Who may approve requests</p></div>
+      <ul class="lookup" id="role-list">
+        <li><span>Member</span><label class="check"><input type="checkbox" data-role>Can approve</label></li>
+        <li><span>Officer</span><label class="check"><input type="checkbox" data-role checked>Can approve</label></li>
+        <li><span>President</span><label class="check"><input type="checkbox" data-role checked>Can approve</label></li>
+        <li><span>Adviser</span><label class="check"><input type="checkbox" data-role checked>Can approve</label></li>
+      </ul>
+      <form class="add-inline" data-add="role-list" data-kind="role" novalidate>
+        <label class="sr-only" for="new-role">New role name</label>
+        <input type="text" id="new-role" placeholder="New role, e.g. Treasurer">
+        <button class="btn" type="submit"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add</button>
+      </form>
+    </section>
+
+    <!-- purpose table -->
+    <section class="panel" aria-labelledby="pur-title">
+      <div class="panel-head"><h2 id="pur-title">Purposes</h2><p>Kiosk buttons</p></div>
+      <ul class="lookup" id="purpose-list">
+        <li><span>Meeting</span></li><li><span>Project work</span></li><li><span>Workshop</span></li>
+        <li><span>Tool use</span></li><li><span>Study</span></li><li><span>Visit</span></li>
+      </ul>
+      <form class="add-inline" data-add="purpose-list" novalidate>
+        <label class="sr-only" for="new-purpose">New purpose</label>
+        <input type="text" id="new-purpose" placeholder="New purpose">
+        <button class="btn" type="submit"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add</button>
+      </form>
+    </section>
+
+    <!-- category table -->
+    <section class="panel" aria-labelledby="cat-title">
+      <div class="panel-head"><h2 id="cat-title">Categories</h2><p>Item groups</p></div>
+      <ul class="lookup" id="category-list">
+        <li><span>Hand tools</span></li><li><span>Power tools</span></li><li><span>Electronics</span></li>
+        <li><span>Measuring instruments</span></li><li><span>Cutting consumables</span></li><li><span>Soldering consumables</span></li>
+      </ul>
+      <form class="add-inline" data-add="category-list" novalidate>
+        <label class="sr-only" for="new-category">New category</label>
+        <input type="text" id="new-category" placeholder="New category">
+        <button class="btn" type="submit"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add</button>
+      </form>
+    </section>
+  </div>
+</main>
+
+<!-- toast messages (aria-live so screen readers hear them) -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HQ door | Hygears HQ System</title>
+  <link rel="icon" href="../assets/hygears-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600&amp;family=Saira+Condensed:wght@600;700&amp;display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script>document.documentElement.className = "js";</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="shell">
+<!-- Shared header: becomes header.php in the rebuild -->
+<header class="rack">
+  <a class="brand" href="dashboard.html"><img src="../assets/hygears-logo.png" alt="Hygears logo" width="40" height="40">Hygears HQ</a>
+  <button class="btn btn-quiet menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+  <nav class="site-nav" id="site-nav" aria-label="Main">
+    <ul>
+      <li class="nav-door"><a href="index.html" aria-current="page">HQ door</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="attendance.html">Attendance</a></li>
+      <li><a href="people.html">People</a></li>
+      <li><a href="items.html">Items</a></li>
+      <li><a href="requests.html">Requests</a></li>
+      <li><a href="reports.html">Reports</a></li>
+      <li><a href="settings.html">Settings</a></li>
+    </ul>
+  </nav>
+  <p class="user"><strong>Paolo Santos</strong>Officer, signed in</p>
+</header>
+<main id="main" class="page kiosk">
+  <div class="kiosk-head">
+    <div>
+      <h1>HQ door</h1>
+      <p>Sign in when you arrive. When you leave, tap Sign out on your tag.</p>
+    </div>
+    <p class="clock" id="clock" aria-live="off">09:41<span>Tuesday, 24 November 2026</span></p>
+  </div>
+
+  <a class="btn jump" href="#inside">Leaving? Find your tag (<span class="inside-count">4</span> inside)</a>
+
+  <div class="kiosk-grid">
+    <!-- Sign in: inserts into attendance (person_id, purpose_id, time_in) -->
+    <section class="signin" aria-labelledby="signin-title">
+      <div class="panel">
+        <h2 id="signin-title">Sign in</h2>
+      </div>
+      <div id="signin-msg" class="msg signin-msg" role="status" aria-live="polite" tabindex="-1" hidden></div>
+
+      <form id="signin-form" novalidate>
+        <fieldset>
+          <legend>Do you have a PUP student number?</legend>
+          <div class="tiles tiles-2">
+            <label class="tile"><input type="radio" name="kind" value="student" checked><span>Yes</span></label>
+            <label class="tile"><input type="radio" name="kind" value="visitor"><span>No, I'm a visitor</span></label>
+          </div>
+        </fieldset>
+
+        <div id="student-fields">
+          <div class="field">
+            <label for="student_id">Student number</label>
+            <input id="student_id" name="student_id" type="text" inputmode="numeric" autocomplete="off" spellcheck="false" placeholder="2023 00141" aria-describedby="student_id-hint student_id-error">
+            <span class="hint" id="student_id-hint">Just the numbers on your PUP ID. Sample: 2023 00141 is Mika (already inside), 2025 00456 is a first visit.</span>
+            <span class="error" id="student_id-error" hidden></span>
+          </div>
+        </div>
+
+        <!-- Shown for visitors, and for a PUP student who isn't in `person` yet -->
+        <div id="detail-fields" hidden>
+          <p class="hint" id="detail-note">We need a few details the first time.</p>
+          <div class="form-grid">
+            <div class="field">
+              <label for="first_name">First name</label>
+              <input id="first_name" name="first_name" type="text" autocomplete="given-name" aria-describedby="first_name-error">
+              <span class="error" id="first_name-error" hidden></span>
+            </div>
+            <div class="field">
+              <label for="last_name">Last name</label>
+              <input id="last_name" name="last_name" type="text" autocomplete="family-name" aria-describedby="last_name-error">
+              <span class="error" id="last_name-error" hidden></span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="contact_number">Contact number</label>
+            <input id="contact_number" name="contact_number" type="tel" inputmode="tel" autocomplete="tel" placeholder="0917 123 4567" aria-describedby="contact_number-error">
+            <span class="error" id="contact_number-error" hidden></span>
+          </div>
+          <div class="field" id="affiliation-field">
+            <label for="affiliation">School or organization</label>
+            <input id="affiliation" name="affiliation" type="text" placeholder="TUP Manila" aria-describedby="affiliation-hint affiliation-error">
+            <span class="hint" id="affiliation-hint">Where you're from, so officers know who visited.</span>
+            <span class="error" id="affiliation-error" hidden></span>
+          </div>
+        </div>
+
+        <fieldset id="purpose-set" aria-describedby="purpose-error">
+          <legend>Purpose</legend>
+          <div class="tiles">
+            <label class="tile"><input type="radio" name="purpose_id" value="1"><span>Meeting</span></label>
+            <label class="tile"><input type="radio" name="purpose_id" value="2"><span>Project work</span></label>
+            <label class="tile"><input type="radio" name="purpose_id" value="3"><span>Workshop</span></label>
+            <label class="tile"><input type="radio" name="purpose_id" value="4"><span>Tool use</span></label>
+            <label class="tile"><input type="radio" name="purpose_id" value="5"><span>Study</span></label>
+            <label class="tile"><input type="radio" name="purpose_id" value="6"><span>Visit</span></label>
+          </div>
+          <p class="error" id="purpose-error" hidden></p>
+        </fieldset>
+
+        <button class="btn btn-primary btn-xl" type="submit">Sign in</button>
+      </form>
+    </section>
+
+    <!-- In the HQ now: attendance rows WHERE time_out IS NULL -->
+    <section class="inside" id="inside" aria-labelledby="inside-title" tabindex="-1">
+      <div class="inside-head">
+        <h2 id="inside-title">In the HQ now (<span class="inside-count">4</span>)</h2>
+        <p>Leaving? Tap Sign out on your own tag.</p>
+      </div>
+      <div id="signout-msg" class="msg" role="status" aria-live="polite" tabindex="-1" hidden></div>
+      <ul class="tagboard" id="tagboard">
+        <li class="person-tag" data-attendance-id="218" data-person-id="8" data-student-id="2025-01234-MN-0" data-name="Nico Ferrer" data-contact="09170000108" data-time="09:20">
+          <div><h3>Nico Ferrer</h3><p>PUP student, Study</p><p>In since 09:20</p></div>
+          <button class="btn" type="button" data-signout>Sign out<span class="visually-hidden"> Nico Ferrer</span></button>
+        </li>
+        <li class="person-tag" data-attendance-id="217" data-person-id="7" data-student-id="" data-name="Lara Gomez" data-contact="09170000107" data-time="09:02">
+          <div><h3>Lara Gomez</h3><p>Visitor from TUP Manila, Workshop</p><p>In since 09:02</p></div>
+          <button class="btn" type="button" data-signout>Sign out<span class="visually-hidden"> Lara Gomez</span></button>
+        </li>
+        <li class="person-tag" data-attendance-id="216" data-person-id="4" data-student-id="2024-00088-MN-0" data-name="Carlo Mendoza" data-contact="09170000104" data-time="08:30">
+          <div><h3>Carlo Mendoza</h3><p>Member, Tool use</p><p>In since 08:30</p></div>
+          <button class="btn" type="button" data-signout>Sign out<span class="visually-hidden"> Carlo Mendoza</span></button>
+        </li>
+        <li class="person-tag" data-attendance-id="215" data-person-id="1" data-student-id="2023-00141-MN-0" data-name="Mika Reyes" data-contact="09170000101" data-time="08:15">
+          <div><h3>Mika Reyes</h3><p>Member, Project work</p><p>In since 08:15</p></div>
+          <button class="btn" type="button" data-signout>Sign out<span class="visually-hidden"> Mika Reyes</span></button>
+        </li>
+      </ul>
+      <p id="inside-empty" class="muted" hidden>Nobody is signed in right now. The first person to arrive signs in on this screen.</p>
+    </section>
+  </div>
+</main>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

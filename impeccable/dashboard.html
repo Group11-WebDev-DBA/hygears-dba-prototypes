@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard · Hygears HQ System</title>
+<link rel="icon" href="../assets/hygears-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&amp;family=Barlow+Condensed:wght@500;600;700&amp;display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5"/><path d="M12 13v8"/></symbol>
+  <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+</svg>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- Top bar: identical on every page (header.php in the PHP rebuild) -->
+<header class="topbar">
+  <a class="brand" href="dashboard.html"><img src="../assets/hygears-logo.png" alt="Hygears logo" width="34" height="34">HQ System</a>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  <nav class="nav" id="nav" aria-label="Main">
+    <a href="index.html">Door kiosk</a>
+    <a href="dashboard.html" aria-current="page">Dashboard</a>
+    <a href="attendance.html">Attendance</a>
+    <a href="people.html">People</a>
+    <a href="items.html">Items</a>
+    <a href="requests.html">Requests</a>
+    <a href="reports.html">Reports</a>
+    <a href="settings.html">Settings</a>
+  </nav>
+  <p class="whoami">Signed in: <strong>Paolo Santos</strong> · Officer</p>
+</header>
+
+<main id="main" class="page">
+  <div class="page-head">
+    <div>
+      <h1>Dashboard</h1>
+      <p>Tuesday, 24 November 2026 · what needs an officer right now.</p>
+    </div>
+    <span class="sample">Sample data</span>
+  </div>
+
+  <!-- today's numbers in one line (counts from attendance, item_request, v_open_loans, v_low_stock) -->
+  <ul class="tally">
+    <li><b>4</b><span><a href="index.html">inside now</a></span></li>
+    <li><b>8</b><span><a href="attendance.html">sign-ins today</a></span></li>
+    <li><b>4</b><span><a href="requests.html">pending requests</a></span></li>
+    <li><b>1</b><span><a href="requests.html#loans">overdue tool</a></span></li>
+    <li><b>2</b><span><a href="items.html">low-stock items</a></span></li>
+  </ul>
+
+  <div class="grid-2">
+    <!-- action queue: most urgent first -->
+    <section class="panel" aria-labelledby="q-title">
+      <div class="panel-head">
+        <h2 id="q-title">Needs action <span class="count">6</span></h2>
+        <p>Most urgent first</p>
+      </div>
+      <ul class="queue">
+        <li class="q-alert">
+          <svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg>
+          <span class="what"><strong>Torque wrench is 3 days overdue</strong><span>Mika Reyes · request #1038 · was due Sat 21 Nov</span></span>
+          <a class="btn btn-sm" href="requests.html#loans">Open loan</a>
+        </li>
+        <li class="q-alert">
+          <svg class="icon" aria-hidden="true"><use href="#i-ban"/></svg>
+          <span class="what"><strong>#1041 can't be approved yet</strong><span>Jun Dela Rosa wants 2 digital multimeters; only 1 is available</span></span>
+          <a class="btn btn-sm" href="requests.html">Review</a>
+        </li>
+        <li class="q-warn">
+          <svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>
+          <span class="what"><strong>2 tools due back today</strong><span>Andrea Cruz · cordless drill and digital multimeter · #1040</span></span>
+          <a class="btn btn-sm" href="requests.html#loans">See loans</a>
+        </li>
+        <li class="q-info">
+          <svg class="icon" aria-hidden="true"><use href="#i-box"/></svg>
+          <span class="what"><strong>Pending: #1042 Mika Reyes, #1043 Andrea Cruz</strong><span>Enough stock for both · #1044 is yours, another officer decides it</span></span>
+          <a class="btn btn-sm btn-primary" href="requests.html">Decide</a>
+        </li>
+        <li class="q-alert">
+          <svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg>
+          <span class="what"><strong>Solder wire 0.8 mm is low</strong><span>2 rolls left · reorder level 3</span></span>
+          <a class="btn btn-sm" href="items.html#restock">Restock</a>
+        </li>
+        <li class="q-alert">
+          <svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg>
+          <span class="what"><strong>Cutting disc 4 in is low</strong><span>3 left · reorder level 5</span></span>
+          <a class="btn btn-sm" href="items.html#restock">Restock</a>
+        </li>
+      </ul>
+    </section>
+
+    <!-- timing tower: who is inside, longest stay first -->
+    <section class="tower" aria-labelledby="t-title">
+      <div class="tower-head">
+        <h2 id="t-title">In the HQ now</h2>
+        <p>4 inside</p>
+      </div>
+      <ol>
+        <li>
+          <span class="pos">1</span>
+          <span class="who"><strong>Bea Villanueva</strong><span>Tool use · in 8:40 AM</span></span>
+          <span class="clock" data-since="2026-11-24T08:40"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>2h 25m</span>
+          <span></span>
+        </li>
+        <li>
+          <span class="pos">2</span>
+          <span class="who"><strong>Jun Dela Rosa</strong><span>Project work · in 9:12 AM</span></span>
+          <span class="clock" data-since="2026-11-24T09:12"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>1h 53m</span>
+          <span></span>
+        </li>
+        <li>
+          <span class="pos">3</span>
+          <span class="who"><strong>Andrea Cruz</strong><span>Project work · in 9:50 AM</span></span>
+          <span class="clock" data-since="2026-11-24T09:50"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>1h 15m</span>
+          <span></span>
+        </li>
+        <li>
+          <span class="pos">4</span>
+          <span class="who"><strong>Rina Lopez <span class="tag-visitor">Visitor</span></strong><span>Visit · Sample State University</span></span>
+          <span class="clock" data-since="2026-11-24T10:15"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>0h 50m</span>
+          <span></span>
+        </li>
+      </ol>
+    </section>
+  </div>
+
+  <!-- tools out right now (v_open_loans), each with its own clock -->
+  <section class="panel" aria-labelledby="l-title">
+    <div class="panel-head">
+      <h2 id="l-title">Tools out <span class="count">4</span></h2>
+      <a class="btn btn-sm" href="requests.html#loans">Manage loans</a>
+    </div>
+    <div class="table-wrap">
+      <table class="reflow">
+        <thead><tr><th scope="col">Item</th><th scope="col">Borrower</th><th scope="col" class="num">Qty</th><th scope="col">Due</th><th scope="col">Clock</th></tr></thead>
+        <tbody>
+          <tr class="row-alert">
+            <td data-label="Item">Torque wrench</td><td data-label="Borrower">Mika Reyes</td><td data-label="Qty" class="num">1</td><td data-label="Due">Sat 21 Nov</td>
+            <td data-label="Clock"><span class="clock late" data-due="2026-11-21"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg>3d overdue</span></td>
+          </tr>
+          <tr>
+            <td data-label="Item">Cordless drill</td><td data-label="Borrower">Andrea Cruz</td><td data-label="Qty" class="num">1</td><td data-label="Due">Today</td>
+            <td data-label="Clock"><span class="clock today" data-due="2026-11-24"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>due today</span></td>
+          </tr>
+          <tr>
+            <td data-label="Item">Digital multimeter</td><td data-label="Borrower">Andrea Cruz</td><td data-label="Qty" class="num">1</td><td data-label="Due">Today</td>
+            <td data-label="Clock"><span class="clock today" data-due="2026-11-24"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>due today</span></td>
+          </tr>
+          <tr>
+            <td data-label="Item">Digital multimeter</td><td data-label="Borrower">Jun Dela Rosa</td><td data-label="Qty" class="num">2</td><td data-label="Due">Sat 28 Nov</td>
+            <td data-label="Clock"><span class="clock" data-due="2026-11-28"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>4d left</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<!-- toast messages (aria-live so screen readers hear them) -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>

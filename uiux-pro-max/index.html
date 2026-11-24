@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Door kiosk · Hygears HQ</title>
+<link rel="icon" href="../assets/hygears-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="index" class="kiosk">
+<a class="skip" href="#main">Skip to content</a>
+<div class="shell">
+  <!-- Shared header (header.php in the rebuild). Set aria-current on the current page. -->
+  <header class="side">
+    <div class="brand">
+      <img src="../assets/hygears-logo.png" alt="Hygears logo" width="44" height="44">
+      <span class="brand-text"><strong>Hygears HQ</strong><span>Logbook + inventory</span></span>
+      <button class="btn menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    </div>
+    <nav class="nav" id="nav" aria-label="Main">
+      <ul>
+      <li><a href="index.html" aria-current="page"><span class="num" aria-hidden="true">01</span> Door kiosk</a></li>
+      <li class="group" aria-hidden="true">Officers</li>
+      <li><a href="dashboard.html"><span class="num" aria-hidden="true">02</span> Dashboard</a></li>
+      <li><a href="attendance.html"><span class="num" aria-hidden="true">03</span> Attendance</a></li>
+      <li><a href="people.html"><span class="num" aria-hidden="true">04</span> People</a></li>
+      <li><a href="items.html"><span class="num" aria-hidden="true">05</span> Items</a></li>
+      <li><a href="requests.html"><span class="num" aria-hidden="true">06</span> Requests</a></li>
+      <li><a href="reports.html"><span class="num" aria-hidden="true">07</span> Reports</a></li>
+      <li><a href="settings.html"><span class="num" aria-hidden="true">08</span> Settings</a></li>
+      </ul>
+    </nav>
+    <p class="who">Signed in as <strong>Paolo Reyes</strong> Officer · <span class="sql">can_approve = 1</span></p>
+  </header>
+
+  <main class="kiosk-main" id="main" tabindex="-1">
+    <a class="jump-out" href="#inside" id="jump-out">Leaving? Sign out here <span><span id="jump-count">4 inside</span> <span aria-hidden="true">↓</span></span></a>
+
+    <section class="panel" aria-labelledby="signin-h">
+      <span class="bin-tag">INSERT INTO attendance</span>
+      <h1 id="signin-h">Sign in at the door</h1>
+      <p class="clock"><span id="clock-time">10:42 AM</span><span id="clock-date">Tue, 24 Nov</span></p>
+
+      <form id="signin-form" novalidate>
+        <fieldset class="switch">
+          <legend>Who are you?</legend>
+          <label class="tile"><input type="radio" name="kind" value="student" checked><span>PUP student<small>Member or PUP student number</small></span></label>
+          <label class="tile"><input type="radio" name="kind" value="visitor"><span>Visitor<small>No PUP student number</small></span></label>
+        </fieldset>
+
+        <div id="student-fields" class="field">
+          <label for="k-sid">Student number <span class="col">person.student_<wbr>id</span></label>
+          <input class="big-input" id="k-sid" name="student_id" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-describedby="k-sid-hint">
+          <span class="hint" id="k-sid-hint">Like 2023-00101-MN-0. The 5 middle digits (00101) work too.</span>
+          <p class="match" id="k-sid-match" aria-live="polite"></p>
+          <span class="error" id="k-sid-err" hidden></span>
+        </div>
+
+        <div id="visitor-fields" hidden>
+          <div class="form-row">
+            <div class="field">
+              <label for="k-first">First name <span class="col">first_<wbr>name</span></label>
+              <input id="k-first" name="first_name" type="text" autocomplete="given-name" maxlength="50">
+              <span class="error" id="k-first-err" hidden></span>
+            </div>
+            <div class="field">
+              <label for="k-last">Last name <span class="col">last_<wbr>name</span></label>
+              <input id="k-last" name="last_name" type="text" autocomplete="family-name" maxlength="50">
+              <span class="error" id="k-last-err" hidden></span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="k-contact">Contact number <span class="col">contact_<wbr>number</span></label>
+            <input id="k-contact" name="contact_number" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" aria-describedby="k-contact-hint">
+            <span class="hint" id="k-contact-hint">11 digits, like 0918 555 0107. Only Hygears officers see it.</span>
+            <span class="error" id="k-contact-err" hidden></span>
+          </div>
+          <div class="field">
+            <label for="k-aff">School or organization <span class="col">affiliation</span></label>
+            <input id="k-aff" name="affiliation" type="text" maxlength="100" aria-describedby="k-aff-hint">
+            <span class="hint" id="k-aff-hint">Like TUP Manila. Visitors are saved as a person with no student ID, never as a member.</span>
+            <span class="error" id="k-aff-err" hidden></span>
+          </div>
+        </div>
+
+        <fieldset class="purposes" id="purposes">
+          <legend>Purpose <span class="col">purpose_<wbr>id</span></legend>
+          <label class="tile"><input type="radio" name="purpose_id" value="1"><span>Meeting</span></label>
+          <label class="tile"><input type="radio" name="purpose_id" value="2"><span>Project work</span></label>
+          <label class="tile"><input type="radio" name="purpose_id" value="3"><span>Workshop</span></label>
+          <label class="tile"><input type="radio" name="purpose_id" value="4"><span>Tool use</span></label>
+          <label class="tile"><input type="radio" name="purpose_id" value="5"><span>Study</span></label>
+          <label class="tile"><input type="radio" name="purpose_id" value="6"><span>Visit</span></label>
+          <span class="error" id="k-purpose-err" hidden></span>
+        </fieldset>
+
+        <div class="notice alert" id="already" role="alert" hidden>
+          <strong>You're already signed in.</strong>
+          <p id="already-text"></p>
+          <button class="btn btn-dark" type="button" id="already-go">Go to my Sign out</button>
+        </div>
+
+        <button class="btn btn-primary btn-xl" type="submit">Sign in</button>
+      </form>
+
+      <div class="done" id="signin-done" hidden tabindex="-1" role="status">
+        <span class="big-check" aria-hidden="true">✓</span>
+        <h2 id="done-name">Signed in</h2>
+        <p id="done-detail"></p>
+        <button class="btn btn-dark" type="button" id="done-next">Next person</button>
+        <p class="hint">This screen clears itself in 8 seconds.</p>
+      </div>
+    </section>
+
+    <section class="panel" id="inside" aria-labelledby="inside-h" tabindex="-1">
+      <span class="bin-tag">attendance WHERE time_out IS NULL</span>
+      <div class="panel-head"><h2 id="inside-h">In the HQ now <span id="inside-count">(4)</span></h2></div>
+      <p class="muted">Leaving? Find your name and tap Sign out. It records <code>time_out</code>.</p>
+      <ul class="inside-list" id="inside-list"></ul>
+      <p class="empty" id="inside-empty" hidden>Nobody is signed in right now.</p>
+    </section>
+  </main>
+</div>
+<div id="toast-region" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>

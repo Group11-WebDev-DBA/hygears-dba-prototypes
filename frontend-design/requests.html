@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Requests | Hygears HQ System</title>
+  <link rel="icon" href="../assets/hygears-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600&amp;family=Saira+Condensed:wght@600;700&amp;display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script>document.documentElement.className = "js";</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="shell">
+<!-- Shared header: becomes header.php in the rebuild -->
+<header class="rack">
+  <a class="brand" href="dashboard.html"><img src="../assets/hygears-logo.png" alt="Hygears logo" width="40" height="40">Hygears HQ</a>
+  <button class="btn btn-quiet menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+  <nav class="site-nav" id="site-nav" aria-label="Main">
+    <ul>
+      <li class="nav-door"><a href="index.html">HQ door</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="attendance.html">Attendance</a></li>
+      <li><a href="people.html">People</a></li>
+      <li><a href="items.html">Items</a></li>
+      <li><a href="requests.html" aria-current="page">Requests</a></li>
+      <li><a href="reports.html">Reports</a></li>
+      <li><a href="settings.html">Settings</a></li>
+    </ul>
+  </nav>
+  <p class="user"><strong>Paolo Santos</strong>Officer, signed in</p>
+</header>
+<main id="main" class="page">
+  <div class="page-head">
+    <h1>Requests</h1>
+    <p>Members ask to borrow tools or take consumables. An officer approves only what is on the wall, and nobody decides their own request.</p>
+    <p class="from">From <code>item_request</code>, <code>request_line</code> and the views <code>v_item_stock</code>, <code>v_open_loans</code>. Deciding as Paolo Santos, Officer (<code>can_approve</code> = 1).</p>
+  </div>
+
+  <nav class="jumps" aria-label="On this page">
+    <a class="btn btn-quiet btn-small" href="#pending">Pending</a>
+    <a class="btn btn-quiet btn-small" href="#loans">Tools out (1 overdue)</a>
+    <a class="btn btn-quiet btn-small" href="#new-title">New request</a>
+  </nav>
+
+  <div id="requests-msg" class="msg" role="status" aria-live="polite" tabindex="-1" hidden></div>
+
+  <div class="columns-wide">
+    <section class="panel" id="pending" aria-labelledby="pending-title">
+      <div class="panel-head"><h2 id="pending-title">Pending (<span id="pending-count">5</span>)</h2><p>Stock is checked again on every Approve.</p></div>
+      <div id="pending-list">
+        <article class="slip" data-request-id="1045" data-who="Ken Bautista">
+          <div class="slip-top"><h3>#1045 Ken Bautista</h3><p>requested_at 24 Nov, 09:35</p></div>
+          <ul class="lines">
+            <li data-item-id="2" data-qty="2" data-due="2026-11-27"><span>Digital multimeter x2, tool, due 27 Nov</span><span class="avail"></span></li>
+          </ul>
+          <div class="slip-note msg msg-alert" role="alert" tabindex="-1" hidden></div>
+          <div class="btn-row decide-row"><button class="btn btn-primary" type="button" data-action="approve">Approve<span class="visually-hidden"> request 1045</span></button><button class="btn" type="button" data-action="reject">Reject<span class="visually-hidden"> request 1045</span></button></div>
+        </article>
+
+        <article class="slip" data-request-id="1043" data-who="Bea Villanueva">
+          <div class="slip-top"><h3>#1043 Bea Villanueva</h3><p>requested_at 24 Nov, 09:30</p></div>
+          <ul class="lines">
+            <li data-item-id="3" data-qty="1" data-due="2026-11-25"><span>Soldering station x1, tool, due 25 Nov</span><span class="avail"></span></li>
+          </ul>
+          <div class="slip-note msg msg-alert" role="alert" tabindex="-1" hidden></div>
+          <div class="btn-row decide-row"><button class="btn btn-primary" type="button" data-action="approve">Approve<span class="visually-hidden"> request 1043</span></button><button class="btn" type="button" data-action="reject">Reject<span class="visually-hidden"> request 1043</span></button></div>
+        </article>
+
+        <article class="slip" data-request-id="1042" data-who="Mika Reyes">
+          <div class="slip-top"><h3>#1042 Mika Reyes</h3><p>requested_at 24 Nov, 09:05</p></div>
+          <ul class="lines">
+            <li data-item-id="10" data-qty="4" data-due=""><span>Cutting disc 4 in x4, consumable, no due date</span><span class="avail"></span></li>
+          </ul>
+          <div class="slip-note msg msg-alert" role="alert" tabindex="-1" hidden></div>
+          <div class="btn-row decide-row"><button class="btn btn-primary" type="button" data-action="approve">Approve<span class="visually-hidden"> request 1042</span></button><button class="btn" type="button" data-action="reject">Reject<span class="visually-hidden"> request 1042</span></button></div>
+        </article>
+
+        <article class="slip" data-request-id="1041" data-who="Carlo Mendoza">
+          <div class="slip-top"><h3>#1041 Carlo Mendoza</h3><p>requested_at 24 Nov, 08:40</p></div>
+          <ul class="lines">
+            <li data-item-id="2" data-qty="1" data-due="2026-11-26"><span>Digital multimeter x1, tool, due 26 Nov</span><span class="avail"></span></li>
+            <li data-item-id="8" data-qty="1" data-due=""><span>Solder wire 0.8 mm x1, consumable, no due date</span><span class="avail"></span></li>
+          </ul>
+          <div class="slip-note msg msg-alert" role="alert" tabindex="-1" hidden></div>
+          <div class="btn-row decide-row"><button class="btn btn-primary" type="button" data-action="approve">Approve<span class="visually-hidden"> request 1041</span></button><button class="btn" type="button" data-action="reject">Reject<span class="visually-hidden"> request 1041</span></button></div>
+        </article>
+
+        <!-- requested_by is the signed-in officer: chk_request_not_self, so no decision buttons -->
+        <article class="slip" data-request-id="1044" data-who="Paolo Santos" data-own="1">
+          <div class="slip-top"><h3>#1044 Paolo Santos (you)</h3><p>requested_at 24 Nov, 09:48</p></div>
+          <ul class="lines">
+            <li data-item-id="7" data-qty="1" data-due="2026-11-28"><span>Hex key set x1, tool, due 28 Nov</span><span class="avail"></span></li>
+          </ul>
+          <p class="status status-wait"><span class="glyph" aria-hidden="true">&#9675;</span>Your own request. Another officer, the President or the Adviser decides it.</p>
+        </article>
+      </div>
+      <p id="pending-empty" class="muted" hidden>No pending requests. New ones from members show up here.</p>
+    </section>
+
+    <!-- quantity_available per item (v_item_stock). app.js updates these on approve and return. -->
+    <section class="panel" aria-labelledby="stock-title">
+      <div class="panel-head"><h2 id="stock-title">On the wall now</h2><p>quantity_available, updates as you decide</p></div>
+      <ul class="todo" id="stock-list">
+        <li data-item-id="1" data-name="Cordless drill" data-type="tool" data-total="2" data-available="1"></li>
+        <li data-item-id="2" data-name="Digital multimeter" data-type="tool" data-total="4" data-available="2"></li>
+        <li data-item-id="3" data-name="Soldering station" data-type="tool" data-total="3" data-available="3"></li>
+        <li data-item-id="4" data-name="Torque wrench" data-type="tool" data-total="1" data-available="0"></li>
+        <li data-item-id="5" data-name="Vernier caliper" data-type="tool" data-total="3" data-available="3"></li>
+        <li data-item-id="7" data-name="Hex key set" data-type="tool" data-total="5" data-available="5"></li>
+        <li data-item-id="8" data-name="Solder wire 0.8 mm" data-type="consumable" data-total="10" data-available="2"></li>
+        <li data-item-id="9" data-name="Flux paste" data-type="consumable" data-total="8" data-available="6"></li>
+        <li data-item-id="10" data-name="Cutting disc 4 in" data-type="consumable" data-total="12" data-available="3"></li>
+        <li data-item-id="11" data-name="Heat shrink tubing pack" data-type="consumable" data-total="15" data-available="12"></li>
+        <li data-item-id="12" data-name="Hacksaw blade" data-type="consumable" data-total="10" data-available="8"></li>
+      </ul>
+    </section>
+  </div>
+
+  <section class="panel" id="loans" aria-labelledby="loans-title">
+    <div class="panel-head"><h2 id="loans-title">Tools out now</h2><p>From <code>v_open_loans</code>. Overdue rows first.</p></div>
+    <table class="reflow" id="loans-table">
+      <thead><tr><th scope="col">request_id</th><th scope="col">Borrower</th><th scope="col">item_name</th><th scope="col" class="num">quantity</th><th scope="col">borrowed_at</th><th scope="col">due_date</th><th scope="col">Status</th><th scope="col"><span class="visually-hidden">Actions</span></th></tr></thead>
+      <tbody>
+        <tr class="row-alert" data-request-id="1036" data-item-id="4" data-qty="1"><td data-label="request_id">1036</td><td class="cell-main">Ken Bautista<span class="sub">2021-00733-MN-0, 0917 000 0106</span></td><td data-label="item_name">Torque wrench</td><td data-label="quantity" class="num">1</td><td data-label="borrowed_at">16 Nov</td><td data-label="due_date">20 Nov</td><td data-label="Status"><span class="status status-alert"><span class="glyph" aria-hidden="true">!</span>Overdue 4 days</span></td><td class="actions"><button class="btn btn-small" type="button" data-return>Mark returned<span class="visually-hidden"> Torque wrench, Ken Bautista</span></button></td></tr>
+        <tr data-request-id="1038" data-item-id="1" data-qty="1"><td data-label="request_id">1038</td><td class="cell-main">Mika Reyes<span class="sub">2023-00141-MN-0, 0917 000 0101</span></td><td data-label="item_name">Cordless drill</td><td data-label="quantity" class="num">1</td><td data-label="borrowed_at">22 Nov</td><td data-label="due_date">24 Nov</td><td data-label="Status"><span class="status status-wait"><span class="glyph" aria-hidden="true">&#9675;</span>Due today</span></td><td class="actions"><button class="btn btn-small" type="button" data-return>Mark returned<span class="visually-hidden"> Cordless drill, Mika Reyes</span></button></td></tr>
+        <tr data-request-id="1038" data-item-id="2" data-qty="2"><td data-label="request_id">1038</td><td class="cell-main">Mika Reyes<span class="sub">2023-00141-MN-0, 0917 000 0101</span></td><td data-label="item_name">Digital multimeter</td><td data-label="quantity" class="num">2</td><td data-label="borrowed_at">22 Nov</td><td data-label="due_date">24 Nov</td><td data-label="Status"><span class="status status-wait"><span class="glyph" aria-hidden="true">&#9675;</span>Due today</span></td><td class="actions"><button class="btn btn-small" type="button" data-return>Mark returned<span class="visually-hidden"> Digital multimeter, Mika Reyes</span></button></td></tr>
+        <tr class="empty-row" id="loans-empty" hidden><td colspan="8">No tools are out. Everything is on the wall.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="columns">
+    <section class="panel" aria-labelledby="new-title">
+      <div class="panel-head"><h2 id="new-title" tabindex="-1">New request</h2><p>For a member at the counter</p></div>
+      <div id="new-request-msg" class="msg" role="status" aria-live="polite" tabindex="-1" hidden></div>
+      <form id="new-request" novalidate>
+        <div class="field"><label for="requested_by">Member (requested_by)</label>
+          <select id="requested_by" name="requested_by" aria-describedby="requested_by-hint requested_by-error">
+            <option value="">Choose a member</option>
+            <option value="3">Bea Villanueva</option><option value="4">Carlo Mendoza</option><option value="6">Ken Bautista</option>
+            <option value="1">Mika Reyes</option><option value="2">Paolo Santos (you)</option>
+          </select>
+          <span class="hint" id="requested_by-hint">Active members only. Visitors and inactive members (Jessa Ramos) can't borrow.</span>
+          <span class="error" id="requested_by-error" hidden></span></div>
+
+        <div id="req-lines"></div>
+        <button class="btn btn-quiet" type="button" id="add-line">Add another item</button>
+        <p class="error" id="lines-error" hidden></p>
+        <div class="btn-row form-end"><button class="btn btn-primary" type="submit">Send request</button></div>
+      </form>
+
+      <!-- One request_line row; app.js clones it -->
+      <template id="line-template">
+        <div class="req-line">
+          <div class="field"><label>Item</label><select name="item_id"></select></div>
+          <div class="field"><label>quantity</label><input name="quantity" type="number" min="1" value="1" inputmode="numeric"></div>
+          <div class="field"><label>due_date</label><input name="due_date" type="date" min="2026-11-24"><span class="hint">Tools only</span></div>
+        </div>
+      </template>
+    </section>
+
+    <section class="panel" aria-labelledby="decided-title">
+      <div class="panel-head"><h2 id="decided-title">Decided</h2><p>Recent decisions, newest first</p></div>
+      <table class="reflow" id="decided-table">
+        <thead><tr><th scope="col">request_id</th><th scope="col">requested_by</th><th scope="col">status</th><th scope="col">decided_by</th><th scope="col">remarks</th></tr></thead>
+        <tbody>
+          <tr><td data-label="request_id">1040</td><td class="cell-main">Bea Villanueva</td><td data-label="status"><span class="status status-ok"><span class="glyph" aria-hidden="true">&#10003;</span>completed</span></td><td data-label="decided_by">Ken Bautista</td><td data-label="remarks">2 Flux paste issued</td></tr>
+          <tr><td data-label="request_id">1039</td><td class="cell-main">Jessa Ramos</td><td data-label="status"><span class="status status-off"><span class="glyph" aria-hidden="true">&#10005;</span>rejected</span></td><td data-label="decided_by">Bea Villanueva</td><td data-label="remarks">Angle grinder is under repair</td></tr>
+          <tr><td data-label="request_id">1035</td><td class="cell-main">Carlo Mendoza</td><td data-label="status"><span class="status status-ok"><span class="glyph" aria-hidden="true">&#10003;</span>completed</span></td><td data-label="decided_by">Paolo Santos</td><td data-label="remarks">Hex key set returned 21 Nov</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+</main>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

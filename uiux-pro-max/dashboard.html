@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard · Hygears HQ</title>
+<link rel="icon" href="../assets/hygears-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="dashboard">
+<a class="skip" href="#main">Skip to content</a>
+<div class="shell">
+  <!-- Shared header (header.php in the rebuild). Set aria-current on the current page. -->
+  <header class="side">
+    <div class="brand">
+      <img src="../assets/hygears-logo.png" alt="Hygears logo" width="44" height="44">
+      <span class="brand-text"><strong>Hygears HQ</strong><span>Logbook + inventory</span></span>
+      <button class="btn menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    </div>
+    <nav class="nav" id="nav" aria-label="Main">
+      <ul>
+      <li><a href="index.html"><span class="num" aria-hidden="true">01</span> Door kiosk</a></li>
+      <li class="group" aria-hidden="true">Officers</li>
+      <li><a href="dashboard.html" aria-current="page"><span class="num" aria-hidden="true">02</span> Dashboard</a></li>
+      <li><a href="attendance.html"><span class="num" aria-hidden="true">03</span> Attendance</a></li>
+      <li><a href="people.html"><span class="num" aria-hidden="true">04</span> People</a></li>
+      <li><a href="items.html"><span class="num" aria-hidden="true">05</span> Items</a></li>
+      <li><a href="requests.html"><span class="num" aria-hidden="true">06</span> Requests</a></li>
+      <li><a href="reports.html"><span class="num" aria-hidden="true">07</span> Reports</a></li>
+      <li><a href="settings.html"><span class="num" aria-hidden="true">08</span> Settings</a></li>
+      </ul>
+    </nav>
+    <p class="who">Signed in as <strong>Paolo Reyes</strong> Officer · <span class="sql">can_approve = 1</span></p>
+  </header>
+
+  <main class="main" id="main" tabindex="-1">
+    <div class="pagehead">
+      <div>
+        <h1>Dashboard</h1>
+        <p class="lede">Tuesday, 24 November 2026. What needs an officer today. Sample data.</p>
+        <ul class="uses" aria-label="Tables and views used"><li class="sql">attendance</li><li class="sql">item_request</li><li class="sql">v_open_loans</li><li class="sql">v_low_stock</li></ul>
+      </div>
+    </div>
+
+    <div class="stats">
+      <a class="stat" href="index.html#inside"><span class="label">In the HQ now</span><span class="value">4</span><span class="from">attendance.time_<wbr>out IS NULL</span></a>
+      <a class="stat alert" href="requests.html#pending"><span class="label">Pending requests</span><span class="value">4</span><span class="from">item_<wbr>request.status = &#x27;pending&#x27;</span></a>
+      <a class="stat alert" href="requests.html#loans"><span class="label">Overdue tools</span><span class="value">2</span><span class="from">v_<wbr>open_<wbr>loans.is_<wbr>overdue = 1</span></a>
+      <a class="stat alert" href="items.html?low=yes"><span class="label">Low-stock items</span><span class="value">2</span><span class="from">v_<wbr>low_<wbr>stock</span></a>
+      <a class="stat" href="attendance.html?date=2026-11-24"><span class="label">Attendance today</span><span class="value">6</span><span class="from">DATE(time_<wbr>in) = CURDATE()</span></a>
+    </div>
+
+    <div class="grid-2">
+      <section class="panel" aria-labelledby="d-pend">
+        <span class="bin-tag">item_request</span>
+        <div class="panel-head"><h2 id="d-pend">Pending requests</h2><a class="btn btn-primary" href="requests.html#pending">Review requests</a></div>
+        <div class="table-wrap"><table>
+          <thead><tr><th class="num">#</th><th>Requested by</th><th>Items</th><th>Stock</th></tr></thead>
+          <tbody>
+            <tr><td data-label="Request" class="num">#1012</td><td data-label="Requested by">Mika Santos</td><td data-label="Items">Digital multimeter ×2, Solder wire 0.8 mm ×1</td><td data-label="Stock"><span class="tag alert"><span class="ico" aria-hidden="true">!</span>Short</span></td></tr>
+            <tr><td data-label="Request" class="num">#1013</td><td data-label="Requested by">Jun Bautista</td><td data-label="Items">Vernier caliper ×1, Cutting disc 4 in ×3</td><td data-label="Stock"><span class="tag "><span class="ico" aria-hidden="true">✓</span>OK</span></td></tr>
+            <tr><td data-label="Request" class="num">#1014</td><td data-label="Requested by">Ana Lim</td><td data-label="Items">Oscilloscope ×1, Cutting disc 4 in ×2</td><td data-label="Stock"><span class="tag "><span class="ico" aria-hidden="true">✓</span>OK</span></td></tr>
+            <tr><td data-label="Request" class="num">#1015</td><td data-label="Requested by">Paolo Reyes</td><td data-label="Items">Flux paste ×1</td><td data-label="Stock"><span class="tag "><span class="ico" aria-hidden="true">✓</span>OK</span></td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section class="panel" aria-labelledby="d-over">
+        <span class="bin-tag">v_open_loans</span>
+        <div class="panel-head"><h2 id="d-over">Overdue tools</h2><a class="btn" href="requests.html#loans">Open loans</a></div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Tool</th><th>Borrower</th><th class="num">Due</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr class="row-alert"><td data-label="Tool">Socket wrench set ×1</td><td data-label="Borrower">Jun Bautista</td><td data-label="due_date" class="num">21 Nov</td><td data-label="Status"><span class="tag alert"><span class="ico" aria-hidden="true">!</span>Overdue</span></td></tr>
+            <tr class="row-alert"><td data-label="Tool">Angle grinder ×1</td><td data-label="Borrower">Ana Lim</td><td data-label="due_date" class="num">23 Nov</td><td data-label="Status"><span class="tag alert"><span class="ico" aria-hidden="true">!</span>Overdue</span></td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section class="panel" aria-labelledby="d-low">
+        <span class="bin-tag">v_low_stock</span>
+        <div class="panel-head"><h2 id="d-low">Low-stock consumables</h2><a class="btn" href="items.html#restock">Restock</a></div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Item</th><th class="num">Available</th><th class="num">Reorder at</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr class="row-alert"><td data-label="Item">Solder wire 0.8 mm</td><td data-label="Available" class="num">3</td><td data-label="Reorder at" class="num">4</td><td data-label="Status"><span class="tag alert"><span class="ico" aria-hidden="true">!</span>Low stock</span></td></tr>
+            <tr class="row-alert"><td data-label="Item">Cutting disc 4 in</td><td data-label="Available" class="num">4</td><td data-label="Reorder at" class="num">5</td><td data-label="Status"><span class="tag alert"><span class="ico" aria-hidden="true">!</span>Low stock</span></td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section class="panel" aria-labelledby="d-in">
+        <span class="bin-tag">attendance</span>
+        <div class="panel-head"><h2 id="d-in">In the HQ now</h2><a class="btn" href="attendance.html?inside=yes">Attendance log</a></div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Name</th><th>Type</th><th>Purpose</th><th class="num">Since</th></tr></thead>
+          <tbody>
+            <tr><td data-label="Name">Rafael Cruz</td><td data-label="Type">Adviser</td><td data-label="Purpose">Workshop</td><td data-label="time_in" class="num">10:30 AM</td></tr>
+            <tr><td data-label="Name">Ana Lim</td><td data-label="Type">President</td><td data-label="Purpose">Meeting</td><td data-label="time_in" class="num">10:15 AM</td></tr>
+            <tr><td data-label="Name">Lea Navarro</td><td data-label="Type">Visitor</td><td data-label="Purpose">Workshop</td><td data-label="time_in" class="num">10:00 AM</td></tr>
+            <tr><td data-label="Name">Paolo Reyes</td><td data-label="Type">Officer</td><td data-label="Purpose">Meeting</td><td data-label="time_in" class="num">9:05 AM</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+    </div>
+  </main>
+</div>
+<div id="toast-region" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>

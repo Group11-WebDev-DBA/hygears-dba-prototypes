@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard | Hygears HQ System</title>
+  <link rel="icon" href="../assets/hygears-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600&amp;family=Saira+Condensed:wght@600;700&amp;display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script>document.documentElement.className = "js";</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="shell">
+<!-- Shared header: becomes header.php in the rebuild -->
+<header class="rack">
+  <a class="brand" href="dashboard.html"><img src="../assets/hygears-logo.png" alt="Hygears logo" width="40" height="40">Hygears HQ</a>
+  <button class="btn btn-quiet menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+  <nav class="site-nav" id="site-nav" aria-label="Main">
+    <ul>
+      <li class="nav-door"><a href="index.html">HQ door</a></li>
+      <li><a href="dashboard.html" aria-current="page">Dashboard</a></li>
+      <li><a href="attendance.html">Attendance</a></li>
+      <li><a href="people.html">People</a></li>
+      <li><a href="items.html">Items</a></li>
+      <li><a href="requests.html">Requests</a></li>
+      <li><a href="reports.html">Reports</a></li>
+      <li><a href="settings.html">Settings</a></li>
+    </ul>
+  </nav>
+  <p class="user"><strong>Paolo Santos</strong>Officer, signed in</p>
+</header>
+<main id="main" class="page">
+  <div class="page-head">
+    <h1>Dashboard</h1>
+    <p>Tuesday, 24 November 2026. What needs an officer today.</p>
+  </div>
+
+  <ul class="tally" aria-label="Today at a glance">
+    <li><a href="index.html#inside"><span class="tally-figure">4</span><span class="tally-label">in the HQ now</span></a></li>
+    <li class="needs-action"><a href="requests.html#pending"><span class="tally-figure">5</span><span class="tally-label">pending requests</span></a></li>
+    <li class="needs-action"><a href="requests.html#loans"><span class="tally-figure">1</span><span class="tally-label">overdue tool</span></a></li>
+    <li class="needs-action"><a href="items.html"><span class="tally-figure">2</span><span class="tally-label">low-stock consumables</span></a></li>
+    <li><a href="attendance.html"><span class="tally-figure">6</span><span class="tally-label">sign-ins today</span></a></li>
+  </ul>
+
+  <div class="columns-wide">
+    <!-- The tool wall: v_item_stock for tools, initials from v_open_loans -->
+    <section class="panel" aria-labelledby="wall-title">
+      <div class="panel-head">
+        <h2 id="wall-title">Tool wall</h2>
+        <p>Solid = on the wall. Outline = out, with the borrower's initials.</p>
+      </div>
+      <ul class="wall">
+        <li class="wall-item is-empty">
+          <h3>Torque wrench</h3>
+          <ul class="slots" aria-label="0 of 1 on the wall"><li class="slot out overdue" title="Ken Bautista, overdue">KB</li></ul>
+          <p><span class="status status-alert"><span class="glyph" aria-hidden="true">!</span>Ken Bautista, 4 days overdue</span></p>
+        </li>
+        <li class="wall-item">
+          <h3>Cordless drill</h3>
+          <ul class="slots" aria-label="1 of 2 on the wall"><li class="slot"></li><li class="slot out" title="Mika Reyes">MR</li></ul>
+          <p>Mika Reyes has 1, due today</p>
+        </li>
+        <li class="wall-item">
+          <h3>Digital multimeter</h3>
+          <ul class="slots" aria-label="2 of 4 on the wall"><li class="slot"></li><li class="slot"></li><li class="slot out" title="Mika Reyes">MR</li><li class="slot out" title="Mika Reyes">MR</li></ul>
+          <p>Mika Reyes has 2, due today</p>
+        </li>
+        <li class="wall-item">
+          <h3>Soldering station</h3>
+          <ul class="slots" aria-label="3 of 3 on the wall"><li class="slot"></li><li class="slot"></li><li class="slot"></li></ul>
+          <p>All on the wall</p>
+        </li>
+        <li class="wall-item">
+          <h3>Vernier caliper</h3>
+          <ul class="slots" aria-label="3 of 3 on the wall"><li class="slot"></li><li class="slot"></li><li class="slot"></li></ul>
+          <p>All on the wall</p>
+        </li>
+        <li class="wall-item">
+          <h3>Hex key set</h3>
+          <ul class="slots" aria-label="5 of 5 on the wall"><li class="slot"></li><li class="slot"></li><li class="slot"></li><li class="slot"></li><li class="slot"></li></ul>
+          <p>All on the wall</p>
+        </li>
+      </ul>
+    </section>
+
+    <section class="panel" aria-labelledby="todo-title">
+      <div class="panel-head"><h2 id="todo-title">Needs action</h2></div>
+      <ul class="todo">
+        <li><span class="status status-alert"><span class="glyph" aria-hidden="true">!</span><span class="visually-hidden">Overdue</span></span>
+          <div><a href="requests.html#loans">Torque wrench, Ken Bautista</a><p>due_date 20 Nov. Call 0917 000 0106.</p></div></li>
+        <li><span class="status status-wait"><span class="glyph" aria-hidden="true">&#9675;</span><span class="visually-hidden">Pending</span></span>
+          <div><a href="requests.html#pending">5 requests waiting for a decision</a><p>One is your own. One asks for more cutting discs than are in stock.</p></div></li>
+        <li><span class="status status-alert"><span class="glyph" aria-hidden="true">!</span><span class="visually-hidden">Low stock</span></span>
+          <div><a href="items.html">Solder wire 0.8 mm: 2 left</a><p>reorder_level 3. Restock on the Items page.</p></div></li>
+        <li><span class="status status-alert"><span class="glyph" aria-hidden="true">!</span><span class="visually-hidden">Low stock</span></span>
+          <div><a href="items.html">Cutting disc 4 in: 3 left</a><p>reorder_level 5.</p></div></li>
+      </ul>
+    </section>
+  </div>
+
+  <section class="panel" aria-labelledby="now-title">
+    <div class="panel-head"><h2 id="now-title">In the HQ now</h2><p>attendance rows with no time_out</p></div>
+    <table class="reflow">
+      <thead><tr><th scope="col">Name</th><th scope="col">Member or visitor</th><th scope="col">purpose</th><th scope="col">time_in</th></tr></thead>
+      <tbody>
+        <tr><td class="cell-main">Mika Reyes</td><td data-label="Who">Member</td><td data-label="purpose">Project work</td><td data-label="time_in">08:15</td></tr>
+        <tr><td class="cell-main">Carlo Mendoza</td><td data-label="Who">Member</td><td data-label="purpose">Tool use</td><td data-label="time_in">08:30</td></tr>
+        <tr><td class="cell-main">Lara Gomez</td><td data-label="Who">Visitor, TUP Manila</td><td data-label="purpose">Workshop</td><td data-label="time_in">09:02</td></tr>
+        <tr><td class="cell-main">Nico Ferrer</td><td data-label="Who">PUP student, not a member</td><td data-label="purpose">Study</td><td data-label="time_in">09:20</td></tr>
+      </tbody>
+    </table>
+  </section>
+</main>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

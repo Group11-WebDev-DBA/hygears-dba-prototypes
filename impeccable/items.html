@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Items · Hygears HQ System</title>
+<link rel="icon" href="../assets/hygears-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&amp;family=Barlow+Condensed:wght@500;600;700&amp;display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5"/><path d="M12 13v8"/></symbol>
+  <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+</svg>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- Top bar: identical on every page (header.php in the PHP rebuild) -->
+<header class="topbar">
+  <a class="brand" href="dashboard.html"><img src="../assets/hygears-logo.png" alt="Hygears logo" width="34" height="34">HQ System</a>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  <nav class="nav" id="nav" aria-label="Main">
+    <a href="index.html">Door kiosk</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="attendance.html">Attendance</a>
+    <a href="people.html">People</a>
+    <a href="items.html" aria-current="page">Items</a>
+    <a href="requests.html">Requests</a>
+    <a href="reports.html">Reports</a>
+    <a href="settings.html">Settings</a>
+  </nav>
+  <p class="whoami">Signed in: <strong>Paolo Santos</strong> · Officer</p>
+</header>
+
+<main id="main" class="page">
+  <div class="page-head">
+    <div>
+      <h1>Items</h1>
+      <p>Tools are lent and come back. Consumables are used up and restocked. Available = what's on the shelf right now.</p>
+    </div>
+    <span class="sample">Sample data</span>
+  </div>
+
+  <div class="notice alert" id="low-notice">
+    <svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg>
+    <p id="low-text"><strong>2 consumables at or below reorder level:</strong> Solder wire 0.8 mm (2 left, reorder at 3), Cutting disc 4 in (3 left, reorder at 5). <a href="#restock">Restock</a></p>
+  </div>
+
+  <section class="panel" aria-labelledby="inv-title">
+    <div class="panel-head">
+      <h2 id="inv-title">Inventory <span class="count" id="items-count">12</span></h2>
+      <a class="btn btn-sm" href="#item-form-panel"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add item</a>
+    </div>
+    <form class="filters" id="item-filters">
+      <div class="field"><label for="i-search">Search</label><input type="search" id="i-search" placeholder="Item name"></div>
+      <div class="field">
+        <label for="i-cat">Category</label>
+        <select id="i-cat">
+          <option value="">All categories</option>
+          <option>Hand tools</option><option>Power tools</option><option>Electronics</option>
+          <option>Measuring instruments</option><option>Cutting consumables</option><option>Soldering consumables</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="i-type">Type</label>
+        <select id="i-type"><option value="">Tools and consumables</option><option value="tool">Tools</option><option value="consumable">Consumables</option></select>
+      </div>
+      <label class="check"><input type="checkbox" id="i-low">Low stock only</label>
+    </form>
+    <div class="table-wrap">
+      <table class="reflow" id="items-table">
+        <thead>
+          <tr><th scope="col">Item</th><th scope="col">Category</th><th scope="col">Type</th><th scope="col" class="num">Total</th><th scope="col" class="num">Available</th><th scope="col" class="num">Reorder at</th><th scope="col">Status</th><th scope="col"><span class="sr-only">Actions</span></th></tr>
+        </thead>
+        <tbody id="items-body"></tbody>
+      </table>
+    </div>
+    <div class="panel-body" id="items-empty" hidden><p><strong>No items match.</strong> Clear the search or pick another category.</p></div>
+  </section>
+
+  <div class="grid-2">
+    <!-- add / edit item (item table) -->
+    <section class="panel" id="item-form-panel" aria-labelledby="if-title">
+      <div class="panel-head"><h2 id="if-title">Add item</h2></div>
+      <form class="panel-body" id="item-form" novalidate>
+        <input type="hidden" id="item_id" name="item_id">
+        <div class="form-grid">
+          <div class="field full">
+            <label for="name">Item name</label>
+            <input type="text" id="name" name="name" placeholder="e.g. Zip ties 200 mm (pack)" aria-describedby="name-error">
+            <p class="error" id="name-error" hidden></p>
+          </div>
+          <div class="field">
+            <label for="category_id">Category</label>
+            <select id="category_id" name="category_id">
+              <option>Hand tools</option><option>Power tools</option><option>Electronics</option>
+              <option>Measuring instruments</option><option>Cutting consumables</option><option>Soldering consumables</option>
+            </select>
+          </div>
+          <fieldset class="field">
+            <legend>Type</legend>
+            <div class="btn-row">
+              <label class="check"><input type="radio" name="item_type" value="tool" checked>Tool (lent, returned)</label>
+              <label class="check"><input type="radio" name="item_type" value="consumable">Consumable (used up)</label>
+            </div>
+          </fieldset>
+          <div class="field">
+            <label for="quantity_total">Quantity</label>
+            <input type="number" id="quantity_total" name="quantity_total" min="0" value="1" inputmode="numeric">
+            <span class="hint">Tools: units owned. Consumables: starting stock.</span>
+          </div>
+          <div class="field">
+            <label for="reorder_level">Reorder level <span class="optional">(optional)</span></label>
+            <input type="number" id="reorder_level" name="reorder_level" min="0" inputmode="numeric">
+            <span class="hint">Flag as low stock at or below this.</span>
+          </div>
+        </div>
+        <label class="check"><input type="checkbox" id="is_active" name="is_active" checked>Active (shown on request forms)</label>
+        <div class="btn-row" style="margin-top:0.75rem">
+          <button class="btn btn-primary" type="submit" id="item-submit"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add item</button>
+          <button class="btn btn-quiet" type="button" id="item-cancel" hidden>Cancel edit</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- restock (restock table) -->
+    <section class="panel" id="restock" aria-labelledby="rs-title">
+      <div class="panel-head"><h2 id="rs-title">Restock</h2><p>Adds to available stock</p></div>
+      <form class="panel-body" id="restock-form" novalidate>
+        <div class="field">
+          <label for="rs_item_id">Item</label>
+          <select id="rs_item_id" name="item_id" aria-describedby="rs-item-error"></select>
+          <p class="error" id="rs-item-error" hidden></p>
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label for="rs_quantity">Quantity added</label>
+            <input type="number" id="rs_quantity" name="quantity" min="1" inputmode="numeric" aria-describedby="rs-qty-error">
+            <p class="error" id="rs-qty-error" hidden></p>
+          </div>
+          <div class="field"><label for="restocked_on">Restocked on</label><input type="date" id="restocked_on" name="restocked_on" value="2026-11-24"></div>
+        </div>
+        <div class="field"><label for="rs_notes">Notes <span class="optional">(optional)</span></label><input type="text" id="rs_notes" name="notes" placeholder="Supplier, receipt number"></div>
+        <button class="btn btn-primary" type="submit"><svg class="icon" aria-hidden="true"><use href="#i-box"/></svg>Record restock</button>
+      </form>
+      <div class="panel-head" style="border-top:1px solid var(--line)"><h3>Recent restocks</h3></div>
+      <ul class="lookup" id="restock-log">
+        <li><span>Flux paste (tub) · +4</span><span class="small muted">16 Nov</span></li>
+        <li><span>Heat-shrink tubing (pack) · +10</span><span class="small muted">9 Nov</span></li>
+      </ul>
+    </section>
+  </div>
+</main>
+
+<!-- toast messages (aria-live so screen readers hear them) -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>

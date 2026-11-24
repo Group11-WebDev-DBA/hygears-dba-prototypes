@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>People · Hygears HQ System</title>
+<link rel="icon" href="../assets/hygears-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&amp;family=Barlow+Condensed:wght@500;600;700&amp;display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5"/><path d="M12 13v8"/></symbol>
+  <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+</svg>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- Top bar: identical on every page (header.php in the PHP rebuild) -->
+<header class="topbar">
+  <a class="brand" href="dashboard.html"><img src="../assets/hygears-logo.png" alt="Hygears logo" width="34" height="34">HQ System</a>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  <nav class="nav" id="nav" aria-label="Main">
+    <a href="index.html">Door kiosk</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="attendance.html">Attendance</a>
+    <a href="people.html" aria-current="page">People</a>
+    <a href="items.html">Items</a>
+    <a href="requests.html">Requests</a>
+    <a href="reports.html">Reports</a>
+    <a href="settings.html">Settings</a>
+  </nav>
+  <p class="whoami">Signed in: <strong>Paolo Santos</strong> · Officer</p>
+</header>
+
+<main id="main" class="page">
+  <div class="page-head">
+    <div>
+      <h1>People</h1>
+      <p>Everyone who has signed the log. Members are people with a student number and a role; everyone else is a visitor.</p>
+    </div>
+    <span class="sample">Sample data</span>
+  </div>
+
+  <div>
+    <section class="panel" aria-labelledby="p-title">
+      <div class="panel-head"><h2 id="p-title">People <span class="count" id="people-count">8</span></h2><a class="btn btn-sm" href="#add-person"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add person</a></div>
+      <form class="filters" id="people-filters">
+        <div class="field">
+          <label for="p-search">Search</label>
+          <input type="search" id="p-search" placeholder="Name or student number">
+        </div>
+        <div class="field">
+          <label for="p-kind">Show</label>
+          <select id="p-kind">
+            <option value="">Everyone</option>
+            <option value="member">Members</option>
+            <option value="visitor">Visitors</option>
+          </select>
+        </div>
+      </form>
+      <div class="table-wrap">
+        <table class="reflow" id="people-table">
+          <thead>
+            <tr><th scope="col">Name</th><th scope="col">Role</th><th scope="col">Contact number</th><th scope="col">Affiliation</th><th scope="col">Status</th><th scope="col"><span class="sr-only">Actions</span></th></tr>
+          </thead>
+          <tbody>
+            <tr data-kind="member">
+              <td class="name-cell"><strong>Andrea Cruz</strong><span>2021-00507-MN-0 · andrea.cruz@example.com</span></td>
+              <td data-label="Role">President</td><td data-label="Contact">0917 555 0103</td><td data-label="Affiliation">PUP Manila, BSME</td>
+              <td data-label="Status"><span class="status ok"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Active</span></td>
+              <td data-label="Actions"><button class="btn btn-sm" type="button" data-toggle-active>Deactivate</button></td>
+            </tr>
+            <tr data-kind="member">
+              <td class="name-cell"><strong>Carlo Mendoza</strong><span>2021-00933-MN-0 · carlo.mendoza@example.com</span></td>
+              <td data-label="Role">Member</td><td data-label="Contact">0917 555 0106</td><td data-label="Affiliation">PUP Manila, BSME</td>
+              <td data-label="Status"><span class="status off"><svg class="icon" aria-hidden="true"><use href="#i-ban"/></svg>Inactive</span></td>
+              <td data-label="Actions"><button class="btn btn-sm" type="button" data-toggle-active>Activate</button></td>
+            </tr>
+            <tr data-kind="member">
+              <td class="name-cell"><strong>Jun Dela Rosa</strong><span>2023-00611-MN-0 · jun.delarosa@example.com</span></td>
+              <td data-label="Role">Member</td><td data-label="Contact">0917 555 0104</td><td data-label="Affiliation">PUP Manila, BSEE</td>
+              <td data-label="Status"><span class="status ok"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Active</span></td>
+              <td data-label="Actions"><button class="btn btn-sm" type="button" data-toggle-active>Deactivate</button></td>
+            </tr>
+            <tr data-kind="visitor">
+              <td class="name-cell"><strong>Ken Aquino</strong><span>2024-01233-MN-0</span></td>
+              <td data-label="Role">Visitor</td><td data-label="Contact">0917 555 0108</td><td data-label="Affiliation">PUP Manila, BSCpE</td>
+              <td data-label="Status"><span class="status off">Not a member</span></td>
+              <td data-label="Actions"><button class="btn btn-sm" type="button" data-make-member>Make member</button></td>
+            </tr>
+            <tr data-kind="visitor">
+              <td class="name-cell"><strong>Rina Lopez</strong><span>No student number</span></td>
+              <td data-label="Role">Visitor</td><td data-label="Contact">0917 555 0107</td><td data-label="Affiliation">Sample State University</td>
+              <td data-label="Status"><span class="status off">Not a member</span></td>
+              <td data-label="Actions"><span class="small muted">Needs a student number to join</span></td>
+            </tr>
+            <tr data-kind="member">
+              <td class="name-cell"><strong>Mika Reyes</strong><span>2023-00118-MN-0 · mika.reyes@example.com</span></td>
+              <td data-label="Role">Member</td><td data-label="Contact">0917 555 0101</td><td data-label="Affiliation">PUP Manila, BSME</td>
+              <td data-label="Status"><span class="status ok"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Active</span></td>
+              <td data-label="Actions"><button class="btn btn-sm" type="button" data-toggle-active>Deactivate</button></td>
+            </tr>
+            <tr data-kind="member">
+              <td class="name-cell"><strong>Paolo Santos</strong><span>2022-00342-MN-0 · paolo.santos@example.com</span></td>
+              <td data-label="Role">Officer</td><td data-label="Contact">0917 555 0102</td><td data-label="Affiliation">PUP Manila, BSECE</td>
+              <td data-label="Status"><span class="status ok"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Active</span></td>
+              <td data-label="Actions"><button class="btn btn-sm" type="button" data-toggle-active>Deactivate</button></td>
+            </tr>
+            <tr data-kind="member">
+              <td class="name-cell"><strong>Bea Villanueva</strong><span>2022-00274-MN-0 · bea.villanueva@example.com</span></td>
+              <td data-label="Role">Officer</td><td data-label="Contact">0917 555 0105</td><td data-label="Affiliation">PUP Manila, BSIE</td>
+              <td data-label="Status"><span class="status ok"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Active</span></td>
+              <td data-label="Actions"><button class="btn btn-sm" type="button" data-toggle-active>Deactivate</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="panel-body" id="people-empty" hidden><p><strong>Nobody matches.</strong> Check the spelling, or add them with the form.</p></div>
+    </section>
+
+    <!-- add person (+ optional member row) -->
+    <section class="panel narrow" id="add-person" aria-labelledby="add-title">
+      <div class="panel-head"><h2 id="add-title">Add person</h2></div>
+      <form class="panel-body" id="person-form" novalidate>
+        <div class="form-grid">
+          <div class="field"><label for="first_name">First name</label><input type="text" id="first_name" name="first_name" required></div>
+          <div class="field"><label for="last_name">Last name</label><input type="text" id="last_name" name="last_name" required></div>
+        </div>
+        <div class="field">
+          <label for="pf_student_id">Student number <span class="optional">(optional)</span></label>
+          <input type="text" id="pf_student_id" name="student_id" placeholder="2024-00000-MN-0" aria-describedby="pf-sid-hint pf-sid-error">
+          <span class="hint" id="pf-sid-hint">Leave empty for visitors from outside PUP.</span>
+          <p class="error" id="pf-sid-error" hidden></p>
+        </div>
+        <div class="field"><label for="contact_number">Contact number</label><input type="tel" id="contact_number" name="contact_number" placeholder="0917 555 0100" required></div>
+        <div class="field"><label for="affiliation">Affiliation <span class="optional">(optional)</span></label><input type="text" id="affiliation" name="affiliation" placeholder="School, course or organization"></div>
+
+        <label class="check"><input type="checkbox" id="is_member">Make this person a member</label>
+        <div id="member-fields" hidden>
+          <div class="field">
+            <label for="role_id">Role</label>
+            <select id="role_id" name="role_id">
+              <option value="1">Member</option><option value="2">Officer</option><option value="3">President</option><option value="4">Adviser</option>
+            </select>
+            <span class="hint">Officer, President and Adviser can approve requests.</span>
+          </div>
+          <div class="form-grid">
+            <div class="field"><label for="email">Email <span class="optional">(optional)</span></label><input type="email" id="email" name="email" placeholder="name@example.com"></div>
+            <div class="field"><label for="joined_on">Joined on</label><input type="date" id="joined_on" name="joined_on" value="2026-11-24"></div>
+          </div>
+        </div>
+        <p class="error" id="pf-error" hidden></p>
+        <button class="btn btn-primary" type="submit"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add person</button>
+      </form>
+    </section>
+  </div>
+</main>
+
+<!-- toast messages (aria-live so screen readers hear them) -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>
