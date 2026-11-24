@@ -575,6 +575,9 @@ if (pendingSection) {
     var short = shortLines(req);
     var box = req.querySelector(".req-msg");
     req.classList.toggle("blocked", short.length > 0);
+    // Still clickable so the reason is repeated, but announced as unavailable
+    var approveBtn = req.querySelector('[data-action="approve"]');
+    if (approveBtn) approveBtn.setAttribute("aria-disabled", short.length ? "true" : "false");
     if (short.length) {
       var list = short.map(function (li) {
         return "<li>" + li.dataset.name + ": asks for " + li.dataset.qty + ", only " + li.dataset.available + " available</li>";
@@ -632,7 +635,7 @@ if (pendingSection) {
     if (btn.dataset.action === "reject") {
       askConfirm(req, actions, "Reject <strong>#" + id + "</strong> from " + req.dataset.requester + "?", "Yes, reject", function (box) {
         decide(req, "rejected", box.querySelector("input").value.trim());
-      }, '<div class="field" style="margin-bottom:0.75rem"><label for="remarks-' + id + '">Reason <span class="col">remarks</span></label>' +
+      }, '<div class="field mb"><label for="remarks-' + id + '">Reason <span class="col">remarks</span></label>' +
         '<input id="remarks-' + id + '" type="text" maxlength="255" placeholder="Example: drill is out until Friday"></div>');
     }
   });

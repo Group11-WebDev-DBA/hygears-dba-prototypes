@@ -405,6 +405,7 @@ if (itemForm) {
     row.querySelector(".stock-cell").innerHTML = low ? '<span class="tag tag-alert">Low stock</span>' : '<span class="tag tag-ok">OK</span>';
     say(document.getElementById("restock-msg"), "<strong>Restocked " + esc(row.getAttribute("data-name-raw")) + "</strong>: +" +
       qty.value + ", now " + avail + " available" + (low ? ", still at or below the reorder level." : "."), "ok");
+    itemSel.selectedOptions[0].textContent = row.getAttribute("data-name-raw") + " (" + avail + " left" + (low ? ", low)" : ")");
     restockForm.reset();
   });
 }
