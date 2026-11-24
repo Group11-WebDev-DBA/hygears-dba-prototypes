@@ -52,7 +52,7 @@
       <p class="muted">Live quantity for every item. Tools: owned minus out. Consumables: stock plus restocks minus issued.</p>
       <div class="grid-2">
         <div class="table-wrap"><table>
-          <thead><tr><th>name</th><th>item_type</th><th class="num">quantity_available</th><th class="num">reorder_level</th></tr></thead>
+          <thead><tr><th>name</th><th>item_<wbr>type</th><th class="num">quantity_<wbr>available</th><th class="num">reorder_<wbr>level</th></tr></thead>
           <tbody>
             <tr><td data-label="name">Cordless drill</td><td data-label="item_type">tool</td><td data-label="quantity_available" class="num">1</td><td data-label="reorder_level" class="num">None</td></tr>
             <tr><td data-label="name">Digital multimeter</td><td data-label="item_type">tool</td><td data-label="quantity_available" class="num">1</td><td data-label="reorder_level" class="num">None</td></tr>
@@ -81,7 +81,7 @@ ORDER BY item_type, name;</code></pre></div>
       <p class="muted">Who has which tool right now. Built on the view, so it never drifts.</p>
       <div class="grid-2">
         <div class="table-wrap"><table>
-          <thead><tr><th>Borrower</th><th>Tool</th><th class="num">Qty</th><th class="num">due_date</th><th>is_overdue</th></tr></thead>
+          <thead><tr><th>Borrower</th><th>Tool</th><th class="num">Qty</th><th class="num">due_<wbr>date</th><th>is_<wbr>overdue</th></tr></thead>
           <tbody>
             <tr><td data-label="Borrower">Jun Bautista</td><td data-label="Tool">Socket wrench set</td><td data-label="Qty" class="num">1</td><td data-label="due_date" class="num">2026-11-21</td><td data-label="is_overdue">1 (yes)</td></tr>
             <tr><td data-label="Borrower">Ana Lim</td><td data-label="Tool">Angle grinder</td><td data-label="Qty" class="num">1</td><td data-label="due_date" class="num">2026-11-23</td><td data-label="is_overdue">1 (yes)</td></tr>
@@ -102,7 +102,7 @@ ORDER BY due_date;</code></pre></div>
       <p class="muted">Loans past their due date, with the borrower's number to call.</p>
       <div class="grid-2">
         <div class="table-wrap"><table>
-          <thead><tr><th>Borrower</th><th>contact_number</th><th>Tool</th><th class="num">due_date</th></tr></thead>
+          <thead><tr><th>Borrower</th><th>contact_<wbr>number</th><th>Tool</th><th class="num">due_<wbr>date</th></tr></thead>
           <tbody>
             <tr><td data-label="Borrower">Jun Bautista</td><td data-label="contact_number">0917 555 0104</td><td data-label="Tool">Socket wrench set</td><td data-label="due_date" class="num">2026-11-21</td></tr>
             <tr><td data-label="Borrower">Ana Lim</td><td data-label="contact_number">0917 555 0103</td><td data-label="Tool">Angle grinder</td><td data-label="due_date" class="num">2026-11-23</td></tr>
@@ -121,7 +121,7 @@ ORDER BY due_date;</code></pre></div>
       <p class="muted">Active items at or below their reorder level.</p>
       <div class="grid-2">
         <div class="table-wrap"><table>
-          <thead><tr><th>name</th><th class="num">quantity_available</th><th class="num">reorder_level</th></tr></thead>
+          <thead><tr><th>name</th><th class="num">quantity_<wbr>available</th><th class="num">reorder_<wbr>level</th></tr></thead>
           <tbody>
             <tr><td data-label="name">Solder wire 0.8 mm</td><td data-label="quantity_available" class="num">3</td><td data-label="reorder_level" class="num">4</td></tr>
             <tr><td data-label="name">Cutting disc 4 in</td><td data-label="quantity_available" class="num">4</td><td data-label="reorder_level" class="num">5</td></tr>
@@ -181,7 +181,7 @@ ORDER BY visits DESC;</code></pre></div>
       <p class="muted">Approved and completed request lines, summed per item.</p>
       <div class="grid-2">
         <div class="table-wrap"><table>
-          <thead><tr><th>name</th><th class="num">times_borrowed</th></tr></thead>
+          <thead><tr><th>name</th><th class="num">times_<wbr>borrowed</th></tr></thead>
           <tbody>
             <tr><td data-label="name">Solder wire 0.8 mm</td><td data-label="times_borrowed" class="num">7</td></tr>
             <tr><td data-label="name">Cutting disc 4 in</td><td data-label="times_borrowed" class="num">6</td></tr>

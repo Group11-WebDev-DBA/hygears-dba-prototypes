@@ -223,9 +223,9 @@ fieldset { border: 0; padding: 0; margin: 0 0 var(--space-4); min-width: 0; }
 .count { font-weight: 700; margin: 0 0 var(--space-2); }
 
 /* ---------- Tables ---------- */
-.table-wrap { width: 100%; }
+.table-wrap { width: 100%; position: relative; } /* keeps hidden captions inside the wrapper */
 table { width: 100%; border-collapse: collapse; font-size: 1rem; }
-th, td { text-align: left; padding: var(--space-2) var(--space-3); border-bottom: 1px solid var(--ink); vertical-align: top; overflow-wrap: break-word; }
+th, td { text-align: left; padding: var(--space-2) 0.625rem; border-bottom: 1px solid var(--ink); vertical-align: top; overflow-wrap: break-word; }
 th { font-family: var(--font-head); font-weight: 700; background: var(--gray-2); border-bottom: var(--border); }
 th .col { display: block; font-family: var(--font-mono); font-weight: 400; font-size: 0.8125rem; color: var(--muted); }
 td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
@@ -234,8 +234,8 @@ tbody tr:hover { background: var(--gray); }
 tr.row-alert { background: var(--red-soft); }
 tr.row-alert:hover { background: var(--red-soft); }
 td .sub { display: block; font-size: 0.875rem; color: var(--muted); overflow-wrap: anywhere; }
-/* Safety net on wide screens only; under 640px tables become cards instead */
-@media (min-width: 641px) { .table-wrap { overflow-x: auto; } }
+/* Safety net on wide screens only; at 900px and under, tables become cards instead */
+@media (min-width: 901px) { .table-wrap { overflow-x: auto; } }
 td ul { margin: 0; padding-left: 1.1rem; }
 .empty { text-align: center; color: var(--muted); padding: var(--space-5); }
 
@@ -370,11 +370,18 @@ body.kiosk .who { display: none; }
   .purposes { grid-template-columns: 1fr 1fr; }
   .panel { padding: var(--space-5) var(--space-3) var(--space-3); }
 
-  /* Tables reflow into labelled cards */
+  .inside-list li { flex-wrap: wrap; }
+  .inside-list .btn { width: 100%; }
+  dialog { padding: var(--space-4); }
+  .toast { flex-wrap: wrap; }
+}
+
+/* Tables reflow into labelled cards on phones and portrait tablets */
+@media (max-width: 900px) {
   table, thead, tbody, tr, th, td { display: block; }
   thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
   tbody tr { border: var(--border); box-shadow: var(--shadow-sm); margin-bottom: var(--space-3); background: var(--white); }
-  td { display: grid; grid-template-columns: 7.5rem 1fr; gap: var(--space-2); border-bottom: 1px solid var(--gray-2); padding: var(--space-2) var(--space-3); }
+  td { display: grid; grid-template-columns: 9.5rem 1fr; gap: var(--space-2); border-bottom: 1px solid var(--gray-2); padding: var(--space-2) var(--space-3); }
   td:last-child { border-bottom: 0; }
   td::before { content: attr(data-label); font-weight: 700; color: var(--muted); font-size: 0.875rem; overflow-wrap: anywhere; }
   td.num, td .mono, td.nowrap { text-align: left; white-space: normal; }
@@ -383,11 +390,6 @@ body.kiosk .who { display: none; }
   td.actions-cell .actions .btn { flex: 1 1 8rem; }
   td.empty { display: block; }
   td.empty::before { display: none; }
-
-  .inside-list li { flex-wrap: wrap; }
-  .inside-list .btn { width: 100%; }
-  dialog { padding: var(--space-4); }
-  .toast { flex-wrap: wrap; }
 }
 
 @media (prefers-reduced-motion: reduce) {
