@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reports · Hygears HQ</title>
+<link rel="icon" href="../assets/hygears-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="reports">
+<a class="skip" href="#main">Skip to content</a>
+<div class="layout">
+  <header class="sidebar" id="sidebar">
+    <div class="brand">
+      <img src="../assets/hygears-logo.png" alt="Hygears logo" width="40" height="40">
+      <span><strong>Hygears HQ</strong><small>Inspection desk</small></span>
+    </div>
+    <button class="btn menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" aria-label="Main">
+      <p class="nav-group">At the door</p>
+      <a href="index.html"><span class="nav-no">00</span>Door kiosk</a>
+      <p class="nav-group">Officers</p>
+      <a href="dashboard.html"><span class="nav-no">01</span>Dashboard</a>
+      <a href="attendance.html"><span class="nav-no">02</span>Attendance</a>
+      <a href="people.html"><span class="nav-no">03</span>People</a>
+      <a href="items.html"><span class="nav-no">04</span>Items</a>
+      <a href="requests.html"><span class="nav-no">05</span>Requests</a>
+      <a href="reports.html" aria-current="page"><span class="nav-no">06</span>Reports</a>
+      <a href="settings.html"><span class="nav-no">07</span>Settings</a>
+    </nav>
+    <p class="who">Signed in as <strong>Paolo Reyes</strong><br>Officer, <code>can_approve = TRUE</code></p>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div>
+        <p class="eyebrow">06 · Reports</p>
+        <h1>Reports for the paper</h1>
+        <p class="lede">Ready-made queries. The SQL on the left is the real query; the result on the right is the sample data it returns.</p>
+      </div>
+      <p class="tables">Checked against <code>v_open_loans</code> <code>v_low_stock</code> <code>v_item_stock</code> <code>attendance</code> <code>request_line</code></p>
+    </div>
+    <p class="sample-note">Prototype with sample data. Nothing is saved; a reload starts over.</p>
+    <nav class="subnav" aria-label="Reports on this page" id="report-nav"></nav>
+    <div id="reports"></div>
+    <section class="panel" id="rules" aria-labelledby="rules-h">
+      <div class="panel-head"><h2 id="rules-h">Business rules and where the UI checks them</h2><code>triggers, CHECK, UNIQUE</code></div>
+      <div class="table-wrap"><table class="data" id="rules-table">
+        <thead><tr><th>Rule</th><th>Enforced by</th><th>Checked on screen</th></tr></thead>
+        <tbody></tbody></table></div>
+    </section>
+  </main>
+</div>
+<div id="toast-region" class="toast-region" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>

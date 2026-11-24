@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard · Hygears HQ</title>
+<link rel="icon" href="../assets/hygears-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="dashboard">
+<a class="skip" href="#main">Skip to content</a>
+<div class="layout">
+  <header class="sidebar" id="sidebar">
+    <div class="brand">
+      <img src="../assets/hygears-logo.png" alt="Hygears logo" width="40" height="40">
+      <span><strong>Hygears HQ</strong><small>Inspection desk</small></span>
+    </div>
+    <button class="btn menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" aria-label="Main">
+      <p class="nav-group">At the door</p>
+      <a href="index.html"><span class="nav-no">00</span>Door kiosk</a>
+      <p class="nav-group">Officers</p>
+      <a href="dashboard.html" aria-current="page"><span class="nav-no">01</span>Dashboard</a>
+      <a href="attendance.html"><span class="nav-no">02</span>Attendance</a>
+      <a href="people.html"><span class="nav-no">03</span>People</a>
+      <a href="items.html"><span class="nav-no">04</span>Items</a>
+      <a href="requests.html"><span class="nav-no">05</span>Requests</a>
+      <a href="reports.html"><span class="nav-no">06</span>Reports</a>
+      <a href="settings.html"><span class="nav-no">07</span>Settings</a>
+    </nav>
+    <p class="who">Signed in as <strong>Paolo Reyes</strong><br>Officer, <code>can_approve = TRUE</code></p>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div>
+        <p class="eyebrow">01 · Dashboard</p>
+        <h1>Today at the HQ</h1>
+        <p class="lede">What needs an officer right now, in order. Every line is a check that failed.</p>
+      </div>
+      <p class="tables">Checked against <code>attendance</code> <code>item_request</code> <code>v_open_loans</code> <code>v_low_stock</code></p>
+    </div>
+    <p class="sample-note">Prototype with sample data. Nothing is saved; a reload starts over.</p>
+    <dl class="figures" id="figures"></dl>
+    <div class="grid-2">
+      <section class="panel" aria-labelledby="queue-h">
+        <div class="panel-head"><h2 id="queue-h">Needs action</h2><code>failed checks</code></div>
+        <div class="panel-body"><ul class="checks" id="queue"></ul><p class="hint" id="queue-pass"></p></div>
+      </section>
+      <section class="panel" aria-labelledby="dash-in-h">
+        <div class="panel-head"><h2 id="dash-in-h">In the HQ now</h2><a href="index.html">Open door kiosk</a></div>
+        <div class="table-wrap"><table class="data" id="dash-inside"><thead><tr><th>Name</th><th>Purpose</th><th>time_in</th></tr></thead><tbody></tbody></table></div>
+      </section>
+    </div>
+  </main>
+</div>
+<div id="toast-region" class="toast-region" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>

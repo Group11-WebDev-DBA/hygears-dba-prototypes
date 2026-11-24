@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Door kiosk · Hygears HQ</title>
+<link rel="icon" href="../assets/hygears-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="kiosk">
+<a class="skip" href="#main">Skip to content</a>
+<div class="layout">
+  <header class="sidebar" id="sidebar">
+    <div class="brand">
+      <img src="../assets/hygears-logo.png" alt="Hygears logo" width="40" height="40">
+      <span><strong>Hygears HQ</strong><small>Inspection desk</small></span>
+    </div>
+    <button class="btn menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" aria-label="Main">
+      <p class="nav-group">At the door</p>
+      <a href="index.html" aria-current="page"><span class="nav-no">00</span>Door kiosk</a>
+      <p class="nav-group">Officers</p>
+      <a href="dashboard.html"><span class="nav-no">01</span>Dashboard</a>
+      <a href="attendance.html"><span class="nav-no">02</span>Attendance</a>
+      <a href="people.html"><span class="nav-no">03</span>People</a>
+      <a href="items.html"><span class="nav-no">04</span>Items</a>
+      <a href="requests.html"><span class="nav-no">05</span>Requests</a>
+      <a href="reports.html"><span class="nav-no">06</span>Reports</a>
+      <a href="settings.html"><span class="nav-no">07</span>Settings</a>
+    </nav>
+    <p class="who">Signed in as <strong>Paolo Reyes</strong><br>Officer, <code>can_approve = TRUE</code></p>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div>
+        <p class="eyebrow">00 · Door kiosk</p>
+        <h1>Sign in at the HQ door</h1>
+        <p class="lede">Each sign-in is checked before it is saved. Leaving? Find your name under In the HQ now and tap Sign out.</p>
+      </div>
+      <p class="tables">Checked against <code>person</code> <code>attendance</code> <code>purpose</code></p>
+    </div>
+    <p class="sample-note">Prototype with sample data. Nothing is saved; a reload starts over.</p>
+    <a class="jump" href="#inside">Leaving? Jump to Sign out <span id="jump-count"></span></a>
+    <div class="kiosk">
+      <section class="panel" aria-labelledby="signin-h">
+        <div class="panel-head"><h2 id="signin-h">Sign in</h2><code>INSERT INTO attendance</code></div>
+        <div class="panel-body">
+        <form id="signin" novalidate>
+          <fieldset class="seg">
+            <legend>Who are you?</legend>
+            <label><input type="radio" name="who" value="student" checked><span>PUP student number</span></label>
+            <label><input type="radio" name="who" value="visitor"><span>Visitor, no student number</span></label>
+          </fieldset>
+          <div id="student-fields" class="field">
+            <label for="k-sid">Student number <code>person.student_id</code></label>
+            <input id="k-sid" name="student_id" type="text" class="input-xl" inputmode="numeric" autocomplete="off" aria-describedby="k-sid-hint k-sid-read">
+            <p class="hint" id="k-sid-hint">Digits only, like 2023001010. The dashes and MN are added for you.</p>
+            <p class="readback" id="k-sid-read" aria-live="polite"></p>
+            <button type="button" class="link-btn" id="k-kbd">Number has letters, like FAC-? Use the letter keyboard</button>
+            <p class="error" id="k-sid-err" hidden></p>
+          </div>
+          <div id="visitor-fields" hidden>
+            <div class="row-2">
+              <div class="field"><label for="k-first">First name <code>first_name</code></label><input id="k-first" name="first_name" type="text" autocomplete="given-name"><p class="error" id="k-first-err" hidden>Enter your first name.</p></div>
+              <div class="field"><label for="k-last">Last name <code>last_name</code></label><input id="k-last" name="last_name" type="text" autocomplete="family-name"><p class="error" id="k-last-err" hidden>Enter your last name.</p></div>
+            </div>
+            <div class="field"><label for="k-contact">Contact number <code>contact_number</code></label><input id="k-contact" name="contact_number" type="tel" inputmode="tel" autocomplete="tel"><p class="hint">So an officer can reach you, e.g. 0917 555 0123.</p><p class="error" id="k-contact-err" hidden>Enter a contact number (at least 7 digits).</p></div>
+            <div class="field"><label for="k-aff">School or group <code>affiliation</code></label><input id="k-aff" name="affiliation" type="text"><p class="error" id="k-aff-err" hidden>Enter your school or group.</p></div>
+          </div>
+          <fieldset class="tiles" id="k-purpose">
+            <legend>Purpose <code>purpose_id</code></legend>
+            <label><input type="radio" name="purpose_id" value="1"><span>Meeting</span></label>
+            <label><input type="radio" name="purpose_id" value="2"><span>Project work</span></label>
+            <label><input type="radio" name="purpose_id" value="3"><span>Workshop</span></label>
+            <label><input type="radio" name="purpose_id" value="4"><span>Tool use</span></label>
+            <label><input type="radio" name="purpose_id" value="5"><span>Study</span></label>
+            <label><input type="radio" name="purpose_id" value="6"><span>Visit</span></label>
+            <p class="error" id="k-purpose-err" hidden>Choose why you are here.</p>
+          </fieldset>
+          <h3 class="checks-title" id="k-checks-h">Checks before saving</h3>
+          <ul class="checks" id="k-checks" aria-labelledby="k-checks-h"></ul>
+          <button class="btn btn-primary btn-xl" type="submit">Sign in</button>
+        </form>
+        <div id="k-done" class="done" hidden tabindex="-1">
+          <p class="stamp stamp-solid stamp-big"><span aria-hidden="true">&#10003;</span> Signed in <span id="k-done-time"></span></p>
+          <p class="done-name" id="k-done-name"></p>
+          <p id="k-done-detail"></p>
+          <button class="btn btn-xl" type="button" id="k-next">Next person</button>
+          <p class="hint">Clears by itself in <span id="k-countdown">8</span> s.</p>
+        </div>
+        </div>
+      </section>
+      <section class="panel" id="inside" aria-labelledby="inside-h" tabindex="-1">
+        <div class="panel-head"><h2 id="inside-h">In the HQ now <span id="inside-count"></span></h2><code>time_out IS NULL</code></div>
+        <div class="panel-body" style="padding-bottom:0"><div class="field"><label for="k-find">Find your name</label><input id="k-find" type="search" autocomplete="off"></div></div>
+        <ul class="inside-list" id="inside-list"></ul>
+        <p id="inside-empty" class="empty" hidden>Nobody matches.</p>
+      </section>
+    </div>
+  </main>
+</div>
+<div id="toast-region" class="toast-region" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>

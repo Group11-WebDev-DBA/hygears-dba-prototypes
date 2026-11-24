@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Requests · Hygears HQ</title>
+<link rel="icon" href="../assets/hygears-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="requests">
+<a class="skip" href="#main">Skip to content</a>
+<div class="layout">
+  <header class="sidebar" id="sidebar">
+    <div class="brand">
+      <img src="../assets/hygears-logo.png" alt="Hygears logo" width="40" height="40">
+      <span><strong>Hygears HQ</strong><small>Inspection desk</small></span>
+    </div>
+    <button class="btn menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" aria-label="Main">
+      <p class="nav-group">At the door</p>
+      <a href="index.html"><span class="nav-no">00</span>Door kiosk</a>
+      <p class="nav-group">Officers</p>
+      <a href="dashboard.html"><span class="nav-no">01</span>Dashboard</a>
+      <a href="attendance.html"><span class="nav-no">02</span>Attendance</a>
+      <a href="people.html"><span class="nav-no">03</span>People</a>
+      <a href="items.html"><span class="nav-no">04</span>Items</a>
+      <a href="requests.html" aria-current="page"><span class="nav-no">05</span>Requests</a>
+      <a href="reports.html"><span class="nav-no">06</span>Reports</a>
+      <a href="settings.html"><span class="nav-no">07</span>Settings</a>
+    </nav>
+    <p class="who">Signed in as <strong>Paolo Reyes</strong><br>Officer, <code>can_approve = TRUE</code></p>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div>
+        <p class="eyebrow">05 · Requests</p>
+        <h1>Borrowing requests</h1>
+        <p class="lede">Each pending request is inspected before it can be approved. Approve, Reject and Mark returned need a second tap.</p>
+      </div>
+      <p class="tables">Checked against <code>item_request</code> <code>request_line</code> <code>v_item_stock</code> <code>v_open_loans</code></p>
+    </div>
+    <p class="sample-note">Prototype with sample data. Nothing is saved; a reload starts over.</p>
+    <nav class="subnav" aria-label="On this page">
+      <a href="#pending">Pending <span id="n-pending"></span></a>
+      <a href="#loans">Out on loan <span id="n-loans"></span></a>
+      <a href="#new">New request</a>
+      <a href="#history">History</a>
+    </nav>
+    <section id="pending" aria-labelledby="pend-h" class="stack" tabindex="-1">
+      <h2 id="pend-h">Pending</h2>
+      <div class="req-grid" id="pending-list"></div>
+    </section>
+    <section class="panel" id="loans" aria-labelledby="loans-h" style="margin-top:32px" tabindex="-1">
+      <div class="panel-head"><h2 id="loans-h">Out on loan</h2><code>v_open_loans</code></div>
+      <div class="table-wrap"><table class="data" id="loans-table">
+        <thead><tr><th>Borrower</th><th>Tool<code>item_name</code></th><th class="num">Qty<code>quantity</code></th><th>Borrowed<code>borrowed_at</code></th><th>Due<code>due_date</code></th><th>Status<code>is_overdue</code></th><th><span class="sr-only">Actions</span></th></tr></thead>
+        <tbody></tbody></table></div>
+    </section>
+    <section class="panel" id="new" aria-labelledby="new-h">
+      <div class="panel-head"><h2 id="new-h">New request</h2><code>INSERT INTO item_request, request_line</code></div>
+      <div class="panel-body">
+      <form id="req-form" novalidate>
+        <div class="grid-2">
+          <div>
+            <div class="field"><label for="rq-by">Requested by <code>requested_by</code></label><select id="rq-by" name="requested_by"></select><p class="hint">Active members only.</p><p class="error" hidden>Choose who is asking.</p></div>
+            <div id="rq-lines"></div>
+            <button class="btn btn-sm" type="button" id="rq-add">Add another item</button>
+            <div class="field" style="margin-top:16px"><label for="rq-remarks">Remarks <code>remarks</code></label><input id="rq-remarks" name="remarks" type="text"><p class="hint">Optional, e.g. what it is for.</p></div>
+          </div>
+          <div>
+            <h3 class="checks-title" id="rq-checks-h">Checks before saving</h3>
+            <ul class="checks" id="rq-checks" aria-labelledby="rq-checks-h"></ul>
+            <div class="btn-row"><button class="btn btn-primary" type="submit">Submit request</button></div>
+          </div>
+        </div>
+      </form>
+      </div>
+    </section>
+    <section class="panel" id="history" aria-labelledby="hist-h">
+      <div class="panel-head"><h2 id="hist-h">History</h2><code>status &lt;&gt; 'pending'</code></div>
+      <div class="table-wrap"><table class="data" id="hist-table">
+        <thead><tr><th>Requester</th><th>No.<code>request_id</code></th><th>Items</th><th>Status<code>status</code></th><th>Decided by<code>decided_by</code></th><th>Remarks<code>remarks</code></th></tr></thead>
+        <tbody></tbody></table></div>
+    </section>
+  </main>
+</div>
+<div id="toast-region" class="toast-region" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>People · Hygears HQ</title>
+<link rel="icon" href="../assets/hygears-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="people">
+<a class="skip" href="#main">Skip to content</a>
+<div class="layout">
+  <header class="sidebar" id="sidebar">
+    <div class="brand">
+      <img src="../assets/hygears-logo.png" alt="Hygears logo" width="40" height="40">
+      <span><strong>Hygears HQ</strong><small>Inspection desk</small></span>
+    </div>
+    <button class="btn menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" aria-label="Main">
+      <p class="nav-group">At the door</p>
+      <a href="index.html"><span class="nav-no">00</span>Door kiosk</a>
+      <p class="nav-group">Officers</p>
+      <a href="dashboard.html"><span class="nav-no">01</span>Dashboard</a>
+      <a href="attendance.html"><span class="nav-no">02</span>Attendance</a>
+      <a href="people.html" aria-current="page"><span class="nav-no">03</span>People</a>
+      <a href="items.html"><span class="nav-no">04</span>Items</a>
+      <a href="requests.html"><span class="nav-no">05</span>Requests</a>
+      <a href="reports.html"><span class="nav-no">06</span>Reports</a>
+      <a href="settings.html"><span class="nav-no">07</span>Settings</a>
+    </nav>
+    <p class="who">Signed in as <strong>Paolo Reyes</strong><br>Officer, <code>can_approve = TRUE</code></p>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div>
+        <p class="eyebrow">03 · People</p>
+        <h1>People and members</h1>
+        <p class="lede">Everyone who signs the log is a person. Members are people with a student ID and a role.</p>
+      </div>
+      <p class="tables">Checked against <code>person</code> <code>member</code> <code>role</code></p>
+    </div>
+    <p class="sample-note">Prototype with sample data. Nothing is saved; a reload starts over.</p>
+    <section class="panel" aria-labelledby="ppl-h">
+      <div class="panel-head"><h2 id="ppl-h">People</h2><a href="#add-person">Add person</a></div>
+      <form class="filters" id="ppl-filters">
+        <div class="field"><label for="p-q">Search name or student ID</label><input id="p-q" type="search" name="q"></div>
+        <div class="field"><label for="p-kind">Show</label><select id="p-kind" name="kind"><option value="">Everyone</option><option value="active">Active members</option><option value="inactive">Inactive members</option><option value="visitor">Visitors</option></select></div>
+      </form>
+      <p class="table-count" id="ppl-count" aria-live="polite"></p>
+      <div class="table-wrap"><table class="data" id="ppl-table">
+        <thead><tr><th>Name</th><th>Student ID<code>student_id</code></th><th>Contact<code>contact_number</code></th><th>Affiliation<code>affiliation</code></th><th>Role<code>member.role_id</code></th><th>Status<code>is_active</code></th><th><span class="sr-only">Actions</span></th></tr></thead>
+        <tbody></tbody></table></div>
+    </section>
+    <section class="panel" id="add-person" aria-labelledby="add-h">
+      <div class="panel-head"><h2 id="add-h">Add person</h2><code>INSERT INTO person, member</code></div>
+      <div class="panel-body">
+      <form id="person-form" novalidate>
+        <div class="grid-2">
+          <div>
+            <div class="row-2">
+              <div class="field"><label for="pf-first">First name <code>first_name</code></label><input id="pf-first" name="first_name" type="text"><p class="error" hidden>Enter a first name.</p></div>
+              <div class="field"><label for="pf-last">Last name <code>last_name</code></label><input id="pf-last" name="last_name" type="text"><p class="error" hidden>Enter a last name.</p></div>
+            </div>
+            <div class="field"><label for="pf-sid">Student ID <code>student_id</code></label><input id="pf-sid" name="student_id" type="text" autocomplete="off"><p class="hint">Leave empty for visitors from outside PUP.</p><p class="error" id="pf-sid-err" hidden></p></div>
+            <div class="row-2">
+              <div class="field"><label for="pf-contact">Contact number <code>contact_number</code></label><input id="pf-contact" name="contact_number" type="tel"><p class="error" hidden>Enter a contact number.</p></div>
+              <div class="field"><label for="pf-aff">Affiliation <code>affiliation</code></label><input id="pf-aff" name="affiliation" type="text"></div>
+            </div>
+            <label class="check-line"><input type="checkbox" id="pf-member" name="is_member"> Make this person a member</label>
+            <div id="pf-member-fields" hidden>
+              <div class="row-2">
+                <div class="field"><label for="pf-role">Role <code>role_id</code></label><select id="pf-role" name="role_id"></select></div>
+                <div class="field"><label for="pf-joined">Joined <code>joined_on</code></label><input id="pf-joined" name="joined_on" type="date" value="2026-11-24"></div>
+              </div>
+              <div class="field"><label for="pf-email">Email <code>email</code></label><input id="pf-email" name="email" type="email"></div>
+            </div>
+          </div>
+          <div>
+            <h3 class="checks-title" id="pf-checks-h">Checks before saving</h3>
+            <ul class="checks" id="pf-checks" aria-labelledby="pf-checks-h"></ul>
+            <div class="btn-row"><button class="btn btn-primary" type="submit">Save person</button><button class="btn" type="reset">Clear</button></div>
+          </div>
+        </div>
+      </form>
+      </div>
+    </section>
+  </main>
+</div>
+<div id="toast-region" class="toast-region" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>

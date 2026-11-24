@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reports · Hygears HQ System</title>
+<link rel="icon" href="../assets/hygears-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&amp;family=IBM+Plex+Sans:wght@400;600;700&amp;display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-in" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="m10 17 5-5-5-5"/><path d="M15 12H3"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0"/><path d="M16 4a4 4 0 0 1 0 8"/><path d="M22 21a7 7 0 0 0-4-6.3"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5"/><path d="M12 13v8"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11 12 3l9 8"/><path d="M5 10v11h14V10"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h.01M3 12h.01M3 18h.01"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/><path d="M8 13h8M8 17h5"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M8 17v-5M13 17V8M18 17v-9"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></symbol>
+  <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/></symbol>
+</svg>
+<a class="skip" href="#main">Skip to content</a>
+<div class="shell">
+  <!-- Sidebar: identical on every page (sidebar.php in the PHP rebuild); aria-current marks this page -->
+  <aside class="sidebar">
+    <a class="brand" href="dashboard.html"><img src="../assets/hygears-logo.png" alt="Hygears logo" width="40" height="40"><span>Hygears HQ<small>Time Card system</small></span></a>
+    <button class="btn btn-sm menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="index.html"><svg class="icon" aria-hidden="true"><use href="#i-in"/></svg>Door kiosk</a>
+      <a href="dashboard.html" class="nav-gap"><svg class="icon" aria-hidden="true"><use href="#i-home"/></svg>Dashboard</a>
+      <a href="attendance.html"><svg class="icon" aria-hidden="true"><use href="#i-list"/></svg>Attendance</a>
+      <a href="people.html"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg>People</a>
+      <a href="items.html"><svg class="icon" aria-hidden="true"><use href="#i-box"/></svg>Items</a>
+      <a href="requests.html"><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg>Requests</a>
+      <a href="reports.html" aria-current="page"><svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg>Reports</a>
+      <a href="settings.html"><svg class="icon" aria-hidden="true"><use href="#i-gear"/></svg>Settings</a>
+    </nav>
+    <p class="side-foot">Engineering Innovation • Research • Technology • Leadership</p>
+  </aside>
+  <div class="main-col">
+    <!-- Header: page title, time-clock display, who is signed in -->
+    <header class="topbar">
+      <h1>Reports</h1>
+      <span class="clock-face" id="clock">TUE 24 NOV 2026 · 11:05 AM</span>
+      <p class="whoami">Signed in: <strong>Paolo Santos</strong> · Officer</p>
+    </header>
+    <main id="main" class="page">
+      <p class="lead">Ready-made queries for the paper and for officers. Each one shows the SQL that runs on <code>hygears_db</code> beside its result. <span class="sample-tag">sample data</span></p>
+
+      <nav class="btn-row" aria-label="Reports on this page" style="margin-bottom:24px">
+        <a class="btn btn-sm" href="#r1">Open loans</a><a class="btn btn-sm" href="#r2">Overdue</a><a class="btn btn-sm" href="#r3">Low stock</a>
+        <a class="btn btn-sm" href="#r4">In the HQ now</a><a class="btn btn-sm" href="#r5">Attendance per day</a><a class="btn btn-sm" href="#r6">Most borrowed</a><a class="btn btn-sm" href="#r7">Rules</a>
+      </nav>
+
+      <section class="panel" aria-labelledby="r1">
+        <div class="panel-head"><h2 id="r1">1. Open loans</h2><p>View <code>v_open_loans</code>: tools out right now and who has them</p></div>
+        <div class="report">
+<pre class="sql">SELECT first_name, last_name, item_name,
+       quantity, due_date, is_overdue
+FROM v_open_loans
+ORDER BY is_overdue DESC, due_date;</pre>
+          <div class="table-wrap"><table class="reflow">
+            <thead><tr><th scope="col">Borrower</th><th scope="col">item_name</th><th scope="col" class="num">quantity</th><th scope="col">due_date</th><th scope="col">is_overdue</th></tr></thead>
+            <tbody>
+              <tr class="row-alert"><td class="name-cell"><strong>Mika Reyes</strong></td><td data-label="item_name">Torque wrench</td><td data-label="quantity" class="num">1</td><td data-label="due_date">2026-11-21</td><td data-label="is_overdue"><span class="status alert"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg>1 (yes)</span></td></tr>
+              <tr><td class="name-cell"><strong>Andrea Cruz</strong></td><td data-label="item_name">Cordless drill</td><td data-label="quantity" class="num">1</td><td data-label="due_date">2026-11-24</td><td data-label="is_overdue">0</td></tr>
+              <tr><td class="name-cell"><strong>Andrea Cruz</strong></td><td data-label="item_name">Digital multimeter</td><td data-label="quantity" class="num">1</td><td data-label="due_date">2026-11-24</td><td data-label="is_overdue">0</td></tr>
+              <tr><td class="name-cell"><strong>Jun Dela Rosa</strong></td><td data-label="item_name">Digital multimeter</td><td data-label="quantity" class="num">2</td><td data-label="due_date">2026-11-28</td><td data-label="is_overdue">0</td></tr>
+            </tbody></table></div>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="r2">
+        <div class="panel-head"><h2 id="r2">2. Overdue tools</h2><p>Same view, filtered, with the borrower's contact number for follow-up</p></div>
+        <div class="report">
+<pre class="sql">SELECT first_name, last_name, contact_number,
+       item_name, due_date,
+       DATEDIFF(CURDATE(), due_date) AS days_late
+FROM v_open_loans
+WHERE is_overdue = 1;</pre>
+          <div class="table-wrap"><table class="reflow">
+            <thead><tr><th scope="col">Borrower</th><th scope="col">contact_number</th><th scope="col">item_name</th><th scope="col">due_date</th><th scope="col" class="num">days_late</th></tr></thead>
+            <tbody><tr class="row-alert"><td class="name-cell"><strong>Mika Reyes</strong></td><td data-label="contact_number">0917 555 0101</td><td data-label="item_name">Torque wrench</td><td data-label="due_date">2026-11-21</td><td data-label="days_late" class="num">3</td></tr></tbody>
+          </table></div>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="r3">
+        <div class="panel-head"><h2 id="r3">3. Low stock</h2><p>View <code>v_low_stock</code>: active items at or below reorder_level</p></div>
+        <div class="report">
+<pre class="sql">SELECT name, item_type,
+       quantity_available, reorder_level
+FROM v_low_stock
+ORDER BY quantity_available - reorder_level;</pre>
+          <div class="table-wrap"><table class="reflow">
+            <thead><tr><th scope="col">name</th><th scope="col">item_type</th><th scope="col" class="num">quantity_available</th><th scope="col" class="num">reorder_level</th></tr></thead>
+            <tbody>
+              <tr class="row-alert"><td class="name-cell"><strong>Cutting disc 4 in</strong></td><td data-label="item_type">consumable</td><td data-label="quantity_available" class="num">3</td><td data-label="reorder_level" class="num">5</td></tr>
+              <tr class="row-alert"><td class="name-cell"><strong>Solder wire 0.8 mm</strong></td><td data-label="item_type">consumable</td><td data-label="quantity_available" class="num">2</td><td data-label="reorder_level" class="num">3</td></tr>
+            </tbody></table></div>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="r4">
+        <div class="panel-head"><h2 id="r4">4. In the HQ now</h2><p>Open attendance cards: <code>time_out IS NULL</code></p></div>
+        <div class="report">
+<pre class="sql">SELECT p.first_name, p.last_name,
+       pu.name AS purpose, a.time_in,
+       IF(m.person_id IS NULL, 'Visitor', 'Member') AS kind
+FROM attendance a
+JOIN person p   ON p.person_id = a.person_id
+JOIN purpose pu ON pu.purpose_id = a.purpose_id
+LEFT JOIN member m ON m.person_id = p.person_id
+WHERE a.time_out IS NULL
+ORDER BY a.time_in;</pre>
+          <div class="table-wrap"><table class="reflow">
+            <thead><tr><th scope="col">Name</th><th scope="col">purpose</th><th scope="col">time_in</th><th scope="col">kind</th></tr></thead>
+            <tbody>
+              <tr><td class="name-cell"><strong>Bea Villanueva</strong></td><td data-label="purpose">Tool use</td><td data-label="time_in">2026-11-24 08:40</td><td data-label="kind">Member</td></tr>
+              <tr><td class="name-cell"><strong>Jun Dela Rosa</strong></td><td data-label="purpose">Project work</td><td data-label="time_in">2026-11-24 09:12</td><td data-label="kind">Member</td></tr>
+              <tr><td class="name-cell"><strong>Andrea Cruz</strong></td><td data-label="purpose">Project work</td><td data-label="time_in">2026-11-24 09:50</td><td data-label="kind">Member</td></tr>
+              <tr><td class="name-cell"><strong>Rina Lopez</strong></td><td data-label="purpose">Visit</td><td data-label="time_in">2026-11-24 10:15</td><td data-label="kind">Visitor</td></tr>
+            </tbody></table></div>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="r5">
+        <div class="panel-head"><h2 id="r5">5. Attendance per day and purpose</h2><p>GROUP BY on <code>attendance</code> and <code>purpose</code></p></div>
+        <div class="report">
+<pre class="sql">SELECT DATE(a.time_in) AS day,
+       pu.name AS purpose,
+       COUNT(*) AS visits
+FROM attendance a
+JOIN purpose pu ON pu.purpose_id = a.purpose_id
+GROUP BY DATE(a.time_in), pu.name
+ORDER BY day DESC, visits DESC;</pre>
+          <div class="table-wrap"><table class="reflow">
+            <thead><tr><th scope="col">day</th><th scope="col">purpose</th><th scope="col" class="num">visits</th></tr></thead>
+            <tbody>
+              <tr><td class="name-cell"><strong>2026-11-24</strong></td><td data-label="purpose">Meeting</td><td data-label="visits" class="num">2</td></tr>
+              <tr><td class="name-cell"><strong>2026-11-24</strong></td><td data-label="purpose">Project work</td><td data-label="visits" class="num">2</td></tr>
+              <tr><td class="name-cell"><strong>2026-11-24</strong></td><td data-label="purpose">Tool use</td><td data-label="visits" class="num">2</td></tr>
+              <tr><td class="name-cell"><strong>2026-11-24</strong></td><td data-label="purpose">Study</td><td data-label="visits" class="num">1</td></tr>
+              <tr><td class="name-cell"><strong>2026-11-24</strong></td><td data-label="purpose">Visit</td><td data-label="visits" class="num">1</td></tr>
+              <tr><td class="name-cell"><strong>2026-11-23</strong></td><td data-label="purpose">Project work</td><td data-label="visits" class="num">1</td></tr>
+              <tr><td class="name-cell"><strong>2026-11-23</strong></td><td data-label="purpose">Study</td><td data-label="visits" class="num">1</td></tr>
+              <tr><td class="name-cell"><strong>2026-11-23</strong></td><td data-label="purpose">Workshop</td><td data-label="visits" class="num">1</td></tr>
+            </tbody></table></div>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="r6">
+        <div class="panel-head"><h2 id="r6">6. Most borrowed items</h2><p>Approved and completed request lines</p></div>
+        <div class="report">
+<pre class="sql">SELECT i.name, i.item_type,
+       SUM(rl.quantity) AS times_out
+FROM request_line rl
+JOIN item_request q ON q.request_id = rl.request_id
+JOIN item i ON i.item_id = rl.item_id
+WHERE q.status IN ('approved', 'completed')
+GROUP BY i.item_id, i.name, i.item_type
+ORDER BY times_out DESC
+LIMIT 5;</pre>
+          <div class="table-wrap"><table class="reflow">
+            <thead><tr><th scope="col">name</th><th scope="col">item_type</th><th scope="col" class="num">times_out</th></tr></thead>
+            <tbody>
+              <tr><td class="name-cell"><strong>Cutting disc 4 in</strong></td><td data-label="item_type">consumable</td><td data-label="times_out" class="num">5</td></tr>
+              <tr><td class="name-cell"><strong>Digital multimeter</strong></td><td data-label="item_type">tool</td><td data-label="times_out" class="num">3</td></tr>
+              <tr><td class="name-cell"><strong>Cordless drill</strong></td><td data-label="item_type">tool</td><td data-label="times_out" class="num">1</td></tr>
+              <tr><td class="name-cell"><strong>Torque wrench</strong></td><td data-label="item_type">tool</td><td data-label="times_out" class="num">1</td></tr>
+            </tbody></table></div>
+        </div>
+      </section>
+
+      <!-- where each database rule shows up in the screens -->
+      <section class="panel" aria-labelledby="r7">
+        <div class="panel-head"><h2 id="r7">7. Rules in the database, and where the screens show them</h2></div>
+        <div class="table-wrap"><table class="reflow">
+          <thead><tr><th scope="col">Rule</th><th scope="col">Enforced by</th><th scope="col">Where you see it</th></tr></thead>
+          <tbody>
+            <tr><td class="name-cell"><strong>Members need a student ID</strong></td><td data-label="Enforced by"><code>trg_member_requires_student_id_ins</code></td><td data-label="Where">People: "Also make member" stays off until a student number is typed; Rina shows "Can't be a member"</td></tr>
+            <tr><td class="name-cell"><strong>Time out is after time in</strong></td><td data-label="Enforced by"><code>chk_attendance_times</code></td><td data-label="Where">Kiosk: Punch out always stamps the current time; you can't punch in twice</td></tr>
+            <tr><td class="name-cell"><strong>Consumables have no due date</strong></td><td data-label="Enforced by"><code>trg_line_consumable_ins</code></td><td data-label="Where">Requests: the due date box empties and locks when a consumable is picked</td></tr>
+            <tr><td class="name-cell"><strong>Only approvers decide</strong></td><td data-label="Enforced by"><code>trg_request_approver_ins</code>, <code>role.can_approve</code></td><td data-label="Where">Settings: can_approve per role; Requests: only officers see Approve / Reject</td></tr>
+            <tr><td class="name-cell"><strong>Nobody approves their own request</strong></td><td data-label="Enforced by"><code>chk_request_not_self</code></td><td data-label="Where">Requests: slip #1044 (yours) has no buttons</td></tr>
+            <tr><td class="name-cell"><strong>Don't approve more than the shelf has</strong></td><td data-label="Enforced by">Not in the database (known gap): the screen checks <code>v_item_stock.quantity_available</code></td><td data-label="Where">Requests: Approve is blocked with a message, e.g. slip #1041</td></tr>
+          </tbody></table></div>
+      </section>
+    </main>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>

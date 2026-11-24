@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Items · Hygears HQ</title>
+<link rel="icon" href="../assets/hygears-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="items">
+<a class="skip" href="#main">Skip to content</a>
+<div class="layout">
+  <header class="sidebar" id="sidebar">
+    <div class="brand">
+      <img src="../assets/hygears-logo.png" alt="Hygears logo" width="40" height="40">
+      <span><strong>Hygears HQ</strong><small>Inspection desk</small></span>
+    </div>
+    <button class="btn menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" aria-label="Main">
+      <p class="nav-group">At the door</p>
+      <a href="index.html"><span class="nav-no">00</span>Door kiosk</a>
+      <p class="nav-group">Officers</p>
+      <a href="dashboard.html"><span class="nav-no">01</span>Dashboard</a>
+      <a href="attendance.html"><span class="nav-no">02</span>Attendance</a>
+      <a href="people.html"><span class="nav-no">03</span>People</a>
+      <a href="items.html" aria-current="page"><span class="nav-no">04</span>Items</a>
+      <a href="requests.html"><span class="nav-no">05</span>Requests</a>
+      <a href="reports.html"><span class="nav-no">06</span>Reports</a>
+      <a href="settings.html"><span class="nav-no">07</span>Settings</a>
+    </nav>
+    <p class="who">Signed in as <strong>Paolo Reyes</strong><br>Officer, <code>can_approve = TRUE</code></p>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div>
+        <p class="eyebrow">04 · Items</p>
+        <h1>Inventory</h1>
+        <p class="lede">Available stock comes from the view v_item_stock, so it never drifts from the borrow records.</p>
+      </div>
+      <p class="tables">Checked against <code>item</code> <code>category</code> <code>restock</code> <code>v_item_stock</code> <code>v_low_stock</code></p>
+    </div>
+    <p class="sample-note">Prototype with sample data. Nothing is saved; a reload starts over.</p>
+    <div id="low-notice"></div>
+    <section class="panel" aria-labelledby="items-h">
+      <div class="panel-head"><h2 id="items-h">Items</h2><a href="#item-form-panel">Add item</a></div>
+      <form class="filters" id="item-filters">
+        <div class="field"><label for="i-q">Search name</label><input id="i-q" type="search" name="q"></div>
+        <div class="field"><label for="i-cat">Category</label><select id="i-cat" name="cat"><option value="">All categories</option><option value="1">Hand tools</option>
+<option value="2">Power tools</option>
+<option value="3">Electronics</option>
+<option value="4">Measuring instruments</option>
+<option value="5">Cutting consumables</option>
+<option value="6">Soldering consumables</option></select></div>
+        <div class="field"><label for="i-type">Type</label><select id="i-type" name="type"><option value="">Tools and consumables</option><option value="tool">Tools</option><option value="consumable">Consumables</option></select></div>
+        <label class="check-line"><input type="checkbox" id="i-low" name="low"> Low stock only</label>
+      </form>
+      <p class="table-count" id="items-count" aria-live="polite"></p>
+      <div class="table-wrap"><table class="data" id="items-table">
+        <thead><tr><th>Item<code>name</code></th><th>Category<code>category_id</code></th><th>Type<code>item_type</code></th><th class="num">Total<code>quantity_total</code></th><th class="num">Available<code>quantity_available</code></th><th class="num">Reorder<code>reorder_level</code></th><th>Status<code>is_active</code></th><th><span class="sr-only">Actions</span></th></tr></thead>
+        <tbody></tbody></table></div>
+    </section>
+    <div class="grid-2">
+      <section class="panel" id="item-form-panel" aria-labelledby="if-h" tabindex="-1">
+        <div class="panel-head"><h2 id="if-h">Add item</h2><code id="if-sql">INSERT INTO item</code></div>
+        <div class="panel-body">
+        <form id="item-form" novalidate>
+          <input type="hidden" name="item_id">
+          <div class="field"><label for="if-name">Name <code>name</code></label><input id="if-name" name="name" type="text"><p class="hint">Short and specific, e.g. Solder wire 0.8 mm.</p><p class="error" id="if-name-err" hidden></p></div>
+          <div class="field"><label for="if-cat">Category <code>category_id</code></label><select id="if-cat" name="category_id"><option value="">Choose a category</option><option value="1">Hand tools</option>
+<option value="2">Power tools</option>
+<option value="3">Electronics</option>
+<option value="4">Measuring instruments</option>
+<option value="5">Cutting consumables</option>
+<option value="6">Soldering consumables</option></select><p class="error" hidden>Choose a category.</p></div>
+          <fieldset class="seg"><legend>Type <code>item_type</code></legend>
+            <label><input type="radio" name="item_type" value="tool" checked><span>Tool (borrowed, returned)</span></label>
+            <label><input type="radio" name="item_type" value="consumable"><span>Consumable (used up)</span></label>
+          </fieldset>
+          <div class="row-2">
+            <div class="field"><label for="if-total">Total <code>quantity_total</code></label><input id="if-total" name="quantity_total" type="number" min="0" inputmode="numeric" value="1"><p class="error" hidden>Enter 0 or more.</p></div>
+            <div class="field"><label for="if-reorder">Reorder at <code>reorder_level</code></label><input id="if-reorder" name="reorder_level" type="number" min="0" inputmode="numeric"><p class="hint">Optional. Used by v_low_stock.</p></div>
+          </div>
+          <label class="check-line"><input type="checkbox" name="is_active" checked> Active <code>is_active</code></label>
+          <h3 class="checks-title" id="if-checks-h">Checks before saving</h3>
+          <ul class="checks" id="if-checks" aria-labelledby="if-checks-h"></ul>
+          <div class="btn-row"><button class="btn btn-primary" type="submit" id="if-submit">Save item</button><button class="btn" type="reset" id="if-reset">Clear</button></div>
+        </form>
+        </div>
+      </section>
+      <section class="panel" id="restock-panel" aria-labelledby="rs-h" tabindex="-1">
+        <div class="panel-head"><h2 id="rs-h">Restock</h2><code>INSERT INTO restock</code></div>
+        <div class="panel-body">
+        <form id="restock-form" novalidate>
+          <div class="field"><label for="rs-item">Consumable <code>item_id</code></label><select id="rs-item" name="item_id"></select><p class="hint">Only consumables. For tools, edit quantity_total instead: v_item_stock ignores restocks for tools.</p><p class="error" hidden>Choose a consumable.</p></div>
+          <div class="row-2">
+            <div class="field"><label for="rs-qty">Quantity added <code>quantity</code></label><input id="rs-qty" name="quantity" type="number" min="1" inputmode="numeric"><p class="error" hidden>Enter 1 or more.</p></div>
+            <div class="field"><label for="rs-date">Date <code>restocked_on</code></label><input id="rs-date" name="restocked_on" type="date" value="2026-11-24"><p class="error" hidden>Pick a date that is not in the future.</p></div>
+          </div>
+          <div class="field"><label for="rs-notes">Notes <code>notes</code></label><input id="rs-notes" name="notes" type="text"><p class="hint">Optional, e.g. where it was bought.</p></div>
+          <h3 class="checks-title" id="rs-checks-h">Checks before saving</h3>
+          <ul class="checks" id="rs-checks" aria-labelledby="rs-checks-h"></ul>
+          <button class="btn btn-primary" type="submit">Add stock</button>
+        </form>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+<div id="toast-region" class="toast-region" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Attendance · Hygears HQ</title>
+<link rel="icon" href="../assets/hygears-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="attendance">
+<a class="skip" href="#main">Skip to content</a>
+<div class="layout">
+  <header class="sidebar" id="sidebar">
+    <div class="brand">
+      <img src="../assets/hygears-logo.png" alt="Hygears logo" width="40" height="40">
+      <span><strong>Hygears HQ</strong><small>Inspection desk</small></span>
+    </div>
+    <button class="btn menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" aria-label="Main">
+      <p class="nav-group">At the door</p>
+      <a href="index.html"><span class="nav-no">00</span>Door kiosk</a>
+      <p class="nav-group">Officers</p>
+      <a href="dashboard.html"><span class="nav-no">01</span>Dashboard</a>
+      <a href="attendance.html" aria-current="page"><span class="nav-no">02</span>Attendance</a>
+      <a href="people.html"><span class="nav-no">03</span>People</a>
+      <a href="items.html"><span class="nav-no">04</span>Items</a>
+      <a href="requests.html"><span class="nav-no">05</span>Requests</a>
+      <a href="reports.html"><span class="nav-no">06</span>Reports</a>
+      <a href="settings.html"><span class="nav-no">07</span>Settings</a>
+    </nav>
+    <p class="who">Signed in as <strong>Paolo Reyes</strong><br>Officer, <code>can_approve = TRUE</code></p>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div>
+        <p class="eyebrow">02 · Attendance</p>
+        <h1>Attendance log</h1>
+        <p class="lede">Every sign-in and sign-out. Rows with no time_out are people still inside.</p>
+      </div>
+      <p class="tables">Checked against <code>attendance</code> <code>person</code> <code>purpose</code></p>
+    </div>
+    <p class="sample-note">Prototype with sample data. Nothing is saved; a reload starts over.</p>
+    <section class="panel" aria-labelledby="att-h">
+      <div class="panel-head"><h2 id="att-h">Log</h2><button class="btn btn-sm" type="button" id="export">Export CSV</button></div>
+      <form class="filters" id="att-filters">
+        <div class="field"><label for="f-date">Date</label><select id="f-date" name="date"><option value="">All days</option><option value="2026-11-24">Tue 24 Nov 2026</option><option value="2026-11-23">Mon 23 Nov 2026</option></select></div>
+        <div class="field"><label for="f-purpose">Purpose</label><select id="f-purpose" name="purpose"><option value="">All purposes</option>
+              <option value="1">Meeting</option>
+              <option value="2">Project work</option>
+              <option value="3">Workshop</option>
+              <option value="4">Tool use</option>
+              <option value="5">Study</option>
+              <option value="6">Visit</option>
+            </select></div>
+        <div class="field"><label for="f-who">Who</label><select id="f-who" name="who"><option value="">Members and visitors</option><option value="member">Members only</option><option value="visitor">Visitors only</option></select></div>
+        <label class="check-line"><input type="checkbox" id="f-inside" name="inside"> Still inside</label>
+      </form>
+      <p class="table-count" id="att-count" aria-live="polite"></p>
+      <div class="table-wrap"><table class="data" id="att-table">
+        <thead><tr><th>Name</th><th>Student ID<code>student_id</code></th><th>Purpose<code>purpose_id</code></th><th>In<code>time_in</code></th><th>Out<code>time_out</code></th><th>Notes<code>notes</code></th></tr></thead>
+        <tbody></tbody></table></div>
+    </section>
+  </main>
+</div>
+<div id="toast-region" class="toast-region" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>

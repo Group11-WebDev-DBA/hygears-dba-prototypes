@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Settings · Hygears HQ</title>
+<link rel="icon" href="../assets/hygears-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="settings">
+<a class="skip" href="#main">Skip to content</a>
+<div class="layout">
+  <header class="sidebar" id="sidebar">
+    <div class="brand">
+      <img src="../assets/hygears-logo.png" alt="Hygears logo" width="40" height="40">
+      <span><strong>Hygears HQ</strong><small>Inspection desk</small></span>
+    </div>
+    <button class="btn menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" aria-label="Main">
+      <p class="nav-group">At the door</p>
+      <a href="index.html"><span class="nav-no">00</span>Door kiosk</a>
+      <p class="nav-group">Officers</p>
+      <a href="dashboard.html"><span class="nav-no">01</span>Dashboard</a>
+      <a href="attendance.html"><span class="nav-no">02</span>Attendance</a>
+      <a href="people.html"><span class="nav-no">03</span>People</a>
+      <a href="items.html"><span class="nav-no">04</span>Items</a>
+      <a href="requests.html"><span class="nav-no">05</span>Requests</a>
+      <a href="reports.html"><span class="nav-no">06</span>Reports</a>
+      <a href="settings.html" aria-current="page"><span class="nav-no">07</span>Settings</a>
+    </nav>
+    <p class="who">Signed in as <strong>Paolo Reyes</strong><br>Officer, <code>can_approve = TRUE</code></p>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div>
+        <p class="eyebrow">07 · Settings</p>
+        <h1>Lookup tables</h1>
+        <p class="lede">Roles, purposes and categories used by every other screen. Rows already in use are not deleted (foreign keys).</p>
+      </div>
+      <p class="tables">Checked against <code>role</code> <code>purpose</code> <code>category</code></p>
+    </div>
+    <p class="sample-note">Prototype with sample data. Nothing is saved; a reload starts over.</p>
+    <div class="grid-2">
+      <section class="panel" aria-labelledby="roles-h">
+        <div class="panel-head"><h2 id="roles-h">Roles</h2><code>role</code></div>
+        <div class="table-wrap"><table class="data" id="roles-table"><thead><tr><th>Role<code>name</code></th><th>Can approve requests<code>can_approve</code></th></tr></thead><tbody></tbody></table></div>
+        <form class="panel-body lookup-form" data-table="role" novalidate>
+          <div class="field"><label for="new-role">New role <code>name</code></label><input id="new-role" name="name" type="text"><p class="error" hidden></p></div>
+          <label class="check-line"><input type="checkbox" name="can_approve"> Can approve requests</label>
+          <button class="btn" type="submit">Add role</button>
+        </form>
+      </section>
+      <div class="stack">
+        <section class="panel" aria-labelledby="pur-h">
+          <div class="panel-head"><h2 id="pur-h">Purposes</h2><code>purpose</code></div>
+          <div class="table-wrap"><table class="data" id="purpose-table"><thead><tr><th>Purpose<code>name</code></th><th class="num">Used in attendance</th></tr></thead><tbody></tbody></table></div>
+          <form class="panel-body lookup-form" data-table="purpose" novalidate>
+            <div class="field"><label for="new-purpose">New purpose <code>name</code></label><input id="new-purpose" name="name" type="text"><p class="error" hidden></p></div>
+            <button class="btn" type="submit">Add purpose</button>
+          </form>
+        </section>
+        <section class="panel" aria-labelledby="cat-h">
+          <div class="panel-head"><h2 id="cat-h">Categories</h2><code>category</code></div>
+          <div class="table-wrap"><table class="data" id="category-table"><thead><tr><th>Category<code>name</code></th><th class="num">Items</th></tr></thead><tbody></tbody></table></div>
+          <form class="panel-body lookup-form" data-table="category" novalidate>
+            <div class="field"><label for="new-cat">New category <code>name</code></label><input id="new-cat" name="name" type="text"><p class="error" hidden></p></div>
+            <button class="btn" type="submit">Add category</button>
+          </form>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>
+<div id="toast-region" class="toast-region" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>

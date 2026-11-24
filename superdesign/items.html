@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Items · Hygears HQ System</title>
+<link rel="icon" href="../assets/hygears-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&amp;family=IBM+Plex+Sans:wght@400;600;700&amp;display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-in" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="m10 17 5-5-5-5"/><path d="M15 12H3"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0"/><path d="M16 4a4 4 0 0 1 0 8"/><path d="M22 21a7 7 0 0 0-4-6.3"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5"/><path d="M12 13v8"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11 12 3l9 8"/><path d="M5 10v11h14V10"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h.01M3 12h.01M3 18h.01"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/><path d="M8 13h8M8 17h5"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M8 17v-5M13 17V8M18 17v-9"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></symbol>
+  <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/></symbol>
+</svg>
+<a class="skip" href="#main">Skip to content</a>
+<div class="shell">
+  <!-- Sidebar: identical on every page (sidebar.php in the PHP rebuild); aria-current marks this page -->
+  <aside class="sidebar">
+    <a class="brand" href="dashboard.html"><img src="../assets/hygears-logo.png" alt="Hygears logo" width="40" height="40"><span>Hygears HQ<small>Time Card system</small></span></a>
+    <button class="btn btn-sm menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="index.html"><svg class="icon" aria-hidden="true"><use href="#i-in"/></svg>Door kiosk</a>
+      <a href="dashboard.html" class="nav-gap"><svg class="icon" aria-hidden="true"><use href="#i-home"/></svg>Dashboard</a>
+      <a href="attendance.html"><svg class="icon" aria-hidden="true"><use href="#i-list"/></svg>Attendance</a>
+      <a href="people.html"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg>People</a>
+      <a href="items.html" aria-current="page"><svg class="icon" aria-hidden="true"><use href="#i-box"/></svg>Items</a>
+      <a href="requests.html"><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg>Requests</a>
+      <a href="reports.html"><svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg>Reports</a>
+      <a href="settings.html"><svg class="icon" aria-hidden="true"><use href="#i-gear"/></svg>Settings</a>
+    </nav>
+    <p class="side-foot">Engineering Innovation • Research • Technology • Leadership</p>
+  </aside>
+  <div class="main-col">
+    <!-- Header: page title, time-clock display, who is signed in -->
+    <header class="topbar">
+      <h1>Items</h1>
+      <span class="clock-face" id="clock">TUE 24 NOV 2026 · 11:05 AM</span>
+      <p class="whoami">Signed in: <strong>Paolo Santos</strong> · Officer</p>
+    </header>
+    <main id="main" class="page">
+      <p class="lead">The HQ inventory. Tools are borrowed and returned; consumables are used up and restocked. Available comes from the view <code>v_item_stock</code>, low stock from <code>v_low_stock</code>. <span class="sample-tag">sample data</span></p>
+
+      <div class="notice alert" id="low-note"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><p><strong><span id="low-count">2</span> items at or below their reorder level:</strong> <span id="low-names">Solder wire 0.8 mm, Cutting disc 4 in</span>. <a href="#restock-title">Restock</a></p></div>
+
+      <div class="grid-2">
+        <!-- LIST: item JOIN category JOIN v_item_stock -->
+        <section class="panel" aria-labelledby="items-title">
+          <div class="panel-head"><h2 id="items-title">Items <span class="count" id="items-count">12</span></h2>
+            <div class="right"><label for="items-find" class="sr-only">Search items</label><input type="search" id="items-find" placeholder="Search items" autocomplete="off"></div></div>
+          <div class="table-wrap">
+            <table class="reflow" id="items-table">
+              <thead><tr><th scope="col">Item</th><th scope="col">Type</th><th scope="col" class="num">Total</th><th scope="col" class="num">Available</th><th scope="col" class="num">Reorder at</th><th scope="col">Status</th><th scope="col"><span class="sr-only">Actions</span></th></tr></thead>
+              <tbody>
+                <tr data-id="1" data-category="Power tools" data-type="tool" data-total="2" data-reorder="" data-active="1">
+                  <td class="name-cell"><strong>Cordless drill</strong><span>Power tools</span></td><td data-label="Type">Tool</td><td data-label="Total" class="num">2</td><td data-label="Available" class="num" data-avail>1</td><td data-label="Reorder at" class="num"></td>
+                  <td data-label="Status" data-status><span class="status ok"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>In stock</span></td><td data-label="Actions"><button class="btn btn-sm" type="button" data-edit>Edit</button></td></tr>
+                <tr data-id="2" data-category="Power tools" data-type="tool" data-total="1" data-reorder="" data-active="1">
+                  <td class="name-cell"><strong>Angle grinder</strong><span>Power tools</span></td><td data-label="Type">Tool</td><td data-label="Total" class="num">1</td><td data-label="Available" class="num" data-avail>1</td><td data-label="Reorder at" class="num"></td>
+                  <td data-label="Status" data-status><span class="status ok"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>In stock</span></td><td data-label="Actions"><button class="btn btn-sm" type="button" data-edit>Edit</button></td></tr>
+                <tr data-id="3" data-category="Measuring instruments" data-type="tool" data-total="4" data-reorder="" data-active="1">
+                  <td class="name-cell"><strong>Digital multimeter</strong><span>Measuring instruments</span></td><td data-label="Type">Tool</td><td data-label="Total" class="num">4</td><td data-label="Available" class="num" data-avail>1</td><td data-label="Reorder at" class="num"></td>
+                  <td data-label="Status" data-status><span class="status ok"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>In stock</span></td><td data-label="Actions"><button class="btn btn-sm" type="button" data-edit>Edit</button></td></tr>
+                <tr data-id="4" data-category="Measuring instruments" data-type="tool" data-total="3" data-reorder="" data-active="1">
+                  <td class="name-cell"><strong>Vernier caliper</strong><span>Measuring instruments</span></td><td data-label="Type">Tool</td><td data-label="Total" class="num">3</td><td data-label="Available" class="num" data-avail>3</td><td data-label="Reorder at" class="num"></td>
+                  <td data-label="Status" data-status><span class="status ok"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>In stock</span></td><td data-label="Actions"><button class="btn btn-sm" type="button" data-edit>Edit</button></td></tr>
+                <tr data-id="5" data-category="Hand tools" data-type="tool" data-total="1" data-reorder="" data-active="1">
+                  <td class="name-cell"><strong>Torque wrench</strong><span>Hand tools</span></td><td data-label="Type">Tool</td><td data-label="Total" class="num">1</td><td data-label="Available" class="num" data-avail>0</td><td data-label="Reorder at" class="num"></td>
+                  <td data-label="Status" data-status><span class="status"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>All out on loan</span></td><td data-label="Actions"><button class="btn btn-sm" type="button" data-edit>Edit</button></td></tr>
+                <tr data-id="6" data-category="Hand tools" data-type="tool" data-total="5" data-reorder="" data-active="1">
+                  <td class="name-cell"><strong>Wire stripper</strong><span>Hand tools</span></td><td data-label="Type">Tool</td><td data-label="Total" class="num">5</td><td data-label="Available" class="num" data-avail>5</td><td data-label="Reorder at" class="num"></td>
+                  <td data-label="Status" data-status><span class="status ok"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>In stock</span></td><td data-label="Actions"><button class="btn btn-sm" type="button" data-edit>Edit</button></td></tr>
+                <tr data-id="7" data-category="Electronics" data-type="tool" data-total="3" data-reorder="" data-active="1">
+                  <td class="name-cell"><strong>Soldering station</strong><span>Electronics</span></td><td data-label="Type">Tool</td><td data-label="Total" class="num">3</td><td data-label="Available" class="num" data-avail>3</td><td data-label="Reorder at" class="num"></td>
+                  <td data-label="Status" data-status><span class="status ok"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>In stock</span></td><td data-label="Actions"><button class="btn btn-sm" type="button" data-edit>Edit</button></td></tr>
+                <tr class="row-inactive" data-id="8" data-category="Electronics" data-type="tool" data-total="1" data-reorder="" data-active="0">
+                  <td class="name-cell"><strong>Oscilloscope</strong><span>Electronics</span></td><td data-label="Type">Tool</td><td data-label="Total" class="num">1</td><td data-label="Available" class="num" data-avail>1</td><td data-label="Reorder at" class="num"></td>
+                  <td data-label="Status" data-status><span class="status"><svg class="icon" aria-hidden="true"><use href="#i-ban"/></svg>Inactive</span></td><td data-label="Actions"><button class="btn btn-sm" type="button" data-edit>Edit</button></td></tr>
+                <tr class="row-alert" data-id="9" data-category="Soldering consumables" data-type="consumable" data-total="10" data-reorder="3" data-active="1">
+                  <td class="name-cell"><strong>Solder wire 0.8 mm</strong><span>Soldering consumables</span></td><td data-label="Type">Consumable</td><td data-label="Total" class="num">10</td><td data-label="Available" class="num" data-avail>2</td><td data-label="Reorder at" class="num">3</td>
+                  <td data-label="Status" data-status><span class="stamp alert flat"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg>Low stock</span></td><td data-label="Actions"><button class="btn btn-sm" type="button" data-edit>Edit</button></td></tr>
+                <tr data-id="10" data-category="Soldering consumables" data-type="consumable" data-total="2" data-reorder="2" data-active="1">
+                  <td class="name-cell"><strong>Flux paste (tub)</strong><span>Soldering consumables</span></td><td data-label="Type">Consumable</td><td data-label="Total" class="num">2</td><td data-label="Available" class="num" data-avail>5</td><td data-label="Reorder at" class="num">2</td>
+                  <td data-label="Status" data-status><span class="status ok"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>In stock</span></td><td data-label="Actions"><button class="btn btn-sm" type="button" data-edit>Edit</button></td></tr>
+                <tr class="row-alert" data-id="11" data-category="Cutting consumables" data-type="consumable" data-total="8" data-reorder="5" data-active="1">
+                  <td class="name-cell"><strong>Cutting disc 4 in</strong><span>Cutting consumables</span></td><td data-label="Type">Consumable</td><td data-label="Total" class="num">8</td><td data-label="Available" class="num" data-avail>3</td><td data-label="Reorder at" class="num">5</td>
+                  <td data-label="Status" data-status><span class="stamp alert flat"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg>Low stock</span></td><td data-label="Actions"><button class="btn btn-sm" type="button" data-edit>Edit</button></td></tr>
+                <tr data-id="12" data-category="Soldering consumables" data-type="consumable" data-total="4" data-reorder="4" data-active="1">
+                  <td class="name-cell"><strong>Heat-shrink tubing (pack)</strong><span>Soldering consumables</span></td><td data-label="Type">Consumable</td><td data-label="Total" class="num">4</td><td data-label="Available" class="num" data-avail>12</td><td data-label="Reorder at" class="num">4</td>
+                  <td data-label="Status" data-status><span class="status ok"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>In stock</span></td><td data-label="Actions"><button class="btn btn-sm" type="button" data-edit>Edit</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <div>
+          <!-- ADD / EDIT ITEM: item row -->
+          <section class="panel" aria-labelledby="item-form-title">
+            <div class="panel-head"><h2 id="item-form-title">Add an item</h2></div>
+            <form class="panel-body" id="item-form" method="post" action="#" novalidate>
+              <input type="hidden" name="item_id" id="item_id" value="">
+              <div class="field"><label for="name">Item name</label><input type="text" id="name" name="name" aria-describedby="name-hint"><span class="hint" id="name-hint">Short and specific, e.g. "Solder wire 1.0 mm". Must be unique.</span><p class="error" id="name-error" hidden></p></div>
+              <div class="field"><label for="category_id">Category</label>
+                <select id="category_id" name="category_id"><option value="">Choose a category</option><option value="1">Hand tools</option><option value="2">Power tools</option><option value="3">Electronics</option><option value="4">Measuring instruments</option><option value="5">Cutting consumables</option><option value="6">Soldering consumables</option></select><p class="error" id="category_id-error" hidden></p></div>
+              <fieldset>
+                <legend>Type</legend>
+                <div class="seg">
+                  <input type="radio" name="item_type" id="t-tool" value="tool" checked><label for="t-tool">Tool (borrowed, returned)</label>
+                  <input type="radio" name="item_type" id="t-cons" value="consumable"><label for="t-cons">Consumable (used up)</label>
+                </div>
+              </fieldset>
+              <div class="form-grid">
+                <div class="field"><label for="quantity_total" id="qt-label">Units owned</label><input type="number" id="quantity_total" name="quantity_total" min="0" value="1"><p class="error" id="quantity_total-error" hidden></p></div>
+                <div class="field"><label for="reorder_level">Reorder at <span class="optional">(optional)</span></label><input type="number" id="reorder_level" name="reorder_level" min="0" aria-describedby="ro-hint"><span class="hint" id="ro-hint">Flags low stock at this number.</span></div>
+              </div>
+              <label class="check"><input type="checkbox" id="is_active" name="is_active" value="1" checked>Active (can be requested)</label>
+              <div class="btn-row" style="margin-top:12px">
+                <button class="btn btn-primary" type="submit" id="item-submit"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add item</button>
+                <button class="btn btn-ghost" type="button" id="item-cancel" hidden>Cancel edit</button>
+              </div>
+            </form>
+          </section>
+
+          <!-- RESTOCK: restock row; only consumables, because v_item_stock adds restocks to consumables only -->
+          <section class="panel" aria-labelledby="restock-title">
+            <div class="panel-head"><h2 id="restock-title">Restock a consumable</h2></div>
+            <form class="panel-body" id="restock-form" method="post" action="#" novalidate>
+              <div class="field"><label for="r-item">Item</label>
+                <select id="r-item" name="item_id" aria-describedby="r-hint"><option value="">Choose a consumable</option><option value="9">Solder wire 0.8 mm</option><option value="10">Flux paste (tub)</option><option value="11">Cutting disc 4 in</option><option value="12">Heat-shrink tubing (pack)</option></select>
+                <span class="hint" id="r-hint">Tools aren't restocked: buy a unit, then edit its units owned.</span><p class="error" id="r-item-error" hidden></p></div>
+              <div class="form-grid">
+                <div class="field"><label for="r-qty">Quantity added</label><input type="number" id="r-qty" name="quantity" min="1" value="1"><p class="error" id="r-qty-error" hidden></p></div>
+                <div class="field"><label for="r-date">Restocked on</label><input type="date" id="r-date" name="restocked_on" value="2026-11-24"></div>
+              </div>
+              <div class="field"><label for="r-notes">Notes <span class="optional">(optional)</span></label><input type="text" id="r-notes" name="notes" placeholder="Supplier, receipt no."></div>
+              <button class="btn btn-primary" type="submit"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Save restock</button>
+            </form>
+            <div class="panel-head"><h3>Recent restocks</h3></div>
+            <ul class="plain" id="restock-list">
+              <li><span>Flux paste (tub) + 3</span><span class="mono small">20 Nov 2026</span></li>
+              <li><span>Heat-shrink tubing (pack) + 10</span><span class="mono small">16 Nov 2026</span></li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Door kiosk · Hygears HQ System</title>
+<link rel="icon" href="../assets/hygears-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&amp;family=IBM+Plex+Sans:wght@400;600;700&amp;display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-in" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="m10 17 5-5-5-5"/><path d="M15 12H3"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0"/><path d="M16 4a4 4 0 0 1 0 8"/><path d="M22 21a7 7 0 0 0-4-6.3"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5"/><path d="M12 13v8"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11 12 3l9 8"/><path d="M5 10v11h14V10"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h.01M3 12h.01M3 18h.01"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/><path d="M8 13h8M8 17h5"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M8 17v-5M13 17V8M18 17v-9"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></symbol>
+  <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/></symbol>
+</svg>
+<a class="skip" href="#main">Skip to content</a>
+<div class="shell">
+  <!-- Sidebar: identical on every page (sidebar.php in the PHP rebuild); aria-current marks this page -->
+  <aside class="sidebar">
+    <a class="brand" href="dashboard.html"><img src="../assets/hygears-logo.png" alt="Hygears logo" width="40" height="40"><span>Hygears HQ<small>Time Card system</small></span></a>
+    <button class="btn btn-sm menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="index.html" aria-current="page"><svg class="icon" aria-hidden="true"><use href="#i-in"/></svg>Door kiosk</a>
+      <a href="dashboard.html" class="nav-gap"><svg class="icon" aria-hidden="true"><use href="#i-home"/></svg>Dashboard</a>
+      <a href="attendance.html"><svg class="icon" aria-hidden="true"><use href="#i-list"/></svg>Attendance</a>
+      <a href="people.html"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg>People</a>
+      <a href="items.html"><svg class="icon" aria-hidden="true"><use href="#i-box"/></svg>Items</a>
+      <a href="requests.html"><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg>Requests</a>
+      <a href="reports.html"><svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg>Reports</a>
+      <a href="settings.html"><svg class="icon" aria-hidden="true"><use href="#i-gear"/></svg>Settings</a>
+    </nav>
+    <p class="side-foot">Engineering Innovation • Research • Technology • Leadership</p>
+  </aside>
+  <div class="main-col">
+    <!-- Header: page title, time-clock display, who is signed in -->
+    <header class="topbar">
+      <h1>Door kiosk</h1>
+      <span class="clock-face" id="clock">TUE 24 NOV 2026 · 11:05 AM</span>
+      <p class="whoami">Door device · <strong>no login needed</strong></p>
+    </header>
+    <main id="main" class="page">
+      <!-- Phones: the sign-out list is below the form, so jump straight to it -->
+      <a class="btn btn-block jump-out" href="#rack-title"><svg class="icon" aria-hidden="true"><use href="#i-out"/></svg>Signing out? Find your card · <span class="inside-count">4</span> inside</a>
+      <p class="lead">Punch your card when you come in and when you leave. This replaces the paper logbook at the door. <span class="sample-tag">sample data</span></p>
+
+      <div class="kiosk">
+        <!-- PUNCH IN: inserts an attendance row (and a person row for first-timers / visitors) -->
+        <section class="panel" aria-labelledby="in-title">
+          <div class="panel-head"><h2 id="in-title">Punch in</h2><p>attendance.time_in is set to now</p></div>
+          <form class="panel-body" id="punch-form" method="post" action="#" novalidate>
+            <fieldset>
+              <legend>Who are you?</legend>
+              <div class="seg">
+                <input type="radio" name="kind" id="kind-student" value="student" checked><label for="kind-student">I have a PUP student number</label>
+                <input type="radio" name="kind" id="kind-visitor" value="visitor"><label for="kind-visitor">Visitor (no PUP number)</label>
+              </div>
+            </fieldset>
+
+            <div id="student-fields">
+              <div class="field">
+                <label for="student_id">Student number</label>
+                <input class="sid" type="text" id="student_id" name="student_id" inputmode="numeric" autocomplete="off" placeholder="2023-00118" aria-describedby="sid-hint sid-found sid-error">
+                <span class="hint" id="sid-hint">Tap the year and number below. The rest (-MN-0) is matched for you.</span>
+                <p class="found" id="sid-found" aria-live="polite"></p>
+                <p class="error" id="sid-error" hidden></p>
+                <div class="pad" id="pad" aria-label="Number pad">
+                  <button type="button">1</button><button type="button">2</button><button type="button">3</button>
+                  <button type="button">4</button><button type="button">5</button><button type="button">6</button>
+                  <button type="button">7</button><button type="button">8</button><button type="button">9</button>
+                  <button type="button" class="pad-fn" data-key="clear">Clear</button><button type="button">0</button><button type="button" class="pad-fn" data-key="back" aria-label="Delete last digit">⌫ Delete</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- person columns: shown for visitors and for PUP students not in the system yet -->
+            <div id="name-fields" hidden>
+              <div class="notice" id="name-note"><svg class="icon" aria-hidden="true"><use href="#i-user"/></svg><p>First time here? Fill this in once. Next time your student number is enough.</p></div>
+              <div class="form-grid">
+                <div class="field"><label for="first_name">First name</label><input type="text" id="first_name" name="first_name" autocomplete="given-name"><p class="error" id="first_name-error" hidden></p></div>
+                <div class="field"><label for="last_name">Last name</label><input type="text" id="last_name" name="last_name" autocomplete="family-name"><p class="error" id="last_name-error" hidden></p></div>
+                <div class="field"><label for="contact_number">Contact number</label><input type="tel" id="contact_number" name="contact_number" inputmode="tel" placeholder="0917 555 0100" autocomplete="tel"><p class="error" id="contact_number-error" hidden></p></div>
+                <div class="field"><label for="affiliation">School or organization <span class="optional" id="aff-opt">(optional)</span></label><input type="text" id="affiliation" name="affiliation" placeholder="e.g. Sample State University"><p class="error" id="affiliation-error" hidden></p></div>
+              </div>
+            </div>
+
+            <fieldset>
+              <legend id="purpose-legend">Why are you here today?</legend>
+              <div class="tiles" role="radiogroup" aria-labelledby="purpose-legend">
+                <input type="radio" name="purpose_id" id="p1" value="1"><label for="p1">Meeting</label>
+                <input type="radio" name="purpose_id" id="p2" value="2"><label for="p2">Project work</label>
+                <input type="radio" name="purpose_id" id="p3" value="3"><label for="p3">Workshop</label>
+                <input type="radio" name="purpose_id" id="p4" value="4"><label for="p4">Tool use</label>
+                <input type="radio" name="purpose_id" id="p5" value="5"><label for="p5">Study</label>
+                <input type="radio" name="purpose_id" id="p6" value="6"><label for="p6">Visit</label>
+              </div>
+              <p class="error" id="purpose-error" hidden></p>
+            </fieldset>
+
+            <div class="notice alert" id="already-in" hidden></div>
+            <button class="btn btn-primary btn-punch" type="submit"><svg class="icon" aria-hidden="true"><use href="#i-in"/></svg>Punch in</button>
+          </form>
+
+          <!-- confirmation: the freshly punched card -->
+          <div class="panel-body" id="punched" hidden>
+            <div class="punched" role="status" aria-live="assertive">
+              <span class="stamp stamp-big stamped" id="punched-stamp">IN 11:05 AM</span>
+              <p><strong id="punched-name">Name</strong></p>
+              <p class="muted" id="punched-purpose">Purpose</p>
+              <p class="small muted">Your card is in the rack. Punch out on the way home.</p>
+              <button class="btn" type="button" id="punch-next">Next person</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- IN THE HQ NOW: attendance WHERE time_out IS NULL; Punch out sets time_out -->
+        <section class="panel" aria-labelledby="rack-title">
+          <div class="panel-head"><h2 id="rack-title">In the HQ now <span class="count inside-count">4</span></h2><p>Tap your card to punch out</p></div>
+          <div class="panel-body">
+            <div class="field">
+              <label for="rack-find">Find your name</label>
+              <input type="search" id="rack-find" placeholder="Type a name" autocomplete="off">
+            </div>
+            <ul class="rack" id="rack">
+              <li class="card" data-name="Rina Lopez" data-sid="">
+                <div class="punch">IN<b>10:15</b>AM</div>
+                <div class="who"><strong>Rina Lopez</strong><span>Visitor · Visit · <span class="elapsed" data-since="2026-11-24T10:15">50m</span> inside</span></div>
+                <div class="act"><button class="btn" type="button" data-out><svg class="icon" aria-hidden="true"><use href="#i-out"/></svg>Punch out</button></div>
+              </li>
+              <li class="card" data-name="Andrea Cruz" data-sid="2021-00507-MN-0">
+                <div class="punch">IN<b>9:50</b>AM</div>
+                <div class="who"><strong>Andrea Cruz</strong><span>Project work · <span class="elapsed" data-since="2026-11-24T09:50">1h 15m</span> inside</span></div>
+                <div class="act"><button class="btn" type="button" data-out><svg class="icon" aria-hidden="true"><use href="#i-out"/></svg>Punch out</button></div>
+              </li>
+              <li class="card" data-name="Jun Dela Rosa" data-sid="2023-00611-MN-0">
+                <div class="punch">IN<b>9:12</b>AM</div>
+                <div class="who"><strong>Jun Dela Rosa</strong><span>Project work · <span class="elapsed" data-since="2026-11-24T09:12">1h 53m</span> inside</span></div>
+                <div class="act"><button class="btn" type="button" data-out><svg class="icon" aria-hidden="true"><use href="#i-out"/></svg>Punch out</button></div>
+              </li>
+              <li class="card" data-name="Bea Villanueva" data-sid="2022-00274-MN-0">
+                <div class="punch">IN<b>8:40</b>AM</div>
+                <div class="who"><strong>Bea Villanueva</strong><span>Tool use · <span class="elapsed" data-since="2026-11-24T08:40">2h 25m</span> inside</span></div>
+                <div class="act"><button class="btn" type="button" data-out><svg class="icon" aria-hidden="true"><use href="#i-out"/></svg>Punch out</button></div>
+              </li>
+            </ul>
+            <p id="rack-empty" class="muted" hidden>No cards match. Check the spelling, or ask an officer.</p>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>
